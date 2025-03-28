@@ -1,0 +1,28 @@
+research_task:
+  description: >
+    The user has issued the following prompt: {topic}.
+    Use the twitter scraper tool to navigate to the twitter website and search for the topic.
+    Scroll and scrape the number of tweets requested.
+    Prepare the data in JSON format, wrapping all tweets in an array and separating each tweet with a comma for easy processing.
+    That's it.
+  expected_output: >
+    A valid JSON file with tweets with the following information:
+    - User
+    - Tweet text
+    - Number of likes
+    - Number of retweets
+    - Has_Photo? Bool
+    - Tweet URL in the format https://x.com/username/status/tweet_id
+  agent: researcher
+
+reporting_task:
+  description: >
+    Load this file: {tweets_data}.
+    Write a news article to accurately reflect the views of the people.
+    The article should be in markdown and follow the following format:
+    Title: [Title]
+    3-4 paragraphs of what people are saying about the topic.
+  expected_output: >
+    A fully fledged news article with the main topic of discussion.
+    Formatted as markdown without '```'
+  agent: reporting_analyst
