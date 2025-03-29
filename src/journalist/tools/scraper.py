@@ -168,7 +168,7 @@ class Scraper(BaseTool):
                             processed_ids.add(tweet_id)
                             print(f"Collected tweet: {tweet_id} with {tweet.metrics.likes} likes and {tweet.metrics.retweets} retweets")
                         else:
-                            print(f"Skipping tweet: {tweet_id} with {tweet.metrics.likes} likes and {tweet.metrics.retweets} retweets (below threshold)")
+                            print(f"Skipping tweet: {tweet_id}")
                             continue  # Skip this tweet
                     except Exception as e:
                         print(f"Error processing tweet element: {str(e)}")

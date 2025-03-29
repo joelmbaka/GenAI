@@ -14,7 +14,7 @@ def run():
     Run the crew and returns the results.
     """
     inputs = {
-        "topic": "JD Vance, scrape 10 tweets",
+        "topic": "Natembeya, scrape 15 tweets",
         "current_year": str(datetime.now().year),
     }
     
