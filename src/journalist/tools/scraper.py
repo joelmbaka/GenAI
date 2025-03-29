@@ -160,16 +160,16 @@ class Scraper(BaseTool):
                         # Extract tweet data
                         tweet = extract_tweet_data(tweet_element, tweet_id, driver)
                         
-                        # Modify tweet collection criteria to be more lenient
-                        if (tweet.metrics.likes and tweet.metrics.likes >= MIN_LIKES) or \
+                        # Modify tweet collection to strictly enforce thresholds
+                        if (tweet.metrics.likes and tweet.metrics.likes >= MIN_LIKES) and \
                            (tweet.metrics.retweets and tweet.metrics.retweets >= MIN_RETWEETS):
                             new_tweets.append(tweet)
                             new_processed_ids.add(tweet_id)
                             processed_ids.add(tweet_id)
-                            print(f"Collected tweet: {tweet_id}")
+                            print(f"Collected tweet: {tweet_id} with {tweet.metrics.likes} likes and {tweet.metrics.retweets} retweets")
                         else:
-                            print(f"Collected tweet (below threshold): {tweet_id}")
-                            new_tweets.append(tweet)  # Collect even if below threshold
+                            print(f"Skipping tweet: {tweet_id} with {tweet.metrics.likes} likes and {tweet.metrics.retweets} retweets (below threshold)")
+                            continue  # Skip this tweet
                     except Exception as e:
                         print(f"Error processing tweet element: {str(e)}")
                         continue
