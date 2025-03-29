@@ -1,33 +1,29 @@
-research_task:
+twitter_scraper_task:
   description: >
-    The user has issued the following prompt: {topic}.
-    Use the twitter scraper tool to navigate to the twitter website and search for the topic.
-    Scroll and scrape the number of tweets requested.
-    Prepare the data in JSON string format as the tool is configured, for easy processing.
+    Scrape tweets from twitter about a given topic.
   expected_output: >
-    A valid JSON string output that will be fed into the reporting task.
-    The output should be in the following format:
-    {
-      "tweets": [
-        {
-          "id": "tweet_id",
-          "content": "tweet_content",
-          "user": "tweet_user",
-          "likes": "tweet_likes",
-          "retweets": "tweet_retweets",
-          "has_photos": "tweet_has_photos"
-        }
-    
+    A JSON string that can be parsed for downstream tasks.
+  agents: 
+    - political_news_reporter
+    - business_news_reporter
+    - sports_news_reporter
 
-  agent: researcher
-
-reporting_task:
+google_news_search_task:
   description: >
-    Parse the JSON string and write a news article to accurately reflect the views of the people.
-    The article should be in markdown and follow the following format:
-    Title: [Title]
-    3-4 paragraphs of what people are saying about the topic.
+    Search for news articles on Google News about a given topic.
   expected_output: >
-    A fully fledged news article with the main topic of discussion.
-    Formatted as markdown without '```'
-  agent: reporting_analyst
+    A JSON string that can be parsed for downstream tasks.
+  agents: 
+    - political_news_reporter
+    - business_news_reporter
+    - sports_news_reporter
+
+writing_task:
+  description: >
+    Write a news article about a given topic.
+  expected_output: >
+    A news article in markdown format.
+  agents: 
+    - political_news_reporter
+    - business_news_reporter
+    - sports_news_reporter

@@ -24,8 +24,8 @@ load_dotenv()
 MIN_LIKES = int(os.getenv('MIN_LIKES'))  
 MIN_RETWEETS = int(os.getenv('MIN_RETWEETS')) 
 
-class Scraper(BaseTool):
-    name: str = "Twitter Tweet Scraper"
+class TwitterScraper(BaseTool):
+    name: str = "Twitter Scraper"
     description: str = (
         "A tool that navigates to a specific trending topic's page on Twitter/X, "
         "scrolls down the page to load tweets, and scrapes tweet content. "
