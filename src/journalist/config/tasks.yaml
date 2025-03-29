@@ -3,22 +3,27 @@ research_task:
     The user has issued the following prompt: {topic}.
     Use the twitter scraper tool to navigate to the twitter website and search for the topic.
     Scroll and scrape the number of tweets requested.
-    Prepare the data in JSON format, wrapping all tweets in an array and separating each tweet with a comma for easy processing.
-    That's it.
+    Prepare the data in JSON string format as the tool is configured, for easy processing.
   expected_output: >
-    A valid JSON file with tweets with the following information:
-    - User
-    - Tweet text
-    - Number of likes
-    - Number of retweets
-    - Has_Photo? Bool
-    - Tweet URL in the format https://x.com/username/status/tweet_id
+    A valid JSON string output that will be fed into the reporting task.
+    The output should be in the following format:
+    {
+      "tweets": [
+        {
+          "id": "tweet_id",
+          "content": "tweet_content",
+          "user": "tweet_user",
+          "likes": "tweet_likes",
+          "retweets": "tweet_retweets",
+          "has_photos": "tweet_has_photos"
+        }
+    
+
   agent: researcher
 
 reporting_task:
   description: >
-    Load this file: {tweets_data}.
-    Write a news article to accurately reflect the views of the people.
+    Parse the JSON string and write a news article to accurately reflect the views of the people.
     The article should be in markdown and follow the following format:
     Title: [Title]
     3-4 paragraphs of what people are saying about the topic.

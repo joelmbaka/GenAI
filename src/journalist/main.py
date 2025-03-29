@@ -1,8 +1,6 @@
 #!/usr/bin/env python
 import sys
 import warnings
-import json
-import os
 
 from datetime import datetime
 
@@ -10,24 +8,14 @@ from journalist.crew import Journalist
 
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
-# Load tweets data if file exists and is not empty
-tweets_data = None
-try:
-    with open('tweets.json', 'r') as f:
-        content = f.read()
-        if content.strip():  # Check if file has content
-            tweets_data = json.loads(content)
-except (FileNotFoundError, json.JSONDecodeError):
-    pass
 
 def run():
     """
     Run the crew and returns the results.
     """
     inputs = {
-        "topic": "Emmanuel Macron, scrape 5 tweets",
+        "topic": "The NIS, scrape 5 tweets",
         "current_year": str(datetime.now().year),
-        "tweets_data": tweets_data
     }
     
     try:

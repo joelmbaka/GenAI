@@ -34,7 +34,16 @@ class Scraper(BaseTool):
     )
     args_schema: Type[BaseModel] = ScraperInput
 
-    
+    def no_cache(self, arguments: dict, result: str) -> bool:
+        """
+        Custom cache function that always returns False to prevent caching
+        """
+        return False
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.cache_function = self.no_cache  # Assign the custom cache function
+
     def _run(self, trend: str, is_hashtag: bool, headless: bool, device_type: str, 
              scroll_count: int, scroll_delay: float, max_tweets: int) -> str:
         """
@@ -79,19 +88,27 @@ class Scraper(BaseTool):
             # Navigate to the trend page
             navigator.go_to_url(url)
             
-            # Wait for tweets to load
+            # Wait for tweets to load with more robust conditions
             try:
-                WebDriverWait(driver, 15).until(
+                WebDriverWait(driver, 30).until(  # Increased timeout to 30 seconds
                     EC.presence_of_element_located((By.CSS_SELECTOR, '[data-testid="tweet"]'))
                 )
+                # Additional check for tweet content
+                WebDriverWait(driver, 10).until(
+                    lambda d: len(d.find_elements(By.CSS_SELECTOR, '[data-testid="tweetText"]')) > 0
+                )
             except Exception as e:
+                print(f"Error waiting for tweets: {str(e)}")
                 return format_empty_response()
+            
+            # Add debug logging
+            print("Initial tweets found, starting collection...")
             
             tweets_collected = []
             processed_ids = set()
             timeout = 300  # 5 minute timeout
             
-            # Define a function to extract tweets that can be passed to scroll_to_load_tweets
+            # Define a function to extrlact tweets that can be passed to scroll_to_load_tweets
             def extract_tweets_func(tweet_elements, processed_ids):
                 new_tweets = []
                 new_processed_ids = set()
@@ -143,16 +160,16 @@ class Scraper(BaseTool):
                         # Extract tweet data
                         tweet = extract_tweet_data(tweet_element, tweet_id, driver)
                         
-                        # Only add tweet if it meets the criteria
-                        if (tweet.metrics.likes and tweet.metrics.likes >= MIN_LIKES) and \
+                        # Modify tweet collection criteria to be more lenient
+                        if (tweet.metrics.likes and tweet.metrics.likes >= MIN_LIKES) or \
                            (tweet.metrics.retweets and tweet.metrics.retweets >= MIN_RETWEETS):
                             new_tweets.append(tweet)
                             new_processed_ids.add(tweet_id)
-                            processed_ids.add(tweet_id)  # Add to the main set immediately
-                            
-                            print(f"Collected tweet: {tweet_id} with {tweet.metrics.likes} likes and {tweet.metrics.retweets} retweets")
+                            processed_ids.add(tweet_id)
+                            print(f"Collected tweet: {tweet_id}")
                         else:
-                            print(f"Skipping tweet: {tweet_id} with {tweet.metrics.likes} likes and {tweet.metrics.retweets} retweets")
+                            print(f"Collected tweet (below threshold): {tweet_id}")
+                            new_tweets.append(tweet)  # Collect even if below threshold
                     except Exception as e:
                         print(f"Error processing tweet element: {str(e)}")
                         continue
@@ -203,7 +220,7 @@ class Scraper(BaseTool):
                         except Exception as e:
                             print(f"Error clicking 'Show more': {str(e)}")
             
-            # Create the final data structure and return a flat JSON structure directly
+            # Return as JSON string instead of Python dictionary
             return json.dumps({
                 "tweets": [{
                     "id": str(tweet.structure.id),
@@ -213,8 +230,7 @@ class Scraper(BaseTool):
                     "likes": int(tweet.metrics.likes) if tweet.metrics.likes is not None else 0,
                     "retweets": int(tweet.metrics.retweets) if tweet.metrics.retweets is not None else 0,
                     "has_photos": bool(tweet.media.hasPhotos)
-                   # "photo_urls": tweet.media.photoUrls
-                } for tweet in tweets_collected[:max_tweets]],  # Limit to max_tweets
+                } for tweet in tweets_collected[:max_tweets]],
                 "trend": trend,
                 "count": min(len(tweets_collected), max_tweets)
             })

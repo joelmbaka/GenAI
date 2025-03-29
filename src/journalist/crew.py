@@ -25,7 +25,9 @@ class Journalist():
         return Agent(
             config=self.agents_config['researcher'],
             llm=llm,
-            verbose=True
+            tools=[Scraper()],
+            verbose=True,
+            cache=False
         )
 
     @agent
@@ -33,7 +35,8 @@ class Journalist():
         return Agent(
             config=self.agents_config['reporting_analyst'],
             llm=llm,
-            verbose=True
+            verbose=True,
+            cache=False
         )
 
     @task
@@ -41,7 +44,6 @@ class Journalist():
         return Task(
             config=self.tasks_config['research_task'],
             output_file='tweets.json',
-            tools=[Scraper()]
         )
 
     @task
@@ -61,5 +63,6 @@ class Journalist():
             process=Process.hierarchical,
             manager_llm=llm,
             verbose=True,
-            telemetry=False
+            telemetry=False,
+            cache=False
         )
