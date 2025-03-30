@@ -1031,7 +1031,7 @@ wheels = [
 
 [[package]]
 name = "instructor"
-version = "1.7.7"
+version = "1.7.8"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiohttp" },
@@ -1046,9 +1046,9 @@ dependencies = [
     { name = "tenacity" },
     { name = "typer" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/fa/83/5d257d1c4a93e7b24df4617fa299d7809b0e756d7ff733cc60aaeb63f0f7/instructor-1.7.7.tar.gz", hash = "sha256:ed91c5cdbd1eca53420e852a803b8281055459dee834f1bd315e5f3824d463f5", size = 67500094 }
+sdist = { url = "https://files.pythonhosted.org/packages/ff/d0/12d9263eabeff4b547441c66b5a89c6777ad002872a926b71d9a939b9d43/instructor-1.7.8.tar.gz", hash = "sha256:b20c27974d2dd52d01b60a6a3604db37608f8b077fb36d68833efbcd75355fd1", size = 68975887 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/f0/23/aa5aa221c50c1775d8fd19e9f662909bc4cd6ef461630ee58a4f2637f037/instructor-1.7.7-py3-none-any.whl", hash = "sha256:a6565dc0a299d6b3761c7a225e83477c8956762d0d5c7e06fb0c3dd07cd705c6", size = 83921 },
+    { url = "https://files.pythonhosted.org/packages/fe/3e/05f5f937fcbb73195a838b2c5e699020b6881a2bae39fa91287898412081/instructor-1.7.8-py3-none-any.whl", hash = "sha256:31468b3a67db96c3e2d5e26981f9317ca0cdfa155a4b5d555bd70a15f1e15003", size = 84689 },
 ]
 
 [[package]]
@@ -1192,11 +1192,11 @@ wheels = [
 
 [[package]]
 name = "jsonpickle"
-version = "4.0.3"
+version = "4.0.5"
 source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/17/b8/700f20642b1dc04dd87b9353f0aea8b66675539fad93b7f89fb035d64ae3/jsonpickle-4.0.3.tar.gz", hash = "sha256:22d6998d6465d59ced223412a32eeca1425c959170e39203780216cdece184c9", size = 315496 }
+sdist = { url = "https://files.pythonhosted.org/packages/d6/33/4bda317ab294722fcdfff8f63aab74af9fda3675a4652d984a101aa7587e/jsonpickle-4.0.5.tar.gz", hash = "sha256:f299818b39367c361b3f26bdba827d4249ab5d383cd93144d0f94b5417aacb35", size = 315661 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/7a/c5/54337055eecbdc7d43744320c251c0a360dd68dc8e5a204b39f702bdcf8b/jsonpickle-4.0.3-py3-none-any.whl", hash = "sha256:0d4d68eec89dbbaaa43d8b8fe200b361ebc31d9747299cfca37be2a382299118", size = 46394 },
+    { url = "https://files.pythonhosted.org/packages/dc/1b/0e79cf115e0f54f1e8f56effb6ffd2ef8f92e9c324d692ede660067f1bfe/jsonpickle-4.0.5-py3-none-any.whl", hash = "sha256:b4ac7d0a75ddcdfd93445737f1d36ff28768690d43e54bf5d0ddb1d915e580df", size = 46382 },
 ]
 
 [[package]]
@@ -1520,7 +1520,7 @@ wheels = [
 
 [[package]]
 name = "mem0ai"
-version = "0.1.78"
+version = "0.1.81"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "azure-search-documents" },
@@ -1532,9 +1532,9 @@ dependencies = [
     { name = "qdrant-client" },
     { name = "sqlalchemy" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ba/6e/29b843acde5b69d276c0f7b9a2b26e9213def4fa6836f7f9f1de3100a1ed/mem0ai-0.1.78.tar.gz", hash = "sha256:cf8a58c990ab64dbf96ce0ef07b98c2e5398b5b08c23e126b75c7e3f8a6e60c5", size = 79063 }
+sdist = { url = "https://files.pythonhosted.org/packages/51/e4/26487c13eb5f3f53a18764bed6891b9d9b49d653e4d7fa6ff0f959d71f81/mem0ai-0.1.81.tar.gz", hash = "sha256:cc20a0a6bf0291320f12314003155ec65e4a0ac7d4118fa3d65fcffe19699ac0", size = 82460 }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ef/e3/e195eefce200b6888d7686f4ec2d94f3349c543ad91032d0c98b94102fc5/mem0ai-0.1.78-py3-none-any.whl", hash = "sha256:23c7b76c29d8fa8964182819d33b03ec9afdcf10981a28db45a152d42bff6aec", size = 121706 },
+    { url = "https://files.pythonhosted.org/packages/5c/b5/6c276bb74f445ffddb28fb1f3b745f0f721eeeb43ef481bd7bff4842da39/mem0ai-0.1.81-py3-none-any.whl", hash = "sha256:cb0f679979f7b06d0015a0d7fa24bdc88e051c094a17569f1c901a25b6fcffa6", size = 126293 },
 ]
 
 [[package]]

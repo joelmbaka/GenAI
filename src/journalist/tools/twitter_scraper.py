@@ -220,7 +220,7 @@ class TwitterScraper(BaseTool):
                         except Exception as e:
                             print(f"Error clicking 'Show more': {str(e)}")
             
-            # Return as JSON string instead of Python dictionary
+            # Return as JSON string 
             return json.dumps({
                 "tweets": [{
                     "id": str(tweet.structure.id),

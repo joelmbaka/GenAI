@@ -1,8 +1,9 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from journalist.tools.twitter_scraper import TwitterScraper
-from journalist.tools.pygooglenews import GoogleNewsTool
-from journalist.tools.url_scraper import URLScraper
+from journalist.tools.web_scraper import WebScraper
+#from journalist.tools.url_scraper import URLScraper
+from crewai_tools import SerperDevTool
 import os
 from dotenv import load_dotenv
 
@@ -21,64 +22,71 @@ class Journalist():
 
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-
+    tools = [TwitterScraper(), SerperDevTool(), WebScraper()]
 ###agents###
     @agent
     def political_news_reporter(self) -> Agent:
         return Agent(
             config=self.agents_config['political_news_reporter'],
             llm=llm,
-            tools=[TwitterScraper(), GoogleNewsTool(), URLScraper()],
             verbose=True,
-            cache=False
+            cache=False,
+            max_iter=1,
         )
     @agent
     def business_news_reporter(self) -> Agent:
         return Agent(
             config=self.agents_config['business_news_reporter'],
             llm=llm,
-            tools=[TwitterScraper(), GoogleNewsTool(), URLScraper()],
             verbose=True,
-            cache=False
+            cache=False,
+            max_iter=1,
         )
     @agent
     def sports_news_reporter(self) -> Agent:
         return Agent(
             config=self.agents_config['sports_news_reporter'],
             llm=llm,
-            tools=[TwitterScraper(), GoogleNewsTool(), URLScraper()],
             verbose=True,
-            cache=False
+            cache=False,
+            max_iter=1,
         )
     
 ###tasks###
     @task
-    def political_news_reporter_task(self) -> Task:
+    def twitter_scraper_task(self) -> Task:
         return Task(
-            config=self.tasks_config['political_news_reporter_task'],
+            config=self.tasks_config['twitter_scraper_task'],
+            tools=[TwitterScraper()],
         )
     @task
-    def business_news_reporter_task(self) -> Task:
+    def serper_task(self) -> Task:
         return Task(
-            config=self.tasks_config['business_news_reporter_task'],
+            config=self.tasks_config['serper_task'],
+            tools=[SerperDevTool()],
         )
     @task
-    def sports_news_reporter_task(self) -> Task:
+    def web_scraper_task(self) -> Task:
         return Task(
-            config=self.tasks_config['sports_news_reporter_task'],
+            config=self.tasks_config['web_scraper_task'],
+            tools=[WebScraper()],
         )
-
- 
-
+    @task
+    def writing_task(self) -> Task:
+        return Task(
+            config=self.tasks_config['writing_task'],
+        )
+    
     def chief_editor(self) -> Agent:
         return Agent(
-            role="Chief Editor",
-            goal="Assign tasks to the journalists based on the category of the topic and review their work.",
-            backstory="You're a meticulous senior editor with a keen eye for detail. You're known for your ability to review news articles and make sure they are accurate and meet our standards.",
+            role="Chief Editor for the Kenya Times Magazine",
+            goal="Assign tasks to journalists based on the category of the topic.",
+            backstory="You're a meticulous senior editor with a keen eye for detail.",
             allow_delegation=True,
             llm=llm,
             verbose=True,
-            cache=False
+            cache=False,
+            max_iter=1,
     )
 
     @crew
@@ -92,5 +100,8 @@ class Journalist():
             manager_agent=self.chief_editor(),
             verbose=True,
             telemetry=False,
-            cache=False
+            cache=False,
+            output_log_file="output.log",
+            max_iter=1,
+            
         )
