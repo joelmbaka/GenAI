@@ -1,33 +1,34 @@
 search_google:
   description: >
-    Use the Serper Dev Tool to search Google for {topic} context as of {timestamp}.
-    Prepare the search results as a numbered list of websites with the title, URL, snippet and date published.
-    Include at least 10 results if available.
+    Perform Google search queries for {topic} using Serper Dev Tool as of {timestamp}. 
+    The tool outputs a JSON string.
+    The output format should include all extracted data from the search results.
+    - Title: [Title of the article]
+    - Link: [Link to the article]
+    - Snippet: [Snippet of the article]
+    - Date: [Date of the article] 
+    This will be helpful to the read_articles task to read the most relevant articles.
   expected_output: >
-    JSON object containing:
-    - status: success/error
-    - query: The search query
-    - results: Array of result objects with:
-      * type: organic/news/image/top_story/question
-      * title: Result title
-      * link: URL
-      * snippet: Text snippet
-      * date: Formatted date
-      * (optional) sitelinks: Array of related links
-      * (optional) source: Source name
-      * (optional) imageUrl: Image URL
-    - (optional) related_searches: Array of related queries
+    A JSON string with all extracted data from the search results.
+    This will be used to read the articles in the read_articles task.
   agent: google_agent
-  output_file: "output/google_search.txt"
+  output_file: "output/search_results.txt"
+
 read_articles:
   description: >
-    Use the Web Scraper tool to read 1-2 articles and summarize them in 300 words.
+    Given the context from the search_google task, use the WebScraper tool to read 1-2 articles and summarize the key points.
     If you encounter any errors (e.g., 403, 404, etc.), skip and read the next article.
+    Follow this format:
+    [Title of the article]
+    [Summary of the article]
+    [Source URL of the article]
   expected_output: >
-    Plain text article with titles and ~300 word summary.
+    A text format article with 200-300 word summary for each article you read.
+    This will be used to draft the final article.
   agent: article_reader
   context: [search_google]
   output_file: "output/research_summary.txt"
+
 scrape_twitter:
   description: >
     Use the Twitter Scraper tool to navigate Twitter and extract the latest {number} tweets about {topic} as of {timestamp}.

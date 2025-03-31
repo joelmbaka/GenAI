@@ -1,8 +1,6 @@
 from crewai.tools import BaseTool
 from typing import Type, Optional
 from pydantic import BaseModel, Field
-from datetime import datetime, timedelta
-import re
 
 class SerperDevToolInput(BaseModel):
     """Input schema for SerperDevTool."""
@@ -122,7 +120,7 @@ class SerperDevTool(BaseTool):
                         "title": item.get('title', ''),
                         "link": item.get('link', ''),
                         "snippet": item.get('snippet', ''),
-                        "date": self._parse_date(item.get('date', ''))
+                        "date": item.get('date', '')
                     }
                     # Handle sitelinks if present
                     if 'sitelinks' in item:
@@ -169,40 +167,3 @@ class SerperDevTool(BaseTool):
                 "status": "error",
                 "message": f"API request failed: {str(e)}"
             })
-
-    def _parse_date(self, date_str: str) -> str:
-        """Parse and validate date strings from search results."""
-        if not date_str:
-            return "Date not available"
-            
-        try:
-            # Handle relative time formats (e.g., "46 minutes ago")
-            if "ago" in date_str.lower():
-                # Extract number and unit
-                match = re.match(r'(\d+)\s+(minute|hour|day|week|month|year)s?\s+ago', date_str.lower())
-                if match:
-                    num, unit = match.groups()
-                    num = int(num)
-                    # Convert to timedelta
-                    if unit == 'minute':
-                        delta = timedelta(minutes=num)
-                    elif unit == 'hour':
-                        delta = timedelta(hours=num)
-                    elif unit == 'day':
-                        delta = timedelta(days=num)
-                    elif unit == 'week':
-                        delta = timedelta(weeks=num)
-                    elif unit == 'month':
-                        delta = timedelta(days=num*30)  # Approximation
-                    elif unit == 'year':
-                        delta = timedelta(days=num*365)  # Approximation
-                    # Calculate actual date
-                    actual_date = datetime.now() - delta
-                    return actual_date.strftime('%Y-%m-%d %H:%M:%S')
-            
-            # Handle absolute date formats
-            return datetime.strptime(date_str, '%Y-%m-%d').strftime('%Y-%m-%d')
-            
-        except Exception as e:
-            # Fallback to original date if parsing fails
-            return date_str
