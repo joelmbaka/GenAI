@@ -1,6 +1,8 @@
 #!/usr/bin/env python
 import sys
 import warnings
+from dotenv import load_dotenv
+import os
 
 from datetime import datetime
 
@@ -12,9 +14,13 @@ def run():
     """
     Run the crew and returns the results.
     """
+    # Load environment variables
+    load_dotenv()
+    
     inputs = {
-        "topic": "trend: 'Yemen'. Lets report on the latest happenings on war in Yemen. Just scrape like 10 tweets for this story.",
+        "topic": os.getenv("TOPIC"),
         "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+        "number": int(os.getenv("NUMBER_OF_TWEETS", 10))
     }
     
     try:

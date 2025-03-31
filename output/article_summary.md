@@ -1,1 +1,0 @@
-Yes, the summary is accurate.

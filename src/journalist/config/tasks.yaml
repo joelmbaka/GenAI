@@ -1,32 +1,66 @@
 scrape_twitter:
   description: >
-    Search Twitter for {topic}. The current timestamp is {timestamp}. Scroll through the page, extract the number of requested tweets and format them as JSON with fields: id, content, user, timestamp, likes, retweets, has_photos.
+    Use the Twitter Scraper tool to navigate Twitter and extract the latest {number} tweets about {topic} as of {timestamp}.
+    Focus on tweets that are relevant to the topic and have significant engagement.
+    The scraper will return a JSON structure containing:
+    - tweets: Array of tweet objects
+    - trend: The searched trend
+    - count: Number of tweets collected
+    Each tweet object contains:
+    - id: Unique tweet identifier
+    - content: Text content of the tweet
+    - user: Twitter handle of the author
+    - timestamp: When the tweet was posted
+    - likes: Number of likes
+    - retweets: Number of retweets
+    - has_photos: Boolean indicating if the tweet contains images
+    Exclude retweets and spam content.
   expected_output: >
-    JSON string with tweets array containing id, content, user, timestamp, likes, retweets, has_photos.
+    A JSON object containing:
+    - tweets: Array of tweet objects with the specified fields
+    - trend: The searched trend
+    - count: Number of tweets collected
   agent: twitter_agent
   output_file: "output/tweets.json"
+twitter_sentiments:
+  description: >
+    Analyze the sentiment of tweets collected in the scrape_twitter task.
+    Identify key themes, emotional tones (positive, negative, neutral), and notable patterns.
+    Exclude irrelevant or off-topic tweets from the analysis.
+  expected_output: >
+    A structured text report containing:
+    1. Overall sentiment analysis (percentage breakdown of positive/negative/neutral)
+    2. Key themes identified
+    3. Notable patterns or trends
+    4. Representative examples of each sentiment category
+  agent: twitter_sentiment_agent
+  context: [scrape_twitter]
+  output_file: "output/twitter_sentiments.txt"
 search_google:
   description: >
-    Use serperdevtool to search Google for {topic} context. Prepare the searchresults as a list of websites with the title, url, snippet and date.
+    Use the Serper Dev Tool to search Google for {topic} context as of {timestamp}.
+    Prepare the search results as a numbered list of websites with the title, URL, snippet and date published.
+    Include at least 10 results if available.
   expected_output: >
-    Markdown list of websites with the title, url, snippet and date.
+    Plain text list of websites with the title, url, snippet and date.
   agent: google_agent
-  output_file: "output/google_search.md"
+  output_file: "output/google_search.txt"
 read_articles:
   description: >
-    Read 1-2 articles and summarize them in 150 words each.
+    Use the Web Scraper tool to read 1-2 articles and summarize them in 300 words.
+    If you encounter any errors (e.g., 403, 404, etc.), skip and read the next article.
   expected_output: >
-    Markdown article with titles and ~150 summary for each article read.
+    Plain text article with titles and ~300 word summary.
   agent: article_reader
   context: [search_google]
-  output_file: "output/article_summary.md"
+  output_file: "output/article_summary.txt"
 write_article:
   description: >
-    Combine Twitter and Google findings to write ~150 word article about {topic}.
+    Combine Twitter and Google findings to write ~300 word article about {topic} as of {timestamp}.
     Article should be engaging and interesting.
     Backup your story with facts, figures and sources.
   expected_output: >
-    Markdown article with title and ~150 word content.
+    Markdown article with title and ~300 word content.
   agent: article_writer
   output_file: "output/article.md"
-  context: [scrape_twitter, read_articles]
+  context: [twitter_sentiments, read_articles]

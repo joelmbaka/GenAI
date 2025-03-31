@@ -32,6 +32,16 @@ class Journalist():
             tools=[TwitterScraper()],
         )
     @agent
+    def twitter_sentiment_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['twitter_sentiment_agent'],
+            llm=llm,
+            verbose=True,
+            cache=False,
+            max_iter=2,
+            tools=[],
+        )
+    @agent
     def google_agent(self) -> Agent:
         return Agent(
             config=self.agents_config['google_agent'],
@@ -68,6 +78,11 @@ class Journalist():
             config=self.tasks_config['scrape_twitter'],
         )
     @task
+    def twitter_sentiments(self) -> Task:
+        return Task(
+            config=self.tasks_config['twitter_sentiments'],
+        )
+    @task
     def search_google(self) -> Task:
         return Task(
             config=self.tasks_config['search_google'],
@@ -82,10 +97,11 @@ class Journalist():
         return Task(
             config=self.tasks_config['write_article'],
         )
+    """"
     ###master###
     def chief_editor(self) -> Agent:
         return Agent(
-            role="Chief Editor for The Kenya Times Magazine",
+            role="Senior Editor",
             goal="Efficiently manage the crew and ensure high-quality task completion",
             backstory="You're an experienced project manager, skilled in overseeing complex projects and guiding teams to success. Your role is to assign tasks to the crew members, ensuring that each task is completed on time and to the highest standard.",
             allow_delegation=True,
@@ -94,6 +110,7 @@ class Journalist():
             cache=False,
             max_iter=3,
     )
+    """
     ###mbogi###
     @crew
     def crew(self) -> Crew:
@@ -101,11 +118,14 @@ class Journalist():
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
-            process=Process.hierarchical,
-            manager_agent=self.chief_editor(),
+       #    process=Process.hierarchical,
+        #   manager_agent=self.chief_editor(),
+         #  planning=True,
+          # planning_llm=llm,
             verbose=True,
             memory=False,
             telemetry=False,
             cache=False,
-            output_log_file="output.log",
+            output_log_file=True,
+            max_iter=3,
         )
