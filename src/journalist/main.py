@@ -13,15 +13,14 @@ def run():
     Run the crew and returns the results.
     """
     inputs = {
-        "topic": "keyword: 'salva kiir', scrape 15 tweets only, category is politics",
-        "current_year": str(datetime.now().year),
+        "topic": "trend: 'Yemen'. Lets report on the latest happenings on war in Yemen. Just scrape like 10 tweets for this story.",
+        "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
     }
     
     try:
         Journalist().crew().kickoff(inputs=inputs)
     except Exception as e:
         raise Exception(f"An error occurred while running the crew: {e}")
-
 
 def train():
     """

@@ -1,9 +1,8 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from journalist.tools.twitter_scraper import TwitterScraper
+from journalist.tools.serper_dev import SerperDevTool
 from journalist.tools.web_scraper import WebScraper
-#from journalist.tools.url_scraper import URLScraper
-from crewai_tools import SerperDevTool
 import os
 from dotenv import load_dotenv
 
@@ -19,89 +18,94 @@ llm = LLM(
 @CrewBase
 class Journalist():
     """Journalist crew"""
-
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    tools = [TwitterScraper(), SerperDevTool(), WebScraper()]
-###agents###
+    ###agents###
     @agent
-    def political_news_reporter(self) -> Agent:
+    def twitter_agent(self) -> Agent:
         return Agent(
-            config=self.agents_config['political_news_reporter'],
+            config=self.agents_config['twitter_agent'],
             llm=llm,
             verbose=True,
             cache=False,
             max_iter=1,
-        )
-    @agent
-    def business_news_reporter(self) -> Agent:
-        return Agent(
-            config=self.agents_config['business_news_reporter'],
-            llm=llm,
-            verbose=True,
-            cache=False,
-            max_iter=1,
-        )
-    @agent
-    def sports_news_reporter(self) -> Agent:
-        return Agent(
-            config=self.agents_config['sports_news_reporter'],
-            llm=llm,
-            verbose=True,
-            cache=False,
-            max_iter=1,
-        )
-    
-###tasks###
-    @task
-    def twitter_scraper_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['twitter_scraper_task'],
             tools=[TwitterScraper()],
         )
-    @task
-    def serper_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['serper_task'],
+    @agent
+    def google_agent(self) -> Agent:
+        return Agent(
+            config=self.agents_config['google_agent'],
+            llm=llm,
+            verbose=True,
+            cache=False,
+            max_iter=3,
             tools=[SerperDevTool()],
         )
-    @task
-    def web_scraper_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['web_scraper_task'],
+    @agent
+    def article_reader(self) -> Agent:
+        return Agent(
+            config=self.agents_config['article_reader'],
+            llm=llm,
+            verbose=True,
+            cache=False,
+            max_iter=3,
             tools=[WebScraper()],
         )
-    @task
-    def writing_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['writing_task'],
+    @agent        
+    def article_writer(self) -> Agent:
+        return Agent(
+            config=self.agents_config['article_writer'],
+            llm=llm,
+            verbose=True,
+            cache=False,
+            max_iter=3,
+            tools=[],
         )
-    
+    ###tasks###
+    @task
+    def scrape_twitter(self) -> Task:
+        return Task(
+            config=self.tasks_config['scrape_twitter'],
+        )
+    @task
+    def search_google(self) -> Task:
+        return Task(
+            config=self.tasks_config['search_google'],
+        )
+    @task
+    def read_articles(self) -> Task:
+        return Task(
+            config=self.tasks_config['read_articles'],
+        )
+    @task
+    def write_article(self) -> Task:
+        return Task(
+            config=self.tasks_config['write_article'],
+        )
+    ###master###
     def chief_editor(self) -> Agent:
         return Agent(
-            role="Chief Editor for the Kenya Times Magazine",
-            goal="Assign tasks to journalists based on the category of the topic.",
-            backstory="You're a meticulous senior editor with a keen eye for detail.",
+            role="Chief Editor for The Kenya Times Magazine",
+            goal="Efficiently manage the crew and ensure high-quality task completion",
+            backstory="You're an experienced project manager, skilled in overseeing complex projects and guiding teams to success. Your role is to assign tasks to the crew members, ensuring that each task is completed on time and to the highest standard.",
             allow_delegation=True,
             llm=llm,
             verbose=True,
             cache=False,
-            max_iter=1,
+            max_iter=3,
     )
-
+    ###mbogi###
     @crew
     def crew(self) -> Crew:
         """Creates the Journalist crew"""
-
         return Crew(
             agents=self.agents,
             tasks=self.tasks,
             process=Process.hierarchical,
             manager_agent=self.chief_editor(),
             verbose=True,
+            memory=False,
             telemetry=False,
             cache=False,
             output_log_file="output.log",
-            max_iter=1,
-            
         )

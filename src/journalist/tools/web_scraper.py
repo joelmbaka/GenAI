@@ -16,5 +16,41 @@ class WebScraper(BaseTool):
 
     def _run(self, website_url: str) -> str:
         """Scrape content from the specified website URL."""
+        # First try static scraping
         scraper = ScrapeWebsiteTool(website_url=website_url)
-        return scraper.run()
+        static_content = scraper.run()
+        
+        # Check if content appears to be JavaScript-rendered
+        if self._needs_js(static_content):
+            # Fall back to Selenium for dynamic content
+            from journalist.tools.utils.webdriver import WebDriverClient
+            from journalist.tools.utils.pagenav import PageNavigator
+            
+            driver_client = WebDriverClient(headless=True)
+            driver = driver_client.get_driver()
+            navigator = PageNavigator(driver)
+            
+            try:
+                navigator.go_to_url(website_url)
+                driver.implicitly_wait(10)
+                dynamic_content = driver.page_source
+                return dynamic_content
+            finally:
+                driver_client.close()
+        return static_content
+
+    def _needs_js(self, content: str) -> bool:
+        """Detect if content appears to be JavaScript-rendered."""
+        # Common patterns in JS-rendered pages
+        js_patterns = [
+            '<div id="root"></div>',  # Common in React apps
+            '<div id="app"></div>',   # Common in Vue apps
+            '<noscript>',             # Common in JS-required pages
+            'window.__INITIAL_STATE__',  # Common in JS frameworks
+            'window.__NEXT_DATA__',      # Next.js specific
+            'window.__NUXT__',           # Nuxt.js specific
+            'ng-app',                    # Angular specific
+        ]
+        
+        # If any of these patterns are found, assume JS is needed
+        return any(pattern in content for pattern in js_patterns)

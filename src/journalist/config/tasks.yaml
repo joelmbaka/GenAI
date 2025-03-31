@@ -1,80 +1,32 @@
-twitter_scraper_task:
+scrape_twitter:
   description: >
-    The user has issued this topic: {topic}
-    Use the twitter scraper tool to navigate to twitter and enter your search query.
-    Scrape tweets from twitter about the given topic.
+    Search Twitter for {topic}. The current timestamp is {timestamp}. Scroll through the page, extract the number of requested tweets and format them as JSON with fields: id, content, user, timestamp, likes, retweets, has_photos.
   expected_output: >
-    A JSON string output in the following format:
-    {
-      "tweets": [
-        {
-          "id": "1234567890",
-          "content": "This is a tweet",
-          "user": "username",
-          "timestamp": "2024-03-15 12:34:56",
-          "likes": 42,
-          "retweets": 12,
-          "has_photos": true
-        }
-      ],
-      "trend": "#exampleTrend",
-      "count": 1
-    }
-  agents: 
-    - political_news_reporter
-    - business_news_reporter
-    - sports_news_reporter
+    JSON string with tweets array containing id, content, user, timestamp, likes, retweets, has_photos.
+  agent: twitter_agent
   output_file: "output/tweets.json"
-
-serper_task:
+search_google:
   description: >
-    research for more information regarding the context under discussion.
-    You have to identify the key theme then conduct a search using serperdevtool to find the latest stories from Google.
-    provide a list of top ranking sites in this markdown format:
-    1. Heading
-     - URL of the site
-    2. Heading
-     - URL of the site
+    Use serperdevtool to search Google for {topic} context. Prepare the searchresults as a list of websites with the title, url, snippet and date.
   expected_output: >
-    A markdown format output in the following format:
-    1. Heading
-     - URL of the site
-    2. Heading
-     - URL of the site
-  agents:
-    - political_news_reporter
-    - business_news_reporter
-    - sports_news_reporter
-  output_file: "output/URLs.md"
-
-web_scraper_task:
+    Markdown list of websites with the title, url, snippet and date.
+  agent: google_agent
+  output_file: "output/google_search.md"
+read_articles:
   description: >
-    use the webscraper tool to scrape a static webpage for more information.
-    Select a relevant URL from the provided list to fetch more information.
-    Your output should be a summary of the information you have found from the webpage.
+    Read 1-2 articles and summarize them in 150 words each.
   expected_output: >
-    A markdown format summary of the content you have found from the webpage in this format.
-    - Title of the webpage
-    - 2 paragraphs summary of the content of the webpage.
-    - URL of the webpage
-  agents:
-    - political_news_reporter
-    - business_news_reporter
-    - sports_news_reporter
-  context: [serper_task]
-  output_file: "output/web_summary.md"
-
-writing_task:
+    Markdown article with titles and ~150 summary for each article read.
+  agent: article_reader
+  context: [search_google]
+  output_file: "output/article_summary.md"
+write_article:
   description: >
-    combine your findings from the twitter_scraper_task and research_task to write an engaging news article about {topic}.
-    make sure to include all the details you have found.
-    the expected output should be a news article that is engaging and informative in markdown format.
+    Combine Twitter and Google findings to write ~150 word article about {topic}.
+    Article should be engaging and interesting.
+    Backup your story with facts, figures and sources.
   expected_output: >
-    An engaging news article in markdown format.
-    The article should have an enticing title and about 150 words content.
-  agents: 
-    - political_news_reporter
-    - business_news_reporter
-    - sports_news_reporter
-  context: [twitter_scraper_task, web_scraper_task]
+    Markdown article with title and ~150 word content.
+  agent: article_writer
   output_file: "output/article.md"
+  context: [scrape_twitter, read_articles]

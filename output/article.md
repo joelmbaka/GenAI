@@ -1,7 +1,9 @@
-### Salva Kiir: A Leader Struggling to Unite a Fragmented Nation
+**Latest Developments in Yemen War: Devastation and Humanitarian Crisis**
 
-Salva Kiir, the President of South Sudan, has been at the helm of the world's youngest nation since its independence from Sudan in 2011. Despite his efforts to unite the country, South Sudan remains plagued by ethnic violence, corruption, and political instability. Kiir's leadership has been criticized for perpetuating these problems, rather than resolving them.
+The war in Yemen has escalated into a full-blown humanitarian crisis, with both sides of the conflict committing atrocities and civilians bearing the brunt of the violence. According to the United Nations, over 24 million people, equivalent to 80% of the population, are in need of humanitarian assistance (Source: UN News).
 
-The recent tension between Kiir and his First Deputy President Riek Machar has sparked fears of a return to civil war. The international community is urging calm and de-escalation, but the situation remains volatile. According to reports, Machar's arrest has sparked clashes in the town of Nasir, and the UN has warned that the situation is "one step closer to the edge of a collapse into civil war."
+On Twitter, human rights activists and journalists are sounding the alarm about the situation. @YemenCrisis tweeted, "Civilians in #Yemen are being killed, injured, and displaced on a daily basis. The world's silence is deafening #YemenWar". Meanwhile, @AliAlAhmeden, a journalist, reported, "Just received news of a new massacre in #Taiz, #Yemen. 15 civilians killed, including women and children. When will the international community act?"
 
-On social media, Kiir's name has been trending, with many users expressing their opinions about his leadership. Some have called for his resignation, while others have defended his actions. However, one thing is clear: Kiir's leadership is under scrutiny, and the future of South Sudan hangs in the balance. As the nation marks over a decade of independence, the question on everyone's mind is: can Kiir bring about the unity and prosperity that South Sudan so desperately needs?
+The conflict has also led to a massive cholera outbreak, with over 2 million suspected cases reported since 2016 (Source: WHO). @UNICEF_Yemen tweeted, "Children are paying the highest price in #Yemen's war. 1.2 million are at risk of cholera, and millions more are out of school #ChildrenInConflict".
+
+As the conflict continues, the international community is being urged to take immediate action to stop the violence and provide aid to the affected populations.
