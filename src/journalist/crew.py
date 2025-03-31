@@ -73,16 +73,6 @@ class Journalist():
         )
     ###tasks###
     @task
-    def scrape_twitter(self) -> Task:
-        return Task(
-            config=self.tasks_config['scrape_twitter'],
-        )
-    @task
-    def twitter_sentiments(self) -> Task:
-        return Task(
-            config=self.tasks_config['twitter_sentiments'],
-        )
-    @task
     def search_google(self) -> Task:
         return Task(
             config=self.tasks_config['search_google'],
@@ -91,6 +81,16 @@ class Journalist():
     def read_articles(self) -> Task:
         return Task(
             config=self.tasks_config['read_articles'],
+        )
+    @task
+    def scrape_twitter(self) -> Task:
+        return Task(
+            config=self.tasks_config['scrape_twitter'],
+        )
+    @task
+    def twitter_sentiments(self) -> Task:
+        return Task(
+            config=self.tasks_config['twitter_sentiments'],
         )
     @task
     def write_article(self) -> Task:

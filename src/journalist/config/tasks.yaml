@@ -1,3 +1,33 @@
+search_google:
+  description: >
+    Use the Serper Dev Tool to search Google for {topic} context as of {timestamp}.
+    Prepare the search results as a numbered list of websites with the title, URL, snippet and date published.
+    Include at least 10 results if available.
+  expected_output: >
+    JSON object containing:
+    - status: success/error
+    - query: The search query
+    - results: Array of result objects with:
+      * type: organic/news/image/top_story/question
+      * title: Result title
+      * link: URL
+      * snippet: Text snippet
+      * date: Formatted date
+      * (optional) sitelinks: Array of related links
+      * (optional) source: Source name
+      * (optional) imageUrl: Image URL
+    - (optional) related_searches: Array of related queries
+  agent: google_agent
+  output_file: "output/google_search.txt"
+read_articles:
+  description: >
+    Use the Web Scraper tool to read 1-2 articles and summarize them in 300 words.
+    If you encounter any errors (e.g., 403, 404, etc.), skip and read the next article.
+  expected_output: >
+    Plain text article with titles and ~300 word summary.
+  agent: article_reader
+  context: [search_google]
+  output_file: "output/research_summary.txt"
 scrape_twitter:
   description: >
     Use the Twitter Scraper tool to navigate Twitter and extract the latest {number} tweets about {topic} as of {timestamp}.
@@ -36,24 +66,6 @@ twitter_sentiments:
   agent: twitter_sentiment_agent
   context: [scrape_twitter]
   output_file: "output/twitter_sentiments.txt"
-search_google:
-  description: >
-    Use the Serper Dev Tool to search Google for {topic} context as of {timestamp}.
-    Prepare the search results as a numbered list of websites with the title, URL, snippet and date published.
-    Include at least 10 results if available.
-  expected_output: >
-    Plain text list of websites with the title, url, snippet and date.
-  agent: google_agent
-  output_file: "output/google_search.txt"
-read_articles:
-  description: >
-    Use the Web Scraper tool to read 1-2 articles and summarize them in 300 words.
-    If you encounter any errors (e.g., 403, 404, etc.), skip and read the next article.
-  expected_output: >
-    Plain text article with titles and ~300 word summary.
-  agent: article_reader
-  context: [search_google]
-  output_file: "output/article_summary.txt"
 write_article:
   description: >
     Combine Twitter and Google findings to write ~300 word article about {topic} as of {timestamp}.
