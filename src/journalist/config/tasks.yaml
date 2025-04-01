@@ -89,3 +89,17 @@ twitter_sentiment_task:
   output_file: twitter_sentiment_analysis.md
   constraints:
     - include user handle e.g @userhandle when referencing a tweet
+
+news_reporting_task:
+  description: >
+    Report on the latest news about {topic} and ensure it matches user's thoughts: {my_thoughts}
+  expected_output: >
+    A structured news report in Markdown format that addresses the user's thoughts: {my_thoughts}.
+  agent: news_reporter_agent
+  context: [twitter_sentiment_task, read_and_summarize_task]
+  output_file: news_report.md
+  constraints:
+    - summary_length: 300-500 words
+    - include_source_analysis: true
+    - include_key_quotes: true
+    - include_local_dialect: true

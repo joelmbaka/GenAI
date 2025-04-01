@@ -37,6 +37,13 @@ class Journalist():
             tools=[TwitterScraper()],
             max_iter=os.getenv("MAX_ITER_TWITTER_AGENT", 1)
         )
+    @agent
+    def news_reporter_agent(self) -> Agent:
+        """News Reporter Agent"""
+        return Agent(
+            config=self.agents_config['news_reporter_agent'],
+            max_iter=os.getenv("MAX_ITER_NEWS_AGENT", 1)
+        )
     @task
     def web_search_task(self) -> Task:
         """Web Search Task"""
@@ -44,10 +51,10 @@ class Journalist():
             config=self.tasks_config['web_search_task'],
         )
     @task
-    def read_and_summarize(self) -> Task:
+    def read_and_summarize_task(self) -> Task:
         """Read and Summarize Task"""
         return Task(
-            config=self.tasks_config['read_and_summarize_task'],
+            config=self.tasks_config['read_and_summarize_task']
         )
     @task
     def twitter_scrape_task(self) -> Task:
@@ -60,6 +67,12 @@ class Journalist():
         """Twitter Sentiment Task"""
         return Task(
             config=self.tasks_config['twitter_sentiment_task'],
+        )
+    @task
+    def news_reporting_task(self) -> Task:
+        """News Reporting Task"""
+        return Task(
+            config=self.tasks_config['news_reporting_task'],
         )
     @crew
     def crew(self) -> Crew:
