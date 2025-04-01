@@ -7,22 +7,22 @@ class SerperDevToolInput(BaseModel):
     q: str = Field(..., description="The search query.")
     type: Optional[str] = Field(
         default="search",
-        description="Type of search. Options: 'search', 'images', 'videos', 'places', 'maps', 'reviews', 'news', 'shopping', 'lens', 'scholar', 'patents'"
+        description="Type of search. Options: 'news', 'search', 'images'"
     )
     gl: Optional[str] = Field(
-        default=None,
-        description="Country code for search results (e.g., 'US' for United States)."
+        default="KE",
+        description="Country code for search results (e.g., 'US' for United States, 'KE' for Kenya)."
     )
     location: Optional[str] = Field(
         default=None,
         description="Location for search results. Can be any city, region, or country."
     )
     hl: Optional[str] = Field(
-        default=None,
+        default="en",
         description="Language code for search results (e.g., 'en' for English)."
     )
     tbs: Optional[str] = Field(
-        default=None,
+        default="qdr:d",
         description="Date range for search results. Options: 'qdr:h' (past hour), 'qdr:d' (past 24h), 'qdr:w' (past week), 'qdr:m' (past month), 'qdr:y' (past year)"
     )
     num: Optional[int] = Field(
@@ -35,16 +35,23 @@ class SerperDevToolInput(BaseModel):
     )
 
 class SerperDevTool(BaseTool):
-    name: str = "Serper Dev Search"
+    name: str = "Google Search"
     description: str = (
-        "Performs semantic search across the internet using serper.dev API. "
+        "Performs semantic search across the internet using Google Serper Dev API. "
         "Returns the most relevant search results based on the query."
     )
     args_schema: Type[BaseModel] = SerperDevToolInput
 
+    def _is_valid_image_url(self, url: str) -> bool:
+        """Check if an image URL is valid."""
+        if not url or not url.startswith('http'):
+            return False
+        # Add more validation if needed (e.g., check domain, path, etc.)
+        return True
+
     def _run(self, q: str, type: str = "search", gl: str = None, location: str = None,
              hl: str = None, tbs: str = None, num: int = 10, autocorrect: bool = True) -> str:
-        """Execute a search using the serper.dev API."""
+        """Execute a news search using the serper.dev API."""
         import os
         import requests
         import json
@@ -57,15 +64,15 @@ class SerperDevTool(BaseTool):
                 "message": "SERPER_API_KEY environment variable not set"
             })
         
-        # Prepare API request
-        url = "https://google.serper.dev/search"
+        # Prepare API request - force type to 'news'
+        url = "https://google.serper.dev/news"
         headers = {
             'X-API-KEY': api_key,
             'Content-Type': 'application/json'
         }
         payload = {
             'q': q,
-            'type': type,
+            'type': 'news',
             'gl': gl,
             'hl': hl,
             'tbs': tbs,
@@ -79,86 +86,23 @@ class SerperDevTool(BaseTool):
             response.raise_for_status()
             data = response.json()
             
-            # Format results in consistent JSON structure
             results = {
-                "status": "success",
                 "query": q,
+                "type": "news",
                 "results": []
             }
             
-            # Handle image search results
-            if type == "images" and 'images' in data:
-                for item in data['images']:
-                    results["results"].append({
-                        "type": "image",
-                        "title": item.get('title', ''),
-                        "imageUrl": item.get('imageUrl', ''),
-                        "thumbnailUrl": item.get('thumbnailUrl', ''),
-                        "source": item.get('source', ''),
-                        "domain": item.get('domain', ''),
-                        "link": item.get('link', ''),
-                        "width": item.get('imageWidth', 0),
-                        "height": item.get('imageHeight', 0)
-                    })
-            # Handle news search results
-            elif type == "news" and 'news' in data:
+            # Only process news results
+            if 'news' in data:
                 for item in data['news']:
                     results["results"].append({
-                        "type": "news",
                         "title": item.get('title', ''),
-                        "link": item.get('link', ''),
-                        "snippet": item.get('snippet', ''),
-                        "source": item.get('source', ''),
+                        "url": item.get('link', ''),
+                        "summary": item.get('snippet', ''),
                         "date": item.get('date', ''),
+                        "source": item.get('source', ''),
                         "imageUrl": item.get('imageUrl', '')
                     })
-            # Handle regular search results
-            elif 'organic' in data:
-                for item in data['organic']:
-                    result = {
-                        "type": "organic",
-                        "title": item.get('title', ''),
-                        "link": item.get('link', ''),
-                        "snippet": item.get('snippet', ''),
-                        "date": item.get('date', '')
-                    }
-                    # Handle sitelinks if present
-                    if 'sitelinks' in item:
-                        result['sitelinks'] = [
-                            {
-                                "title": sl.get('title', ''),
-                                "link": sl.get('link', '')
-                            } for sl in item['sitelinks']
-                        ]
-                    results["results"].append(result)
-            
-            # Add top stories if present
-            if 'topStories' in data:
-                for story in data['topStories']:
-                    results["results"].append({
-                        "type": "top_story",
-                        "title": story.get('title', ''),
-                        "source": story.get('source', ''),
-                        "link": story.get('link', ''),
-                        "date": story.get('date', ''),
-                        "imageUrl": story.get('imageUrl', '')
-                    })
-            
-            # Add people also ask if present
-            if 'peopleAlsoAsk' in data:
-                for question in data['peopleAlsoAsk']:
-                    results["results"].append({
-                        "type": "question",
-                        "question": question.get('question', ''),
-                        "answer": question.get('snippet', ''),
-                        "source": question.get('link', '')
-                    })
-            
-            # Add related searches if present
-            if 'relatedSearches' in data:
-                results["related_searches"] = [
-                    {"query": rs.get('query', '')} for rs in data['relatedSearches']
-                ]
             
             return json.dumps(results)
             

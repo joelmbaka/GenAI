@@ -1,79 +1,57 @@
-search_google:
+web_search_task:
   description: >
-    Perform Google search queries for {topic} using Serper Dev Tool as of {timestamp}. 
-    The tool outputs a JSON string.
-    The output format should include all extracted data from the search results.
-    - Title: [Title of the article]
-    - Link: [Link to the article]
-    - Snippet: [Snippet of the article]
-    - Date: [Date of the article] 
-    This will be helpful to the read_articles task to read the most relevant articles.
+    Perform targeted Google news searches for {topic} using Serper Dev Tool.
+    Focus on finding the most recent and relevant news articles (last 24 hours) from credible sources.
+    Select the top 2-3 articles based on:
+    - Relevance to the topic
+    - Source credibility (prefer established news outlets)
+    - Publication date (prioritize most recent)
+    - Content quality indicators (length, depth, citations)
   expected_output: >
-    A JSON string with all extracted data from the search results.
-    This will be used to read the articles in the read_articles task.
-  agent: google_agent
-  output_file: "output/search_results.txt"
+    A structured JSON object containing:
+    - selected_articles: Array of 2-3 articles with metadata:
+      * title
+      * url
+      * source
+      * date
+      * snippet
+      * imageUrl
+    - search_parameters: The original search parameters used
+      * query
+      * date_range
+      * language
+      * country
+  agent: web_research_agent
+  output_file: web_search_results.json
+  constraints:
+    - max_results: 3
+    - min_word_count: 500
+    - allowed_domains: [nytimes.com, bbc.com, reuters.com, apnews.com, standardmedia.co.ke, citizen.digital, foxnews.com]  # Example of trusted sources
 
-read_articles:
+read_and_summarize_task:
   description: >
-    Given the context from the search_google task, use the WebScraper tool to read 1-2 articles and summarize the key points.
-    If you encounter any errors (e.g., 403, 404, etc.), skip and read the next article.
-    Follow this format:
-    [Title of the article]
-    [Summary of the article]
-    [Source URL of the article]
+    Analyze and summarize content from the 2-3 articles selected in the web_search_task.
+    Extract key information and create a comprehensive news summary including:
+    - Main points and arguments
+    - Important facts and figures
+    - Relevant quotes or statements
+    - Source credibility assessment
+    - Potential biases or limitations
   expected_output: >
-    A text format article with 200-300 word summary for each article you read.
-    This will be used to draft the final article.
-  agent: article_reader
-  context: [search_google]
-  output_file: "output/research_summary.txt"
-
-scrape_twitter:
-  description: >
-    Use the Twitter Scraper tool to navigate Twitter and extract the latest {number} tweets about {topic} as of {timestamp}.
-    Focus on tweets that are relevant to the topic and have significant engagement.
-    The scraper will return a JSON structure containing:
-    - tweets: Array of tweet objects
-    - trend: The searched trend
-    - count: Number of tweets collected
-    Each tweet object contains:
-    - id: Unique tweet identifier
-    - content: Text content of the tweet
-    - user: Twitter handle of the author
-    - timestamp: When the tweet was posted
-    - likes: Number of likes
-    - retweets: Number of retweets
-    - has_photos: Boolean indicating if the tweet contains images
-    Exclude retweets and spam content.
-  expected_output: >
-    A JSON object containing:
-    - tweets: Array of tweet objects with the specified fields
-    - trend: The searched trend
-    - count: Number of tweets collected
-  agent: twitter_agent
-  output_file: "output/tweets.json"
-twitter_sentiments:
-  description: >
-    Analyze the sentiment of tweets collected in the scrape_twitter task.
-    Identify key themes, emotional tones (positive, negative, neutral), and notable patterns.
-    Exclude irrelevant or off-topic tweets from the analysis.
-  expected_output: >
-    A structured text report containing:
-    1. Overall sentiment analysis (percentage breakdown of positive/negative/neutral)
-    2. Key themes identified
-    3. Notable patterns or trends
-    4. Representative examples of each sentiment category
-  agent: twitter_sentiment_agent
-  context: [scrape_twitter]
-  output_file: "output/twitter_sentiments.txt"
-write_article:
-  description: >
-    Combine Twitter and Google findings to write ~300 word article about {topic} as of {timestamp}.
-    Article should be engaging and interesting.
-    Backup your story with facts, figures and sources.
-  expected_output: >
-    Markdown article with title and ~300 word content.
-  agent: article_writer
-  output_file: "output/article.md"
-  context: [twitter_sentiments, read_articles]
+    A structured news report in Markdown format containing:
+    1. Overview of the topic
+    2. Summary of findings from each article (2-3 paragraphs per article)
+    3. Key insights and conclusions
+    4. Source references with:
+       * Title
+       * URL
+       * Publication date
+       * Source name
+    The report should be 300-500 words, written in journalistic style.
+  agent: web_research_agent
+  context: [web_search_task]
+  output_file: news_summary.md
+  constraints:
+    - summary_length: 300-500 words
+    - include_source_analysis: true
+    - include_key_quotes: true

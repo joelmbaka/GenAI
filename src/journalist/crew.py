@@ -21,81 +21,27 @@ class Journalist():
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
 
-    ###agents###
     @agent
-    def google_agent(self) -> Agent:
+    def web_research_agent(self) -> Agent:
+        """Web Research Agent"""
         return Agent(
-            config=self.agents_config['google_agent'],
-            llm=llm,
-            verbose=True,
-            max_iter=3,
+            config=self.agents_config['web_research_agent'],
+            tools=[SerperDevTool(), WebScraper()]
+        )
+    @task
+    def web_search_task(self) -> Task:
+        """Web Search Task"""
+        return Task(
+            config=self.tasks_config['web_search_task'],
             tools=[SerperDevTool()],
         )
-    @agent
-    def article_reader(self) -> Agent:
-        return Agent(
-            config=self.agents_config['article_reader'],
-            llm=llm,
-            verbose=True,
-            max_iter=3,
+    @task
+    def read_and_summarize(self) -> Task:
+        """Read and Summarize Task"""
+        return Task(
+            config=self.tasks_config['read_and_summarize_task'],
             tools=[WebScraper()],
         )
-    @agent
-    def twitter_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['twitter_agent'],
-            llm=llm,
-            verbose=True,
-            max_iter=1,
-            tools=[TwitterScraper()],
-        )
-    @agent
-    def twitter_sentiment_agent(self) -> Agent:
-        return Agent(
-            config=self.agents_config['twitter_sentiment_agent'],
-            llm=llm,
-            verbose=True,
-            max_iter=2,
-            tools=[],
-        )
-    @agent        
-    def article_writer(self) -> Agent:
-        return Agent(
-            config=self.agents_config['article_writer'],
-            llm=llm,
-            verbose=True,
-            max_iter=3,
-            tools=[],
-        )
-
-    ###tasks###
-    @task
-    def search_google(self) -> Task:
-        return Task(
-            config=self.tasks_config['search_google'],
-        )
-    @task
-    def read_articles(self) -> Task:
-        return Task(
-            config=self.tasks_config['read_articles'],
-        )
-    @task
-    def scrape_twitter(self) -> Task:
-        return Task(
-            config=self.tasks_config['scrape_twitter'],
-        )
-    @task
-    def twitter_sentiments(self) -> Task:
-        return Task(
-            config=self.tasks_config['twitter_sentiments'],
-        )
-    @task
-    def write_article(self) -> Task:
-        return Task(
-            config=self.tasks_config['write_article'],
-        )
-
-    ###mbogi###
     @crew
     def crew(self) -> Crew:
         """Creates the Journalist crew"""
@@ -105,6 +51,4 @@ class Journalist():
             verbose=True,
             process=Process.sequential,
             telemetry=False,
-            output_log_file=True,
-            max_iter=3,
         )

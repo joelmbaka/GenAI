@@ -1,7 +1,6 @@
 #!/usr/bin/env python
 import sys
 import warnings
-from dotenv import load_dotenv
 import os
 
 from datetime import datetime
@@ -15,10 +14,9 @@ def run():
     Run the crew and returns the results.
     """
     # Load environment variables
-    load_dotenv()
     
     inputs = {
-        "topic": os.getenv("TOPIC"),
+        "topic": "Iran says it will retaliate if US attacks",
         "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
         "number": int(os.getenv("NUMBER_OF_TWEETS", 10))
     }
