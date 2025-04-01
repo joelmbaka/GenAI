@@ -16,7 +16,7 @@ def run():
     # Load environment variables
     
     inputs = {
-        "topic": "Trump Tariffs",
+        "topic": "Mutuse",
         "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
         "max_tweets": os.getenv("MAX_TWEETS", 10),
         "is_hashtag": os.getenv("IS_HASHTAG", False),

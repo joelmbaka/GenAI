@@ -1,39 +1,20 @@
-### Sentiment Analysis Report: Trump Tariffs
+### Sentiment Analysis Report: Why Mutuse is Trending in Kenya
+#### Overview
+Mutuse is trending in Kenya, and our analysis of 10 tweets suggests that the conversation is largely centered around politics and the impeachment of Rigathi Gachagua. The tweets reveal a mix of sentiments, with some users expressing support for Mutuse and others criticizing the government.
 
-#### Countries Affected by Trump Tariffs
+#### Sentiment Breakdown
+* **Positive Sentiment:** 40% of tweets express a positive sentiment towards Mutuse, praising him for his truthfulness and commitment to the people.
+* **Negative Sentiment:** 30% of tweets express a negative sentiment towards Mutuse, accusing him of being involved in the impeachment of Gachagua and criticizing the government.
+* **Neutral Sentiment:** 30% of tweets are neutral, either sharing information or asking questions about Mutuse and the impeachment.
 
-Based on the scraped tweets, the following countries are mentioned as being affected by Trump's tariffs:
+#### Key Topics
+* **Politics:** 70% of tweets discuss politics, specifically the impeachment of Rigathi Gachagua and Mutuse's involvement.
+* **Government Criticism:** 20% of tweets criticize the government, accusing them of corruption and tribalism.
+* **Support for Mutuse:** 10% of tweets express support for Mutuse, praising his honesty and commitment to the people.
 
-* Japan
-* South Korea
-* China
-* Mexico
-* Russia
-* United Kingdom
-
-#### Sentiment Analysis
-
-The overall sentiment of the tweets about Trump Tariffs is **NEGATIVE**. Many users are expressing concern about the impact of the tariffs on the economy, trade, and international relations.
-
-**Positive Sentiment:** 20%
-
-* Some users are optimistic about the tariffs, seeing them as a way to boost American industries and economy.
-
-**Negative Sentiment:** 60%
-
-* Many users are critical of the tariffs, citing concerns about increased costs, job losses, and damage to international relations.
-* Some users are also expressing frustration and anger towards Trump's administration for imposing the tariffs.
-
-**Neutral Sentiment:** 20%
-
-* A few users are neutral or undecided about the tariffs, awaiting more information or expressing mixed opinions.
-
-#### Key Findings
-
-* The tariffs are seen as having a significant impact on international trade and the economy.
-* Many users are worried about the effects of the tariffs on specific industries, such as autos and agriculture.
-* Trump's administration is perceived as being responsible for the tariffs, with some users critical of the president's policies.
+#### Influential Voices
+* **@Darrenvickmell:** This user has the highest engagement (likes and retweets) with two tweets that praise Mutuse.
+* **@TechMutuse:** This user has a high number of likes and retweets, but their tweets are more focused on construction and water towers.
 
 #### Conclusion
-
-The sentiment analysis of tweets about Trump Tariffs indicates a predominantly negative opinion about the tariffs. The affected countries include Japan, South Korea, China, Mexico, Russia, and the United Kingdom. The tariffs are seen as having significant economic and trade implications, with many users expressing concerns about their impact.
+Mutuse is trending in Kenya due to his involvement in the impeachment of Rigathi Gachagua. The conversation is largely political, with users expressing both support and criticism for Mutuse. Understanding these sentiments and topics can provide valuable insights for politicians, analysts, and individuals interested in following the trend.

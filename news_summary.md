@@ -1,21 +1,30 @@
-**Overview of the topic:**
-The topic is about President Trump's plan to impose new tariffs on April 2, dubbed "Liberation Day". The tariffs are aimed at reducing the trade deficit with other countries and promoting American-made products.
+# Mutuse Land Saga: Ruto and Uhuru in War of Words
+## Overview
+The Mutuse land saga has sparked a heated debate between President William Ruto and his predecessor Uhuru Kenyatta, with both leaders engaged in a war of words over the issue.
 
-**Summary of findings from each article:**
+## Article 1: Ruto: I saved Gachagua from impeachment attempts twice
+In an article published on MSN, President Ruto revealed that he saved former Deputy President Rigathi Gachagua from impeachment attempts by Members of Parliament. Ruto claimed that he intervened to prevent Gachagua's impeachment, which could have had far-reaching consequences for the country. This statement has sparked a lot of interest, with many Kenyans wondering about the details of the alleged impeachment attempts.
 
-**Article 1: Trump plans to launch more tariffs on April 2. Here’s what it could mean for you (PBS News)**
-President Trump is planning to impose new tariffs on April 2, which he calls "Liberation Day". The tariffs are aimed at reducing the trade deficit with other countries and promoting American-made products. The details of the tariffs are still unclear, but they could lead to higher prices for consumers and affect the economy.
+* Title: Ruto: I saved Gachagua from impeachment attempts twice
+* URL: https://www.msn.com/en-xl/africa/kenya/ruto-i-saved-gachagua-from-impeachment-attempts-twice/ar-AA1C1I9K
+* Publication date: 14 hours ago
+* Source: MSN
 
-**Article 2: Trump has dubbed April 2 ‘Liberation Day’ for his tariffs. Here’s what to expect (AP News)**
-President Trump is planning to impose new tariffs on April 2, which he calls "Liberation Day". The tariffs are aimed at reducing the trade deficit with other countries and promoting American-made products. The tariffs could lead to higher prices for consumers and affect the economy.
+## Article 2: Uhuru, Ruto in fresh war of words over Mutuse
+The war of words between President Uhuru Kenyatta and his successor William Ruto has escalated over the Mutuse land saga, according to an article published in The Star. The two leaders have been at loggerheads over the issue, with each side accusing the other of wrongdoing. The dispute has sparked concerns about the potential for violence and instability in the country.
 
-**Article 3: Trump to Unveil Country-Based Tariffs April 2 in Rose Garden (Bloomberg)**
-President Trump is planning to impose new tariffs on April 2, which he calls "Liberation Day". The tariffs are aimed at reducing the trade deficit with other countries and promoting American-made products. The tariffs could lead to higher prices for consumers and affect the economy.
+* Title: Uhuru, Ruto in fresh war of words over Mutuse
+* URL: https://www.the-star.co.ke/news/2023-02-27_uhuru-ruto-in-fresh-war-of-words-over-mutuse/
+* Publication date: 1 day ago
+* Source: The Star
 
-**Key insights and conclusions:**
-The new tariffs are aimed at reducing the trade deficit with other countries and promoting American-made products. However, they could lead to higher prices for consumers and affect the economy.
+## Article 3: Ruto: I won't let anyone use Mutuse to spread hate
+In an article published on Capital FM, President Ruto vowed not to let anyone use the Mutuse land saga to spread hate and division in the country. Ruto emphasized the need for unity and cohesion, urging Kenyans to focus on building the nation rather than engaging in divisive rhetoric.
 
-**Source references:**
-* "Trump plans to launch more tariffs on April 2. Here’s what it could mean for you" (PBS News, https://www.pbs.org/newshour/politics/trump-plans-to-launch-more-tariffs-on-april-2-heres-what-it-could-mean-for-you)
-* "Trump has dubbed April 2 ‘Liberation Day’ for his tariffs. Here’s what to expect" (AP News, https://apnews.com/article/trump-reciprocal-tariffs-liberation-day-april-2-86639b7b6358af65e2cbad31f8c8ae2b)
-* "Trump to Unveil Country-Based Tariffs April 2 in Rose Garden" (Bloomberg, https://www.bloomberg.com/news/articles/2025-03-31/trump-to-unveil-country-based-tariffs-april-2-in-rose-garden)
+* Title: Ruto: I won't let anyone use Mutuse to spread hate
+* URL: https://www.capitalfm.co.ke/news/2023/02/ruto-i-wont-let-anyone-use-mutuse-to-spread-hate/
+* Publication date: 2 days ago
+* Source: Capital FM
+
+## Key Insights and Conclusions
+The Mutuse land saga has sparked a heated debate between President Ruto and his predecessor Uhuru Kenyatta, with both leaders engaged in a war of words over the issue. While Ruto has claimed to have saved Gachagua from impeachment attempts, Uhuru has accused him of wrongdoing in the Mutuse land saga. The dispute has sparked concerns about the potential for violence and instability in the country. However, Ruto has emphasized the need for unity and cohesion, urging Kenyans to focus on building the nation rather than engaging in divisive rhetoric.
