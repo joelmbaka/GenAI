@@ -27,7 +27,7 @@ class Journalist():
         return Agent(
             config=self.agents_config['web_research_agent'],
             tools=[SerperDevTool(), WebScraper()],
-            max_iter=os.getenv("MAX_ITER_WEB_AGENT", 3)
+            max_iter=os.getenv("MAX_ITER_WEB_AGENT", 1)
         )
     @agent
     def twitter_analysis_agent(self) -> Agent:
@@ -35,7 +35,7 @@ class Journalist():
         return Agent(
             config=self.agents_config['twitter_analysis_agent'],
             tools=[TwitterScraper()],
-            max_iter=os.getenv("MAX_ITER_TWITTER_AGENT", 3)
+            max_iter=os.getenv("MAX_ITER_TWITTER_AGENT", 1)
         )
     @task
     def web_search_task(self) -> Task:
@@ -47,7 +47,7 @@ class Journalist():
     def read_and_summarize(self) -> Task:
         """Read and Summarize Task"""
         return Task(
-            config=self.tasks_config['read_and_summarize_task'],            tools=[WebScraper()],
+            config=self.tasks_config['read_and_summarize_task'],
         )
     @task
     def twitter_scrape_task(self) -> Task:
