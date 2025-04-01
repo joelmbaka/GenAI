@@ -34,10 +34,17 @@ class WebScraper(BaseTool):
                 navigator.go_to_url(website_url)
                 driver.implicitly_wait(10)
                 dynamic_content = driver.page_source
-                return dynamic_content
+                content = dynamic_content
             finally:
                 driver_client.close()
-        return static_content
+        else:
+            content = static_content
+
+        # Limit output to 1000 words
+        words = content.split()
+        if len(words) > 1000:
+            content = ' '.join(words[:1000])
+        return content
 
     def _needs_js(self, content: str) -> bool:
         """Detect if content appears to be JavaScript-rendered."""

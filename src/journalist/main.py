@@ -16,9 +16,11 @@ def run():
     # Load environment variables
     
     inputs = {
-        "topic": "Iran says it will retaliate if US attacks",
+        "topic": "Trump Tariffs",
         "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
-        "number": int(os.getenv("NUMBER_OF_TWEETS", 10))
+        "max_tweets": os.getenv("MAX_TWEETS", 10),
+        "is_hashtag": os.getenv("IS_HASHTAG", False),
+        "my_thoughts": os.getenv("MY_THOUGHTS", ""),
     }
     
     try:

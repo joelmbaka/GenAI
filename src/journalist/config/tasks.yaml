@@ -2,6 +2,7 @@ web_search_task:
   description: >
     Perform targeted Google news searches for {topic} using Serper Dev Tool.
     Focus on finding the most recent and relevant news articles (last 24 hours) from credible sources.
+    The user has this in mind: {my_thoughts}.
     Select the top 2-3 articles based on:
     - Relevance to the topic
     - Source credibility (prefer established news outlets)
@@ -55,3 +56,36 @@ read_and_summarize_task:
     - summary_length: 300-500 words
     - include_source_analysis: true
     - include_key_quotes: true
+
+twitter_scrape_task:
+  description: >
+    Scrape {max_tweets} tweets about {topic} using the Twitter Scraper tool.
+    Collect metadata including content, user, timestamp, and engagement metrics.
+    Remember, is_hashtag is {is_hashtag} and the user has this in mind: {my_thoughts}.
+    Structure your query to meet the user's needs.
+  expected_output: >
+    A structured JSON object containing scraped tweets:
+    - tweets: Array of tweets with metadata:
+      * id
+      * content
+      * user
+      * timestamp
+      * likes
+      * retweets
+      * has_photos
+    - trend: The topic being analyzed
+    - count: Number of tweets collected
+  agent: twitter_analysis_agent
+  output_file: twitter_data.json
+
+twitter_sentiment_task:
+  description: >
+    Analyze the sentiment of tweets collected in the twitter_scrape_task.
+    Address the user's thoughts: {my_thoughts}.
+  expected_output: >
+    A structured sentiment analysis report in Markdown format that addresses the user's thoughts: {my_thoughts}.
+  agent: twitter_analysis_agent
+  context: [twitter_scrape_task]
+  output_file: twitter_sentiment_analysis.md
+  constraints:
+    - include user handle e.g @userhandle when referencing a tweet

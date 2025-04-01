@@ -28,6 +28,13 @@ class Journalist():
             config=self.agents_config['web_research_agent'],
             tools=[SerperDevTool(), WebScraper()]
         )
+    @agent
+    def twitter_analysis_agent(self) -> Agent:
+        """Twitter Analysis Agent"""
+        return Agent(
+            config=self.agents_config['twitter_analysis_agent'],
+            tools=[TwitterScraper()],
+        )
     @task
     def web_search_task(self) -> Task:
         """Web Search Task"""
@@ -41,6 +48,18 @@ class Journalist():
         return Task(
             config=self.tasks_config['read_and_summarize_task'],
             tools=[WebScraper()],
+        )
+    @task
+    def twitter_scrape_task(self) -> Task:
+        """Twitter Scrape Task"""
+        return Task(
+            config=self.tasks_config['twitter_scrape_task'],
+        )
+    @task
+    def twitter_sentiment_task(self) -> Task:
+        """Twitter Sentiment Task"""
+        return Task(
+            config=self.tasks_config['twitter_sentiment_task'],
         )
     @crew
     def crew(self) -> Crew:
