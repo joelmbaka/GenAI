@@ -1,26 +1,34 @@
 {
   "selected_articles": [
     {
-      "title": "Ruto: I saved Gachagua from impeachment attempts twice",
-      "url": "https://www.msn.com/en-xl/africa/kenya/ruto-i-saved-gachagua-from-impeachment-attempts-twice/ar-AA1C1I9K",
-      "source": "MSN",
-      "date": "14 hours ago",
-      "snippet": "President William Ruto has said that he took part in saving former Deputy President Rigathi Gachagua from being impeached by Members of Parliament.",
-      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR6T0DMHPU7w1uz4DLtaDXhGj3vXQA76_NI_CayORls0A71RQpHIkWRSNUcPg&s"
+      "title": "Explainer: Bracing for Trump’s tariff ‘Liberation Day’",
+      "url": "https://www.businessdailyafrica.com/bd/opinion-analysis/columnists/explainer-bracing-for-trump-s-tariff-liberation-day-4987828",
+      "source": "Business Daily",
+      "date": "2 hours ago",
+      "snippet": "President Trump has signalled intentions to aggressively apply tariffs to reduce reliance on goods made outside the US.",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRXHuPWiKFnGv_hhFQ3OjTL2gHanhV_DcK4ynxfS7Uka4HWSU9o5y3SKdxcEw&s"
     },
     {
-      "title": "Mutuse: The millionaire who has captured Ruto's heart",
-      "url": "https://www.nation.africa/kenya/news/politics/mutuse-the-millionaire-who-has-captured-ruto-s-heart-4005306",
-      "source": "Nation",
-      "date": "20 hours ago",
-      "snippet": "The rising profile of Mutuse, a little-known businessman from Kitui, has raised eyebrows in political circles.",
-      "imageUrl": "https://www.nation.africa/image/view/-/4005306/highRes/1243881/-/max/w/1000"
+      "title": "Trump tariffs live news: ‘Liberation Day’ plan puts markets on high alert",
+      "url": "https://www.aljazeera.com/news/liveblog/2025/4/2/trump-tariffs-live-news-liberation-day-plan-puts-markets-on-high-alert",
+      "source": "Al Jazeera",
+      "date": "25 minutes ago",
+      "snippet": "US President Donald Trump is poised to unveil sweeping new ‘Liberation Day’ tariffs, but has kept the world guessing until the last minute about the scope...",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQbgdjGsVK6oZ9WWgVC8IR7-kg5hDHZfN_HVuQSUtTsgPKfTvRXOpTaeONgmg&s"
+    },
+    {
+      "title": "Trump is set to announce ‘reciprocal’ tariffs in a risky move that could reshape the economy",
+      "url": "https://apnews.com/article/trump-tariffs-liberation-day-2a031b3c16120a5672a6ddd01da09933",
+      "source": "AP News",
+      "date": "25 minutes ago",
+      "snippet": "President Donald Trump is set to launch a barrage of so-called reciprocal tariffs on friend and foe alike.",
+      "imageUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGzlt8VngKyIUe2lsglB4b2JbqdCYbnuB-SLkEQYYQfAjSr1qPaUZmCzRryA&s"
     }
   ],
   "search_parameters": {
-    "query": "Mutuse Kenya",
-    "date_range": "past 24 hours",
-    "language": "en",
-    "country": "KE"
+    "query": "liberation day economy",
+    "date_range": "last 24 hours",
+    "language": "English",
+    "country": "Kenya"
   }
 }

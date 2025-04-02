@@ -1,22 +1,33 @@
-**Sentiment Analysis Report for Mutuse Trend**
+# Sentiment Analysis Report: Liberation Day's Impact on the Economy
+## Overview
+This report analyzes the sentiment of tweets discussing the impact of Liberation Day on the economy. The analysis is based on a dataset of 10 tweets collected from Twitter.
 
-**Overview**
-The Mutuse trend on Twitter is driven by discussions around Kenyan politics, specifically the impeachment of Rigathi Gachagua and the role of Mutuse in this context. The sentiment around Mutuse is largely neutral, with some positive and negative sentiments expressed.
+## Sentiment Breakdown
+The sentiment of the tweets can be broken down into three categories: positive, negative, and neutral.
 
-**Positive Sentiment (20%)**
-Tweets expressing positive sentiment towards Mutuse praise him for his perceived honesty and truthfulness. Users appreciate his courage in speaking out against Gachagua's impeachment.
+### Negative Sentiment (60%)
+The majority of the tweets (60%) express a negative sentiment towards the impact of Liberation Day on the economy. These tweets argue that the tariffs imposed on Liberation Day will lead to economic downturn, job losses, and increased prices. They also criticize President Trump's decision, calling it "economic malpractice" and "destruction" rather than "liberation".
 
-**Negative Sentiment (30%)**
-Tweets with negative sentiment towards Mutuse accuse him of being selfish, tribalistic, and responsible for Gachagua's impeachment. Users also express disappointment and frustration with Mutuse's actions.
+### Positive Sentiment (20%)
+Only 20% of the tweets express a positive sentiment towards the impact of Liberation Day on the economy. These tweets argue that the tariffs will help to boost the economy and create jobs. They also express trust in President Trump's decision, seeing it as a necessary step to protect American interests.
 
-**Neutral Sentiment (50%)**
-The majority of tweets fall under the neutral sentiment category, where users discuss Mutuse's involvement in Kenyan politics without taking a clear stance or expressing strong emotions.
+### Neutral Sentiment (20%)
+The remaining 20% of the tweets express a neutral sentiment towards the impact of Liberation Day on the economy. These tweets either provide factual information about the tariffs or discuss the potential volatility of the markets without taking a clear stance.
 
-**Key Insights**
+## Key Themes
+The analysis identified several key themes in the tweets:
 
-* Mutuse's name is often mentioned alongside other prominent figures in Kenyan politics, such as William Ruto and Uhuru Kenyatta.
-* The impeachment of Rigathi Gachagua is a central topic in the discussions around Mutuse.
-* While some users praise Mutuse for his honesty, others criticize him for his perceived role in Gachagua's impeachment.
+### Economic Consequences
+The most dominant theme is the concern about the economic consequences of Liberation Day. Many tweets argue that the tariffs will lead to economic downturn, job losses, and increased prices.
 
-**Conclusion**
-The sentiment around Mutuse on Twitter is mixed, with both positive and negative sentiments expressed. However, the majority of tweets fall under the neutral sentiment category, indicating a general interest in discussing Mutuse's involvement in Kenyan politics without taking a strong stance.
+### Criticism of President Trump
+Another significant theme is the criticism of President Trump's decision to impose tariffs. Many tweets call his decision "economic malpractice" and "destruction" rather than "liberation".
+
+### Trust in President Trump
+A smaller but still noticeable theme is the trust in President Trump's decision. Some tweets argue that the tariffs are necessary to protect American interests and create jobs.
+
+### Market Volatility
+Finally, some tweets discuss the potential volatility of the markets, warning traders to be cautious.
+
+## Conclusion
+The sentiment analysis of the tweets suggests that the majority of the Twitter users are skeptical about the impact of Liberation Day on the economy. They argue that the tariffs will lead to economic downturn, job losses, and increased prices. However, a smaller group of tweets express trust in President Trump's decision and sees the tariffs as a necessary step to boost the economy.

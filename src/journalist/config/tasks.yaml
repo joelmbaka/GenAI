@@ -2,8 +2,9 @@ web_search_task:
   description: >
     Perform targeted Google news searches for {topic} using Serper Dev Tool.
     Focus on finding the most recent and relevant news articles (last 24 hours) from credible sources.
+    Current timestamp is {timestamp}.
     The user has this in mind: {my_thoughts}.
-    Select the top 2-3 articles based on:
+    Select the best 3 articles based on:
     - Relevance to the topic
     - Source credibility (prefer established news outlets)
     - Publication date (prioritize most recent)
@@ -31,7 +32,7 @@ web_search_task:
 
 read_and_summarize_task:
   description: >
-    Analyze and summarize content from the 2-3 articles selected in the web_search_task.
+    Analyze and summarize content from 2-3 articles got from the web_search_task.
     Extract key information and create a comprehensive news summary including:
     - Main points and arguments
     - Important facts and figures
@@ -61,7 +62,7 @@ twitter_scrape_task:
   description: >
     Scrape {max_tweets} tweets about {topic} using the Twitter Scraper tool.
     Collect metadata including content, user, timestamp, and engagement metrics.
-    Remember, is_hashtag is {is_hashtag} and the user has this in mind: {my_thoughts}.
+    Set is_hashtag={is_hashtag} and the user has this in mind: {my_thoughts}.
     Structure your query to meet the user's needs.
   expected_output: >
     A structured JSON object containing scraped tweets:
@@ -88,13 +89,14 @@ twitter_sentiment_task:
   context: [twitter_scrape_task]
   output_file: twitter_sentiment_analysis.md
   constraints:
-    - include user handle e.g @userhandle when referencing a tweet
 
 news_reporting_task:
   description: >
-    Report on the latest news about {topic} and ensure it matches user's thoughts: {my_thoughts}
+    Report on the latest news about {topic} and ensure it matches user's thoughts: {my_thoughts}.
   expected_output: >
-    A structured news report in Markdown format that addresses the user's thoughts: {my_thoughts}.
+    A structured news report in Markdown format that captures the whole story and addresses the user's thoughts.
+    Select author from the list of authors: {authors}.
+    This article is in {category} category and story is {story}.
   agent: news_reporter_agent
   context: [twitter_sentiment_task, read_and_summarize_task]
   output_file: news_report.md
@@ -102,4 +104,11 @@ news_reporting_task:
     - summary_length: 300-500 words
     - include_source_analysis: true
     - include_key_quotes: true
-    - include_local_dialect: true
+
+push_article_to_neo4j_task:
+  description: >
+    Push the article to the Neo4j database.
+  expected_output: >
+    A confirmation message that the article has been pushed to the Neo4j database.
+  agent: news_reporter_agent
+  context: [news_reporting_task]

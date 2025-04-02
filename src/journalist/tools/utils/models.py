@@ -1,5 +1,6 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional
+from typing import List, Optional, Dict, Any
+from datetime import datetime
 
 
 class UserModel(BaseModel):
@@ -67,22 +68,6 @@ class TweetCollectionModel(BaseModel):
     filename: str = "tweets.json"
     tweets: List[TweetModel] = Field(default_factory=list) 
 
-class TweetSchema(BaseModel):
-    id: str
-    content: str
-    user: str
-    timestamp: str
-    likes: int
-    retweets: int
-    #url: str
-    has_photos: bool = False
-    #has_videos: bool = False
-    #photo_urls: List[str] = Field(default_factory=list)
-    #video_urls: List[str] = Field(default_factory=list)
-
-class TweetsOutput(BaseModel):
-    tweets: List[TweetSchema]
-
 
 class ScraperInput(BaseModel):
     """Input schema for Scraper."""
@@ -119,3 +104,67 @@ class ScraperOutput(BaseModel):
     tweet_count: int = Field(default=0, description="Number of tweets collected")
     filename: str = Field(default="", description="Name of the file where tweets were saved (if any)")
     error: str = Field(default="", description="Error details if status is 'error'") 
+    
+
+from typing import List, Dict, Any, Optional
+from pydantic import BaseModel, Field
+
+class ArticleModel(BaseModel):
+    """Model for representing news articles"""
+    title: str = Field(..., description="The headline or main title of the article")
+    content: str = Field(..., description="The full text content of the article")
+    source: str = Field(default="DLX News", description="The news source (always DLX News)")
+    category: str = Field(..., description="Category of the article")
+    story: Optional[str] = Field(
+        None,
+        description="The overarching story this article belongs to (e.g., 'US Strikes Yemen')"
+    )
+    breaking_news: bool = Field(
+        default=False,
+        description="Whether the article is a breaking news"
+    )
+    trending: bool = Field(
+        default=False,
+        description="Whether the article is a trending news"
+    )
+    featured_image: Optional[str] = Field(
+        None,
+        description="URL of the main image associated with the article, typically displayed prominently"
+    )
+    author: Optional[str] = Field(
+        None,
+        description="The name of the writer based on the category"
+    )
+    summary: Optional[str] = Field(
+        None,
+        description="A brief summary or abstract of the article's main points"
+    )
+    keywords: List[str] = Field(
+        default_factory=list,
+        description="List of relevant keywords or tags associated with the article"
+    )
+    entities: List[str] = Field(
+        default_factory=list,
+        description="List of named entities in format 'type:value' extracted from the article, e.g. 'Country:United States', 'Person:William Ruto'"
+    )
+    metadata: str = Field(
+        default="",
+        description="Additional metadata about the article as a JSON string, such as word count, reading time, or publication section"
+    )
+
+    def to_markdown(self) -> str:
+        """Convert article to markdown format"""
+        markdown = f"# {self.title}\n\n"
+        if self.story:
+            markdown += f"**Story:** {self.story}\n\n"
+        if self.featured_image:
+            markdown += f"![Featured Image]({self.featured_image})\n\n"
+        if self.author:
+            markdown += f"**By {self.author}**\n\n"
+        if self.summary:
+            markdown += f"**Summary:** {self.summary}\n\n"
+        if self.keywords:
+            markdown += f"**Keywords:** {', '.join(self.keywords)}\n\n"
+        markdown += f"{self.content}\n\n"
+        markdown += f"[Source]({self.source})"
+        return markdown

@@ -1,14 +1,16 @@
 [project]
 name = "journalist"
 version = "0.1.0"
-description = "journalist using crewAI"
+description = "international news agency"
 authors = [{ name = "Your Name", email = "you@example.com" }]
 requires-python = ">=3.12,<3.13"
 dependencies = [
     "annotated-types>=0.7.0",
     "crewai[tools]>=0.108.0,<1.0.0",
+    "neo4j>=5.28.1",
     "selenium>=4.30.0",
     "webdriver-manager>=4.0.2",
+    "python-dotenv>=1.0.0",
 ]
 
 [project.scripts]

@@ -51,7 +51,7 @@ class SerperDevTool(BaseTool):
 
     def _run(self, q: str, type: str = "search", gl: str = None, location: str = None,
              hl: str = None, tbs: str = None, num: int = 10, autocorrect: bool = True) -> str:
-        """Execute a news search using the serper.dev API."""
+        """Execute a search using the serper.dev API."""
         import os
         import requests
         import json
@@ -64,15 +64,15 @@ class SerperDevTool(BaseTool):
                 "message": "SERPER_API_KEY environment variable not set"
             })
         
-        # Prepare API request - force type to 'news'
-        url = "https://google.serper.dev/news"
+        # Prepare API request
+        url = f"https://google.serper.dev/{type}"
         headers = {
             'X-API-KEY': api_key,
             'Content-Type': 'application/json'
         }
         payload = {
             'q': q,
-            'type': 'news',
+            'type': type,
             'gl': gl,
             'hl': hl,
             'tbs': tbs,
@@ -88,21 +88,32 @@ class SerperDevTool(BaseTool):
             
             results = {
                 "query": q,
-                "type": "news",
+                "type": type,
                 "results": []
             }
             
-            # Only process news results
-            if 'news' in data:
-                for item in data['news']:
-                    results["results"].append({
-                        "title": item.get('title', ''),
-                        "url": item.get('link', ''),
-                        "summary": item.get('snippet', ''),
-                        "date": item.get('date', ''),
-                        "source": item.get('source', ''),
-                        "imageUrl": item.get('imageUrl', '')
-                    })
+            if type == "news":
+                # process news results
+                if 'news' in data:
+                    for item in data['news']:
+                        results["results"].append({
+                            "title": item.get('title', ''),
+                            "url": item.get('link', ''),
+                            "summary": item.get('snippet', ''),
+                            "date": item.get('date', ''),
+                            "source": item.get('source', ''),
+                            "imageUrl": item.get('imageUrl', '')
+                        })
+            elif type == "search":
+                # process only organic results
+                if 'organic' in data:
+                    for item in data['organic']:
+                        results["results"].append({
+                            "title": item.get('title', ''),
+                            "url": item.get('link', ''),
+                            "snippet": item.get('snippet', ''),
+                            "position": item.get('position', '')
+                        })
             
             return json.dumps(results)
             

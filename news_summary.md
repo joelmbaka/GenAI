@@ -1,36 +1,31 @@
-**Mutuse: The Mysterious Figure Capturing Ruto's Heart**
-=====================================================
+# Liberation Day: Trump's Tariffs Plan and Its Implications
 
-Overview
---------
+## Overview
 
-Mutuse, a little-known businessman from Kitui, Kenya, has been making headlines in recent days. The rising profile of this enigmatic figure has raised eyebrows in political circles, with many wondering about his connection to President William Ruto.
+President Donald Trump is set to unveil a sweeping new "Liberation Day" tariffs plan, which has left the world guessing about its scope and impact on the global economy. The move is seen as a major shift in US trade policy, with far-reaching consequences for businesses, consumers, and governments around the world.
 
-**Article 1: Ruto: I saved Gachagua from impeachment attempts twice**
+## Summary of Findings from Each Article
 
-In an article published by MSN, President Ruto revealed that he played a crucial role in saving former Deputy President Rigathi Gachagua from impeachment attempts by Members of Parliament. This revelation has sparked interest in Mutuse, with many asking about his relationship with the President.
+### Article 1: Explainer: Bracing for Trump's Tariff 'Liberation Day' (Business Daily)
 
-The article suggests that Mutuse is a key figure in Ruto's circle, with the President going to great lengths to protect him. This has led to speculation about Mutuse's influence on Ruto's decisions and policies.
+The article explains that Trump's administration is considering a 20% tariffs plan on most imports to the US, which could lead to a global trade war. The move is aimed at reducing the US trade deficit, but it could have significant implications for countries like Kenya, which relies heavily on US imports.
 
-**Article 2: Mutuse: The millionaire who has captured Ruto's heart**
+### Article 2: Trump Tariffs Live News: 'Liberation Day' Plan Puts Markets on High Alert (Al Jazeera)
 
-An article published by Nation Africa provides more insight into Mutuse's background and his connection to Ruto. Described as a millionaire businessman from Kitui, Mutuse has seemingly captured the President's heart, raising questions about his role in Ruto's administration.
+The article reports that Trump is poised to unveil his reciprocal tariffs plan, which could lead to a global trade war. The White House has announced that Trump will participate in the "Make America Wealthy Again" event in the Rose Garden, where he is expected to announce the tariffs.
 
-The article suggests that Mutuse's rising profile has raised eyebrows in political circles, with many wondering about his qualifications and experience. Despite this, Ruto's perceived fondness for Mutuse has led to speculation about his potential role in the government.
+### Article 3: Trump is Set to Announce 'Reciprocal' Tariffs in a Risky Move that Could Reshape the Economy (AP News)
 
-Key Insights and Conclusions
----------------------------
+The article reports that Trump is set to launch a barrage of so-called reciprocal tariffs on friend and foe alike. The move is seen as a risky one, which could lead to a global trade war and have significant implications for the US economy.
 
-The two articles provide a glimpse into the mysterious figure of Mutuse, a businessman from Kitui who has seemingly captured President Ruto's heart. While the exact nature of their relationship remains unclear, it is evident that Mutuse wields significant influence on Ruto's decisions and policies.
+## Key Insights and Conclusions
 
-The fact that Ruto went to great lengths to protect Gachagua from impeachment attempts raises questions about Mutuse's role in the President's circle. Is he a trusted advisor or a mere acquaintance? Only time will tell.
+* Trump's "Liberation Day" tariffs plan is a major shift in US trade policy, with far-reaching consequences for businesses, consumers, and governments around the world.
+* The plan is aimed at reducing the US trade deficit, but it could lead to a global trade war and have significant implications for countries like Kenya, which relies heavily on US imports.
+* The tariffs could lead to higher prices for consumers, job losses, and a decline in economic growth.
 
-Source References
-----------------
+## Source References
 
-* "Ruto: I saved Gachagua from impeachment attempts twice" by MSN (https://www.msn.com/en-xl/africa/kenya/ruto-i-saved-gachagua-from-impeachment-attempts-twice/ar-AA1C1I9K)
-	+ Publication date: 14 hours ago
-	+ Source: MSN
-* "Mutuse: The millionaire who has captured Ruto's heart" by Nation Africa (https://www.nation.africa/kenya/news/politics/mutuse-the-millionaire-who-has-captured-ruto-s-heart-4005306)
-	+ Publication date: 20 hours ago
-	+ Source: Nation Africa
+* "Explainer: Bracing for Trump's Tariff 'Liberation Day'", Business Daily, 2 hours ago
+* "Trump Tariffs Live News: 'Liberation Day' Plan Puts Markets on High Alert", Al Jazeera, 25 minutes ago
+* "Trump is Set to Announce 'Reciprocal' Tariffs in a Risky Move that Could Reshape the Economy", AP News, 25 minutes ago

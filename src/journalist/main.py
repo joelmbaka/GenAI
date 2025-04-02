@@ -2,12 +2,25 @@
 import sys
 import warnings
 import os
-
 from datetime import datetime
-
 from journalist.crew import Journalist
+from dotenv import load_dotenv
 
+load_dotenv()
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
+
+authors = {
+    "Politics": ["John Kamau", "Wanjiku Mwangi", "Peter Ochieng"],
+    "Business": ["Mary Wambui", "James Kariuki", "Grace Akinyi"],
+    "Technology": ["Brian Omondi", "Susan Njeri", "David Maina"],
+    "Health": ["Dr. Lucy Wanjiru", "Dr. Paul Otieno", "Esther Muthoni"],
+    "Education": ["Prof. Michael Ndung'u", "Dr. Jane Atieno", "Samuel Kiprop"],
+    "Sports": ["Joseph Okumu", "Sarah Adhiambo", "Mark Ouma"],
+    "Entertainment": ["Lilian Mueni", "Kevin Ochieng", "Patricia Wairimu"],
+    "Environment": ["Dr. Emily Chebet", "John Gitau", "Mercy Wanjiku"],
+    "International": ["Anne Mwangi", "Paul Njoroge", "Grace Wambui"],
+    "Agriculture": ["Peter Kipchumba", "Maryanne Njoki", "James Mwangi"]
+}
 
 def run():
     """
@@ -16,11 +29,16 @@ def run():
     # Load environment variables
     
     inputs = {
-        "topic": "Mutuse",
-        "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S")),
+        "topic": os.getenv("TOPIC", ""),
+        "my_thoughts": os.getenv("MY_THOUGHTS", ""),
+        "category": os.getenv("CATEGORY", ""),
+        "story": os.getenv("STORY", ""),
+        "breaking_news": os.getenv("BREAKING_NEWS", False),
+        "trending": os.getenv("TRENDING", False),
+        "authors": authors,
+        "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S %A")),
         "max_tweets": os.getenv("MAX_TWEETS", 10),
         "is_hashtag": os.getenv("IS_HASHTAG", False),
-        "my_thoughts": os.getenv("MY_THOUGHTS", ""),
     }
     
     try:

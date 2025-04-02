@@ -5,6 +5,8 @@ from journalist.tools.serper_dev import SerperDevTool
 from journalist.tools.web_scraper import WebScraper
 import os
 from dotenv import load_dotenv
+from journalist.tools.utils.models import ArticleModel
+from journalist.tools.neo4j_article_tool import Neo4jArticleTool
 
 load_dotenv()
 
@@ -42,13 +44,15 @@ class Journalist():
         """News Reporter Agent"""
         return Agent(
             config=self.agents_config['news_reporter_agent'],
+            tools=[Neo4jArticleTool()],
             max_iter=os.getenv("MAX_ITER_NEWS_AGENT", 1)
         )
+
     @task
     def web_search_task(self) -> Task:
         """Web Search Task"""
         return Task(
-            config=self.tasks_config['web_search_task'],
+            config=self.tasks_config['web_search_task']
         )
     @task
     def read_and_summarize_task(self) -> Task:
@@ -73,6 +77,13 @@ class Journalist():
         """News Reporting Task"""
         return Task(
             config=self.tasks_config['news_reporting_task'],
+            output_pydantic=ArticleModel
+        )
+    @task
+    def push_article_to_neo4j_task(self) -> Task:
+        """Push Article to Neo4j Task"""
+        return Task(
+            config=self.tasks_config['push_article_to_neo4j_task'],
         )
     @crew
     def crew(self) -> Crew:
