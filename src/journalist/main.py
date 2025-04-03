@@ -9,17 +9,20 @@ from dotenv import load_dotenv
 load_dotenv()
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
-authors = {
-    "Politics": ["John Kamau", "Wanjiku Mwangi", "Peter Ochieng"],
-    "Business": ["Mary Wambui", "James Kariuki", "Grace Akinyi"],
-    "Technology": ["Brian Omondi", "Susan Njeri", "David Maina"],
-    "Health": ["Dr. Lucy Wanjiru", "Dr. Paul Otieno", "Esther Muthoni"],
-    "Education": ["Prof. Michael Ndung'u", "Dr. Jane Atieno", "Samuel Kiprop"],
-    "Sports": ["Joseph Okumu", "Sarah Adhiambo", "Mark Ouma"],
-    "Entertainment": ["Lilian Mueni", "Kevin Ochieng", "Patricia Wairimu"],
-    "Environment": ["Dr. Emily Chebet", "John Gitau", "Mercy Wanjiku"],
-    "International": ["Anne Mwangi", "Paul Njoroge", "Grace Wambui"],
-    "Agriculture": ["Peter Kipchumba", "Maryanne Njoki", "James Mwangi"]
+MainCategory = ["News", "Business", "Lifestyle", "Sports", "Environment", "SpecialFeatures"]
+SubCategory = ["Local News", "World News", "Enterprise", "Finance", "Technology", "Agriculture", "Health", "Food", "Travel", "Education", "Opinion"]
+Authors = {
+    "LocalNews": ["John Kamau"],
+    "WorldNews": ["Mary Wambui"],
+    "Enterprise": ["Brian Omondi"],
+    "Finance": ["Dr. Lucy Wanjiru"],
+    "Technology": ["Prof. Michael Ndung'u"],
+    "Agriculture": ["Lilian Mueni"],
+    "Health": ["Dr. Emily Chebet"],
+    "Food": ["Anne Mwangi"],
+    "Travel": ["Peter Kipchumba"],
+    "Education": ["Dr. Emily Chebet"],
+    "Opinion": ["Anne Mwangi"],
 }
 
 def run():
@@ -29,13 +32,15 @@ def run():
     # Load environment variables
     
     inputs = {
-        "topic": os.getenv("TOPIC", ""),
+        "google_query": os.getenv("GOOGLE_QUERY", ""),
+        "twitter_query": os.getenv("TWITTER_QUERY", ""),
         "my_thoughts": os.getenv("MY_THOUGHTS", ""),
-        "category": os.getenv("CATEGORY", ""),
+        "category": MainCategory,
+        "subcategory": SubCategory,
         "story": os.getenv("STORY", ""),
         "breaking_news": os.getenv("BREAKING_NEWS", False),
         "trending": os.getenv("TRENDING", False),
-        "authors": authors,
+        "authors": Authors,
         "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S %A")),
         "max_tweets": os.getenv("MAX_TWEETS", 10),
         "is_hashtag": os.getenv("IS_HASHTAG", False),

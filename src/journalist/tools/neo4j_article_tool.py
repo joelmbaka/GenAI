@@ -6,6 +6,7 @@ from neo4j import GraphDatabase
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 load_dotenv()
 
@@ -45,8 +46,12 @@ class Neo4jArticleTool(BaseTool):
         except Exception as e:
             return f"Error converting dictionary to ArticleModel: {str(e)}"
 
+        # Ensure source is always Kenya24
+        article_dict = article_model.model_dump()
+        article_dict['source'] = "Kenya24"
+        
         # Generate embedding for the article content using Llama model
-        embedding = self.create_embedding(article_model.content)
+        embedding = self.create_embedding(article_dict['content'])
 
         # Neo4j connection details (should be moved to environment variables)
         uri = os.getenv("NEO4J_URI", "neo4j+s://f3a8bf56.databases.neo4j.io")
@@ -55,17 +60,21 @@ class Neo4jArticleTool(BaseTool):
 
         # Cypher query
         query = """
-        // Create or find the category node
+        // Create or find the category and subcategory nodes
         MERGE (c:Category {name: $category})
+        MERGE (s:SubCategory {name: $subcategory})
+
+        // Create relationship between category and subcategory
+        MERGE (c)-[:HAS_SUBCATEGORY]->(s)
 
         // Create or find the author node
         MERGE (a:Author {name: $author})
 
         // Create or find the article node
-        MERGE (art:Article {title: $title, content: $content, source: $source})
+        CREATE (art:Article {title: $title, content: $content})
 
         // Set the publication timestamp (published_at) at the time of creation
-        SET art.publishedAt = datetime()
+        SET art.publishedAt = datetime.now()
 
         // Set any additional properties
         SET art.featured_image = $featured_image,
@@ -73,6 +82,7 @@ class Neo4jArticleTool(BaseTool):
             art.keywords = $keywords,
             art.entities = $entities,
             art.metadata = $metadata,
+            art.pulisher = $publisher,
             art.story = $story,
             art.embedding = $embedding  // store the embedding
 
@@ -87,18 +97,19 @@ class Neo4jArticleTool(BaseTool):
         with GraphDatabase.driver(uri, auth=(username, password)) as driver:
             with driver.session() as session:
                 result = session.run(query, {
-                    "category": article_model.category,
-                    "author": article_model.author,
-                    "title": article_model.title,
-                    "content": article_model.content,
-                    "source": article_model.source,
-                    "featured_image": article_model.featured_image,
-                    "summary": article_model.summary,
-                    "keywords": article_model.keywords,
-                    "entities": article_model.entities,
-                    "metadata": article_model.metadata,
-                    "story": article_model.story,
-                    "embedding": embedding  # Pass the generated embedding
+                    "category": article_dict['category'],
+                    "subcategory": article_dict['subcategory'],
+                    "author": article_dict['author'],
+                    "title": article_dict['title'],
+                    "content": article_dict['content'],
+                    "publisher": article_dict['publisher'],
+                    "featured_image": article_dict['featured_image'],
+                    "summary": article_dict['summary'],
+                    "keywords": article_dict['keywords'],
+                    "entities": article_dict['entities'],
+                    "metadata": article_dict['metadata'],
+                    "story": article_dict['story'],
+                    "embedding": embedding
                 })
                 
                 # Return the created nodes

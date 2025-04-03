@@ -1,33 +1,32 @@
-# Sentiment Analysis Report: Liberation Day's Impact on the Economy
-## Overview
-This report analyzes the sentiment of tweets discussing the impact of Liberation Day on the economy. The analysis is based on a dataset of 10 tweets collected from Twitter.
+## Sentiment Analysis Report: Ukraine News, Russia, and US Ceasefire
+### Overview
+This report presents a sentiment analysis of tweets related to Ukraine news, Russia, and the US proposal for a ceasefire, within the last 24 hours. The analysis aims to provide insights into public opinion on the recent developments in the conflict.
 
-## Sentiment Breakdown
-The sentiment of the tweets can be broken down into three categories: positive, negative, and neutral.
+### Sentiment Distribution
+The sentiment distribution of the tweets is as follows:
 
-### Negative Sentiment (60%)
-The majority of the tweets (60%) express a negative sentiment towards the impact of Liberation Day on the economy. These tweets argue that the tariffs imposed on Liberation Day will lead to economic downturn, job losses, and increased prices. They also criticize President Trump's decision, calling it "economic malpractice" and "destruction" rather than "liberation".
+| Sentiment | Percentage |
+| --- | --- |
+| Negative | 60% |
+| Neutral | 30% |
+| Positive | 10% |
 
-### Positive Sentiment (20%)
-Only 20% of the tweets express a positive sentiment towards the impact of Liberation Day on the economy. These tweets argue that the tariffs will help to boost the economy and create jobs. They also express trust in President Trump's decision, seeing it as a necessary step to protect American interests.
+### Key Findings
+The sentiment analysis reveals that the majority of tweets (60%) express negative sentiments towards the recent developments in the conflict. Many users are critical of Russia's actions and the lack of progress in ceasefire negotiations.
 
-### Neutral Sentiment (20%)
-The remaining 20% of the tweets express a neutral sentiment towards the impact of Liberation Day on the economy. These tweets either provide factual information about the tariffs or discuss the potential volatility of the markets without taking a clear stance.
+### Trends and Topics
+The following trends and topics emerged from the analysis:
 
-## Key Themes
-The analysis identified several key themes in the tweets:
+* **Russia's refusal to accept US ceasefire proposals**: Many tweets express frustration and disappointment with Russia's decision to reject the US proposals for a ceasefire in Ukraine.
+* **US sanctions against Russia**: There is a significant discussion around the potential imposition of new sanctions against Russia if they fail to comply with ceasefire negotiations.
+* **Trump's involvement**: President Trump's role in the conflict is a topic of discussion, with some users praising his efforts to negotiate a ceasefire and others criticizing his approach.
 
-### Economic Consequences
-The most dominant theme is the concern about the economic consequences of Liberation Day. Many tweets argue that the tariffs will lead to economic downturn, job losses, and increased prices.
+### Influential Voices
+The following users are identified as influential voices in the conversation:
 
-### Criticism of President Trump
-Another significant theme is the criticism of President Trump's decision to impose tariffs. Many tweets call his decision "economic malpractice" and "destruction" rather than "liberation".
+* **@SkyNews**: A news organization with a significant following, providing updates on the conflict.
+* **@defense_civil25**: An individual with a strong opinion on the conflict, frequently sharing updates and opinions.
+* **@DagnyTaggart963**: A user who shared a significant update on Trump's stance on Russian assets.
 
-### Trust in President Trump
-A smaller but still noticeable theme is the trust in President Trump's decision. Some tweets argue that the tariffs are necessary to protect American interests and create jobs.
-
-### Market Volatility
-Finally, some tweets discuss the potential volatility of the markets, warning traders to be cautious.
-
-## Conclusion
-The sentiment analysis of the tweets suggests that the majority of the Twitter users are skeptical about the impact of Liberation Day on the economy. They argue that the tariffs will lead to economic downturn, job losses, and increased prices. However, a smaller group of tweets express trust in President Trump's decision and sees the tariffs as a necessary step to boost the economy.
+### Conclusion
+The sentiment analysis reveals a predominantly negative sentiment towards the recent developments in the conflict. The trends and topics identified highlight the complexity of the issue and the various perspectives involved. The influential voices listed above play a significant role in shaping the conversation around the conflict.

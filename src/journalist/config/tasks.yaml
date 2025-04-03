@@ -1,6 +1,6 @@
 web_search_task:
   description: >
-    Perform targeted Google news searches for {topic} using Serper Dev Tool.
+    Perform targeted Google news searches for {google_query} using Serper Dev Tool.
     Focus on finding the most recent and relevant news articles (last 24 hours) from credible sources.
     Current timestamp is {timestamp}.
     The user has this in mind: {my_thoughts}.
@@ -60,7 +60,7 @@ read_and_summarize_task:
 
 twitter_scrape_task:
   description: >
-    Scrape {max_tweets} tweets about {topic} using the Twitter Scraper tool.
+    Scrape {max_tweets} tweets about {twitter_query} using the Twitter Scraper tool.
     Collect metadata including content, user, timestamp, and engagement metrics.
     Set is_hashtag={is_hashtag} and the user has this in mind: {my_thoughts}.
     Structure your query to meet the user's needs.
@@ -92,19 +92,23 @@ twitter_sentiment_task:
 
 news_reporting_task:
   description: >
-    Report on the latest news about {topic} and ensure it matches user's thoughts: {my_thoughts}.
+    Report on the latest news about {google_query} and ensure it matches user's thoughts: {my_thoughts}.
   expected_output: >
     A structured news report in Markdown format that captures the whole story and addresses the user's thoughts.
-    Select author from the list of authors: {authors}.
-    This article is in {category} category and story is {story}.
+    Remember these:
+    - base categories: {category}
+    - sub categories: {subcategory}
+    - authors: {authors}
+    - story: {story}
+    - publisher: 'Kenya24'
   agent: news_reporter_agent
   context: [twitter_sentiment_task, read_and_summarize_task]
   output_file: news_report.md
   constraints:
-    - summary_length: 300-500 words
+    - summary_length: 300-500 words for content
     - include_source_analysis: true
     - include_key_quotes: true
-
+    
 push_article_to_neo4j_task:
   description: >
     Push the article to the Neo4j database.

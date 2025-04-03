@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field
-from typing import List, Optional, Dict, Any
+from typing import List, Optional, Dict, Any, Literal
 from datetime import datetime
+from enum import Enum
 
 
 class UserModel(BaseModel):
@@ -106,15 +107,36 @@ class ScraperOutput(BaseModel):
     error: str = Field(default="", description="Error details if status is 'error'") 
     
 
-from typing import List, Dict, Any, Optional
-from pydantic import BaseModel, Field
+
+# Define main categories
+class MainCategory(str, Enum):
+    News = "News"
+    Business = "Business"
+    Lifestyle = "Lifestyle"
+    Sports = "Sports"
+    Environment = "Environment"
+    SpecialFeatures = "Special Features"
+
+class SubCategory(str, Enum):
+    LocalNews = "Local News"
+    WorldNews = "World News"
+    Enterprise = "Enterprise"
+    Finance = "Finance"
+    Technology = "Technology"
+    Agriculture = "Agriculture"
+    Health = "Health"
+    Food = "Food"
+    Travel = "Travel"
+    Education = "Education"
+    Opinion = "Opinion"
+
 
 class ArticleModel(BaseModel):
     """Model for representing news articles"""
     title: str = Field(..., description="The headline or main title of the article")
     content: str = Field(..., description="The full text content of the article")
-    source: str = Field(default="DLX News", description="The news source (always DLX News)")
-    category: str = Field(..., description="Category of the article")
+    category: MainCategory = Field(..., description="Main category of the article")
+    subcategory: SubCategory = Field(..., description="Specific subcategory of the article")
     story: Optional[str] = Field(
         None,
         description="The overarching story this article belongs to (e.g., 'US Strikes Yemen')"
@@ -127,22 +149,10 @@ class ArticleModel(BaseModel):
         default=False,
         description="Whether the article is a trending news"
     )
-    featured_image: Optional[str] = Field(
-        None,
-        description="URL of the main image associated with the article, typically displayed prominently"
-    )
-    author: Optional[str] = Field(
-        None,
-        description="The name of the writer based on the category"
-    )
-    summary: Optional[str] = Field(
-        None,
-        description="A brief summary or abstract of the article's main points"
-    )
-    keywords: List[str] = Field(
-        default_factory=list,
-        description="List of relevant keywords or tags associated with the article"
-    )
+    author: Optional[str] = Field(None, description="The name of the writer based on the category")
+    summary: Optional[str] = Field(None, description="A brief summary or abstract of the article's main points")
+    keywords: List[str] = Field(default_factory=list, description="List of relevant keywords or tags associated with the article")
+    featured_image: Optional[str] = Field(None, description="URL of the main image associated with the article")
     entities: List[str] = Field(
         default_factory=list,
         description="List of named entities in format 'type:value' extracted from the article, e.g. 'Country:United States', 'Person:William Ruto'"
@@ -150,6 +160,10 @@ class ArticleModel(BaseModel):
     metadata: str = Field(
         default="",
         description="Additional metadata about the article as a JSON string, such as word count, reading time, or publication section"
+    )
+    publisher: Literal["Kenya24"] = Field(
+        default="Kenya24",
+        description="The publisher of the article"
     )
 
     def to_markdown(self) -> str:
@@ -166,5 +180,14 @@ class ArticleModel(BaseModel):
         if self.keywords:
             markdown += f"**Keywords:** {', '.join(self.keywords)}\n\n"
         markdown += f"{self.content}\n\n"
-        markdown += f"[Source]({self.source})"
+        if self.publisher:
+            markdown += f"**Publisher:** {self.publisher}\n\n"
+        if self.entities:
+            markdown += f"**Entities:** {', '.join(self.entities)}\n\n"
+        if self.metadata:
+            markdown += f"**Metadata:** {self.metadata}\n\n"
+        if self.category:
+            markdown += f"**Category:** {self.category}\n\n"
+        if self.subcategory:
+            markdown += f"**Subcategory:** {self.subcategory}\n\n"
         return markdown
