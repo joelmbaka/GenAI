@@ -9,20 +9,47 @@ from dotenv import load_dotenv
 load_dotenv()
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
 
-MainCategory = ["News", "Business", "Lifestyle", "Sports", "Environment", "SpecialFeatures"]
-SubCategory = ["Local News", "World News", "Enterprise", "Finance", "Technology", "Agriculture", "Health", "Food", "Travel", "Education", "Opinion"]
-Authors = {
-    "LocalNews": ["John Kamau"],
-    "WorldNews": ["Mary Wambui"],
-    "Enterprise": ["Brian Omondi"],
-    "Finance": ["Dr. Lucy Wanjiru"],
-    "Technology": ["Prof. Michael Ndung'u"],
-    "Agriculture": ["Lilian Mueni"],
-    "Health": ["Dr. Emily Chebet"],
-    "Food": ["Anne Mwangi"],
-    "Travel": ["Peter Kipchumba"],
-    "Education": ["Dr. Emily Chebet"],
-    "Opinion": ["Anne Mwangi"],
+Category = {
+    "News": {
+        "subcategories": {
+            "Kenya": {"author": "John Kamau"},
+            "Africa": {"author": "Kwame Nkrumah"},
+            "U.S.A": {"author": "John Smith"},
+            "Europe": {"author": "James Wilson"},
+            "Asia": {
+                "authors": ["Li Wei", "Priya Patel"]
+            },
+            "Middle East": {"author": "David Cohen"}
+        }
+    },
+    "Business": {
+        "subcategories": {
+            "Business News": {"author": "Dr. Emily Chebet"},
+            "Startup Ideas": {"author": "Anne Mwangi"},
+            "Stock Analysis": {"author": "Peter Kipchumba"},
+            "Maritime Affairs": {"author": "Dr. Emily Chebet"}
+        }
+    },
+    "Lifestyle": {
+        "subcategories": {
+            "Technology": {"author": "Anne Mwangi"},
+            "Agriculture": {"author": "Peter Kipchumba"},
+            "Health": {"author": "Dr. Emily Chebet"},
+            "Food": {"author": "Marco Rossi"},
+            "Travel": {"author": "Peter Kipchumba"},
+            "Education": {"author": "Dr. Emily Chebet"},
+            "Opinion": {"author": "Anne Mwangi"}
+        }
+    },
+    "Sports": {
+        "subcategories": {
+            "Premier League": {"author": "James Wilson"},
+            "League 1": {"author": "Pierre Dubois"},
+            "Champions League": {"author": "Carlos Ruiz"},
+            "Serie A": {"author": "Giovanni Moretti"},
+            "Bundesliga": {"author": "Hans Müller"}
+        }
+    }
 }
 
 def run():
@@ -35,12 +62,10 @@ def run():
         "google_query": os.getenv("GOOGLE_QUERY", ""),
         "twitter_query": os.getenv("TWITTER_QUERY", ""),
         "my_thoughts": os.getenv("MY_THOUGHTS", ""),
-        "category": MainCategory,
-        "subcategory": SubCategory,
+        "category": Category,
         "story": os.getenv("STORY", ""),
         "breaking_news": os.getenv("BREAKING_NEWS", False),
         "trending": os.getenv("TRENDING", False),
-        "authors": Authors,
         "timestamp": str(datetime.now().strftime("%Y-%m-%d %H:%M:%S %A")),
         "max_tweets": os.getenv("MAX_TWEETS", 10),
         "is_hashtag": os.getenv("IS_HASHTAG", False),

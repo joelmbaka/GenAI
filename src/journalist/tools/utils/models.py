@@ -106,39 +106,14 @@ class ScraperOutput(BaseModel):
     filename: str = Field(default="", description="Name of the file where tweets were saved (if any)")
     error: str = Field(default="", description="Error details if status is 'error'") 
     
-
-
-# Define main categories
-class MainCategory(str, Enum):
-    News = "News"
-    Business = "Business"
-    Lifestyle = "Lifestyle"
-    Sports = "Sports"
-    Environment = "Environment"
-    SpecialFeatures = "Special Features"
-
-class SubCategory(str, Enum):
-    LocalNews = "Local News"
-    WorldNews = "World News"
-    Enterprise = "Enterprise"
-    Finance = "Finance"
-    Technology = "Technology"
-    Agriculture = "Agriculture"
-    Health = "Health"
-    Food = "Food"
-    Travel = "Travel"
-    Education = "Education"
-    Opinion = "Opinion"
-
-
 class ArticleModel(BaseModel):
     """Model for representing news articles"""
     title: str = Field(..., description="The headline or main title of the article")
     content: str = Field(..., description="The full text content of the article")
-    category: MainCategory = Field(..., description="Main category of the article")
-    subcategory: SubCategory = Field(..., description="Specific subcategory of the article")
-    story: Optional[str] = Field(
-        None,
+    category: str = Field(..., description="The category of the article")
+    subcategory: str = Field(..., description="The subcategory of the article")
+    story: str = Field(
+        default="",
         description="The overarching story this article belongs to (e.g., 'US Strikes Yemen')"
     )
     breaking_news: bool = Field(
@@ -149,20 +124,20 @@ class ArticleModel(BaseModel):
         default=False,
         description="Whether the article is a trending news"
     )
-    author: Optional[str] = Field(None, description="The name of the writer based on the category")
-    summary: Optional[str] = Field(None, description="A brief summary or abstract of the article's main points")
+    author: str = Field(default="", description="The name of the writer based on the category")
+    summary: str = Field(default="", description="A brief summary or abstract of the article's main points")
     keywords: List[str] = Field(default_factory=list, description="List of relevant keywords or tags associated with the article")
-    featured_image: Optional[str] = Field(None, description="URL of the main image associated with the article")
+    featured_image: str = Field(default="", description="URL of the main image associated with the article")
     entities: List[str] = Field(
         default_factory=list,
         description="List of named entities in format 'type:value' extracted from the article, e.g. 'Country:United States', 'Person:William Ruto'"
     )
     metadata: str = Field(
-        default="",
+        default="{}",
         description="Additional metadata about the article as a JSON string, such as word count, reading time, or publication section"
     )
-    publisher: Literal["Kenya24"] = Field(
-        default="Kenya24",
+    publisher: Literal["254 News"] = Field(
+        default="254 News",
         description="The publisher of the article"
     )
 

@@ -6,7 +6,6 @@ from neo4j import GraphDatabase
 from openai import OpenAI
 import os
 from dotenv import load_dotenv
-from datetime import datetime
 
 load_dotenv()
 
@@ -46,10 +45,10 @@ class Neo4jArticleTool(BaseTool):
         except Exception as e:
             return f"Error converting dictionary to ArticleModel: {str(e)}"
 
-        # Ensure source is always Kenya24
+        # Ensure publisher is always 254 News
         article_dict = article_model.model_dump()
-        article_dict['source'] = "Kenya24"
-        
+        article_dict['publisher'] = "254 News"
+
         # Generate embedding for the article content using Llama model
         embedding = self.create_embedding(article_dict['content'])
 
@@ -71,10 +70,10 @@ class Neo4jArticleTool(BaseTool):
         MERGE (a:Author {name: $author})
 
         // Create or find the article node
-        CREATE (art:Article {title: $title, content: $content})
+        CREATE (art:Article {title: $title, content: $content, publisher: $publisher})
 
         // Set the publication timestamp (published_at) at the time of creation
-        SET art.publishedAt = datetime.now()
+        SET art.publishedAt = datetime({timezone: '+03:00'})
 
         // Set any additional properties
         SET art.featured_image = $featured_image,
@@ -82,7 +81,6 @@ class Neo4jArticleTool(BaseTool):
             art.keywords = $keywords,
             art.entities = $entities,
             art.metadata = $metadata,
-            art.pulisher = $publisher,
             art.story = $story,
             art.embedding = $embedding  // store the embedding
 

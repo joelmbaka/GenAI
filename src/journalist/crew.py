@@ -36,7 +36,6 @@ class Journalist():
         """Twitter Analysis Agent"""
         return Agent(
             config=self.agents_config['twitter_analysis_agent'],
-            tools=[TwitterScraper()],
             max_iter=os.getenv("MAX_ITER_TWITTER_AGENT", 1)
         )
     @agent
@@ -44,7 +43,6 @@ class Journalist():
         """News Reporter Agent"""
         return Agent(
             config=self.agents_config['news_reporter_agent'],
-            tools=[Neo4jArticleTool()],
             max_iter=os.getenv("MAX_ITER_NEWS_AGENT", 1)
         )
 
@@ -65,6 +63,7 @@ class Journalist():
         """Twitter Scrape Task"""
         return Task(
             config=self.tasks_config['twitter_scrape_task'],
+            tools=[TwitterScraper()],
         )
     @task
     def twitter_sentiment_task(self) -> Task:
@@ -84,7 +83,9 @@ class Journalist():
         """Push Article to Neo4j Task"""
         return Task(
             config=self.tasks_config['push_article_to_neo4j_task'],
+            tools=[Neo4jArticleTool()],
         )
+
     @crew
     def crew(self) -> Crew:
         """Creates the Journalist crew"""

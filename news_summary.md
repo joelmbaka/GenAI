@@ -1,28 +1,32 @@
-**Ukraine News Summary**
-==========================
+**Justin Muturi News Summary**
+===============================
 
 ### Overview
 
-The Ukraine-Russia conflict has been ongoing for years, with various attempts at ceasefires and peace talks. The recent development involves the US imposing tariffs on several countries, excluding Russia, which has sparked reactions from world leaders.
+Former Public Service Cabinet Secretary Justin Muturi has made explosive allegations against President William Ruto, accusing him of corruption and overseeing corrupt dealings behind the scenes while publicly preaching integrity.
 
-### Article 1: Trump's tariffs are a longtime goal fulfilled - and his biggest gamble yet (BBC)
+### Article 1: "'Irredeemably corrupt': Muturi drops bombshell linking President Ruto to shady multi-billion deals"
 
-In this article, the president of the United States, Donald Trump, has fulfilled his longtime goal of imposing tariffs on several countries, excluding Russia. The move is seen as a gamble, with Trump urging Americans to trust his instincts. The article highlights the potential consequences of this decision, including a trade war.
+* Muturi accused Ruto of being "irredeemably corrupt" and portraying a dual character - one for the public and another in private.
+* He alleged that Ruto attempted to arm-twist him to hurriedly sign a Ksh.129 billion deal with Russian Oligarchs on planting trees, which would have contravened the law.
+* Muturi also weighed in on the Arror and Kimwarer scandal, a project where the government secured a loan worth Ksh.63 billion from an Italian Company, CMC di Ravenna, but there were discrepancies regarding the actual cost, quality of work and accountability.
 
-### Article 2: UK to keep pushing for deal after Trump imposes 10% tariff (BBC)
+### Article 2: "Muturi Accuses Ruto of Corruption in Explosive Tell-All Interview"
 
-The UK business secretary has reacted to Trump's tariffs, stating that "no one wants a trade war" but "nothing is off the table." The article discusses the UK's stance on the issue and the potential impact on trade relations.
+* Muturi claimed that Ruto tried to pressure him into approving a Sh129 billion deal with Russian investors to fund a tree-planting initiative.
+* He alleged that the president called him during COP28 in Dubai, urging him to sign documents authorising the deal at the airport - an action Muturi refused, citing legal and procedural concerns.
+* Muturi also linked Ruto to the controversial Arror and Kimwarer dam projects, for which the government secured a Ksh.63 billion loan from the Italian firm CMC di Ravenna.
 
-### Article 3: World leaders call Trump tariffs 'wrong' and 'unjustified' (BBC)
+### Article 3: "Golden exit: The perks awaiting Justin Muturi after dismissal from Cabinet"
 
-This article reports on the reactions of world leaders to Trump's tariffs, with Italy's Giorgia Meloni and Australia's Anthony Albanese calling them "wrong" and "unjustified." The article highlights the concerns of world leaders regarding the potential consequences of the tariffs.
+* This article does not provide new information about Muturi's allegations against Ruto.
 
 ### Key Insights and Conclusions
 
-The Ukraine-Russia conflict is still ongoing, with various attempts at ceasefires and peace talks. The recent development involves the US imposing tariffs on several countries, excluding Russia, which has sparked reactions from world leaders. The move is seen as a gamble, with potential consequences including a trade war. World leaders have expressed concerns regarding the tariffs, calling them "wrong" and "unjustified."
+Justin Muturi has made serious allegations against President William Ruto, accusing him of corruption and overseeing corrupt dealings behind the scenes. Muturi alleged that Ruto attempted to pressure him into approving shady deals, including a Ksh.129 billion deal with Russian investors and the controversial Arror and Kimwarer dam projects.
 
 ### Source References
 
-* "Trump's tariffs are a longtime goal fulfilled - and his biggest gamble yet" by BBC, 2 hours ago, https://www.bbc.com/news/world/europe/ukraine
-* "UK to keep pushing for deal after Trump imposes 10% tariff" by BBC, 57 minutes ago, https://www.bbc.com/news/world/europe/ukraine
-* "World leaders call Trump tariffs 'wrong' and 'unjustified'" by BBC, 1 hour ago, https://www.bbc.com/news/world/europe/ukraine
+* "Irredeemably corrupt': Muturi drops bombshell linking President Ruto to shady multi-billion deals" by Brian Kimani, Citizen Digital, April 04, 2025
+* "Muturi Accuses Ruto of Corruption in Explosive Tell-All Interview" by EDITORIAL DESK, Capital FM, April 4, 2025
+* "Golden exit: The perks awaiting Justin Muturi after dismissal from Cabinet" by The Standard, April 3, 2025

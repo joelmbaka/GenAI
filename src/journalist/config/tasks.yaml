@@ -3,12 +3,10 @@ web_search_task:
     Perform targeted Google news searches for {google_query} using Serper Dev Tool.
     Focus on finding the most recent and relevant news articles (last 24 hours) from credible sources.
     Current timestamp is {timestamp}.
-    The user has this in mind: {my_thoughts}.
     Select the best 3 articles based on:
     - Relevance to the topic
     - Source credibility (prefer established news outlets)
     - Publication date (prioritize most recent)
-    - Content quality indicators (length, depth, citations)
   expected_output: >
     A structured JSON object containing:
     - selected_articles: Array of 2-3 articles with metadata:
@@ -28,11 +26,13 @@ web_search_task:
   constraints:
     - max_results: 3
     - min_word_count: 500
-    - allowed_domains: [nytimes.com, bbc.com, reuters.com, apnews.com, standardmedia.co.ke, citizen.digital, foxnews.com]  # Example of trusted sources
+    - allowed_domains: [nytimes.com, bbc.com, reuters.com, apnews.com, standardmedia.co.ke, citizen.digital, foxnews.com]
 
 read_and_summarize_task:
   description: >
-    Analyze and summarize content from 2-3 articles got from the web_search_task.
+    Use web_scraper tool to scrape the content from the web_search_task.
+    Analyze and summarize content from 2-3 articles in markdown format.
+    If you are blocked from accessing a webpage or get 403, 404 or 500 error, skip the article and continue with the next one.
     Extract key information and create a comprehensive news summary including:
     - Main points and arguments
     - Important facts and figures
@@ -62,8 +62,8 @@ twitter_scrape_task:
   description: >
     Scrape {max_tweets} tweets about {twitter_query} using the Twitter Scraper tool.
     Collect metadata including content, user, timestamp, and engagement metrics.
-    Set is_hashtag={is_hashtag} and the user has this in mind: {my_thoughts}.
-    Structure your query to meet the user's needs.
+    Set is_hashtag={is_hashtag}.
+    Return a structured JSON object containing scraped tweets.
   expected_output: >
     A structured JSON object containing scraped tweets:
     - tweets: Array of tweets with metadata:
@@ -82,37 +82,41 @@ twitter_scrape_task:
 twitter_sentiment_task:
   description: >
     Analyze the sentiment of tweets collected in the twitter_scrape_task.
-    Address the user's thoughts: {my_thoughts}.
+    Whether positive, negative or neutral.
+    Refer to specific tweets using the format: 'ttps://x.com/user/status/tweetID'
+    Return a sentiment analysis report in markdown format.
   expected_output: >
     A structured sentiment analysis report in Markdown format that addresses the user's thoughts: {my_thoughts}.
   agent: twitter_analysis_agent
   context: [twitter_scrape_task]
   output_file: twitter_sentiment_analysis.md
   constraints:
+    - sentiment_analysis: true
 
 news_reporting_task:
   description: >
-    Report on the latest news about {google_query} and ensure it matches user's thoughts: {my_thoughts}.
+    Combine your findings from read_and_summarize_task and twitter_sentiment_task to write a news story about {google_query}.
+    Return a news article that will be published on 254 News website in markdown format.
   expected_output: >
-    A structured news report in Markdown format that captures the whole story and addresses the user's thoughts.
-    Remember these:
-    - base categories: {category}
-    - sub categories: {subcategory}
-    - authors: {authors}
+    A structured news article in Markdown format that captures the whole story and addresses the user's thoughts.
+    Fetch category, subcategories and authors from the Category dictionary: {category}
     - story: {story}
-    - publisher: 'Kenya24'
+    - publisher: '254 News'
   agent: news_reporter_agent
-  context: [twitter_sentiment_task, read_and_summarize_task]
+  context: [read_and_summarize_task, twitter_sentiment_task]
   output_file: news_report.md
   constraints:
     - summary_length: 300-500 words for content
     - include_source_analysis: true
     - include_key_quotes: true
-    
+
 push_article_to_neo4j_task:
   description: >
     Push the article to the Neo4j database.
+    All article fields must be filled.
+    Return a confirmation message with the article title, category, subcategory and author.
   expected_output: >
     A confirmation message that the article has been pushed to the Neo4j database.
+    Please include the following: article title, category, subcategory and author.
   agent: news_reporter_agent
   context: [news_reporting_task]

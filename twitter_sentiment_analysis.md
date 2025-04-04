@@ -1,32 +1,27 @@
-## Sentiment Analysis Report: Ukraine News, Russia, and US Ceasefire
-### Overview
-This report presents a sentiment analysis of tweets related to Ukraine news, Russia, and the US proposal for a ceasefire, within the last 24 hours. The analysis aims to provide insights into public opinion on the recent developments in the conflict.
+# Sentiment Analysis Report: Justin Muturi on Fixing the Nation NTV Interview
 
-### Sentiment Distribution
-The sentiment distribution of the tweets is as follows:
+## Overview
+The sentiment analysis report provides insights into the public opinion of Justin Muturi's interview on Fixing the Nation NTV. Our analysis is based on a dataset of 10 tweets collected on April 4, 2025.
 
-| Sentiment | Percentage |
-| --- | --- |
-| Negative | 60% |
-| Neutral | 30% |
-| Positive | 10% |
+## Sentiment Breakdown
+The sentiment breakdown is as follows:
 
-### Key Findings
-The sentiment analysis reveals that the majority of tweets (60%) express negative sentiments towards the recent developments in the conflict. Many users are critical of Russia's actions and the lack of progress in ceasefire negotiations.
+* **Negative**: 70% (7 tweets)
+* **Neutral**: 30% (3 tweets)
 
-### Trends and Topics
-The following trends and topics emerged from the analysis:
+## Key Findings
+1. The majority of the tweets (70%) expressed a negative sentiment towards Justin Muturi's statements about William Ruto, labeling him as "unfit to be President" and "irredeemably corrupt".
+2. The negative tweets were characterized by strong language, with words like "dangerous", "scary", and "corrupt" being used to describe Ruto.
+3. The neutral tweets (30%) mainly reported on Muturi's statements without expressing a clear opinion.
 
-* **Russia's refusal to accept US ceasefire proposals**: Many tweets express frustration and disappointment with Russia's decision to reject the US proposals for a ceasefire in Ukraine.
-* **US sanctions against Russia**: There is a significant discussion around the potential imposition of new sanctions against Russia if they fail to comply with ceasefire negotiations.
-* **Trump's involvement**: President Trump's role in the conflict is a topic of discussion, with some users praising his efforts to negotiate a ceasefire and others criticizing his approach.
+## Tweet Highlights
+1. **ttps://x.com/NationAfrica/status/1908060875216265392**: "Justin Muturi: William Ruto is unfit to be the President of Kenya."
+2. **ttps://x.com/smutoro/status/1908116302872416730**: "Justin Muturi repeats the \"unfit to be President \" remarks made by Uhuru on Ruto"
+3. **ttps://x.com/georgenjoroge_/status/1908088695489536435**: "It’s scary to listen to Justin Muturi "
 
-### Influential Voices
-The following users are identified as influential voices in the conversation:
+## Influential Voices
+1. **@NationAfrica**: With 529 likes and 185 retweets, this tweet from Nation Africa was one of the most engaging, highlighting Muturi's statement about Ruto's fitness for presidency.
+2. **@smutoro**: This user's tweet about Muturi repeating Uhuru's remarks gained significant traction, with 561 likes and 166 retweets.
 
-* **@SkyNews**: A news organization with a significant following, providing updates on the conflict.
-* **@defense_civil25**: An individual with a strong opinion on the conflict, frequently sharing updates and opinions.
-* **@DagnyTaggart963**: A user who shared a significant update on Trump's stance on Russian assets.
-
-### Conclusion
-The sentiment analysis reveals a predominantly negative sentiment towards the recent developments in the conflict. The trends and topics identified highlight the complexity of the issue and the various perspectives involved. The influential voices listed above play a significant role in shaping the conversation around the conflict.
+## Conclusion
+The sentiment analysis report indicates that the majority of the Twitter audience responded negatively to Justin Muturi's statements about William Ruto's fitness for presidency. The negative sentiment was fueled by strong language and a perceived attack on Ruto's character.
