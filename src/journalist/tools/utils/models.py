@@ -127,7 +127,10 @@ class ArticleModel(BaseModel):
     author: str = Field(default="", description="The name of the writer based on the category")
     summary: str = Field(default="", description="A brief summary or abstract of the article's main points")
     keywords: List[str] = Field(default_factory=list, description="List of relevant keywords or tags associated with the article")
-    featured_image: str = Field(default="", description="URL of the main image associated with the article")
+    imageUrl: str = Field(default="", description="URL of the main image associated with the article")
+    thumbnailUrl: str = Field(default="", description="URL of the thumbnail version of the image (recommended size: 300x168 pixels)")
+    imageSource: str = Field(default="", description="The source/attribution for the featured image")
+    imageTitle: str = Field(default="", description="The original title of the featured image")
     entities: List[str] = Field(
         default_factory=list,
         description="List of named entities in format 'type:value' extracted from the article, e.g. 'Country:United States', 'Person:William Ruto'"
@@ -146,8 +149,10 @@ class ArticleModel(BaseModel):
         markdown = f"# {self.title}\n\n"
         if self.story:
             markdown += f"**Story:** {self.story}\n\n"
-        if self.featured_image:
-            markdown += f"![Featured Image]({self.featured_image})\n\n"
+        if self.imageUrl:
+            markdown += f"![Featured Image]({self.imageUrl})\n\n"
+            if self.imageSource or self.imageTitle:
+                markdown += f"*Image: {self.imageTitle or ''} {f'© {self.imageSource}' if self.imageSource else ''}*\n\n"
         if self.author:
             markdown += f"**By {self.author}**\n\n"
         if self.summary:

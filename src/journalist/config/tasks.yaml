@@ -1,7 +1,7 @@
 web_search_task:
   description: >
-    Perform targeted Google news searches for {google_query} using Serper Dev Tool.
-    Focus on finding the most recent and relevant news articles (last 24 hours) from credible sources.
+    Perform a targeted Google news search for {google_query} using News Search Tool.
+    Focus on finding the most recent and relevant news articles (last 24 hours if possible) from credible sources.
     Current timestamp is {timestamp}.
     Select the best 3 articles based on:
     - Relevance to the topic
@@ -11,52 +11,44 @@ web_search_task:
     A structured JSON object containing:
     - selected_articles: Array of 2-3 articles with metadata:
       * title
-      * url
-      * source
-      * date
+      * link
       * snippet
-      * imageUrl
-    - search_parameters: The original search parameters used
+      * date
+      * source
+      * position
+    - search_parameters: The original search parameters you used if any
       * query
       * date_range
       * language
       * country
   agent: web_research_agent
   output_file: web_search_results.json
-  constraints:
-    - max_results: 3
-    - min_word_count: 500
-    - allowed_domains: [nytimes.com, bbc.com, reuters.com, apnews.com, standardmedia.co.ke, citizen.digital, foxnews.com]
 
 read_and_summarize_task:
   description: >
-    Use web_scraper tool to scrape the content from the web_search_task.
+    Use Scrape Website Tool to visit URLs of relevant websites.
     Analyze and summarize content from 2-3 articles in markdown format.
-    If you are blocked from accessing a webpage or get 403, 404 or 500 error, skip the article and continue with the next one.
     Extract key information and create a comprehensive news summary including:
     - Main points and arguments
     - Important facts and figures
     - Relevant quotes or statements
     - Source credibility assessment
     - Potential biases or limitations
+    NOTE: If you are blocked from accessing a webpage or get 403, 404 or 500 error, skip the article and continue with the next one.
   expected_output: >
     A structured news report in Markdown format containing:
     1. Overview of the topic
-    2. Summary of findings from each article (2-3 paragraphs per article)
+    2. Summary of findings from each article you read (2-3 paragraphs per article)
     3. Key insights and conclusions
     4. Source references with:
        * Title
        * URL
        * Publication date
        * Source name
-    The report should be 300-500 words, written in journalistic style.
+    The report should be at least 500 words, written in journalistic style.
   agent: web_research_agent
   context: [web_search_task]
   output_file: news_summary.md
-  constraints:
-    - summary_length: 300-500 words
-    - include_source_analysis: true
-    - include_key_quotes: true
 
 twitter_scrape_task:
   description: >
@@ -83,40 +75,72 @@ twitter_sentiment_task:
   description: >
     Analyze the sentiment of tweets collected in the twitter_scrape_task.
     Whether positive, negative or neutral.
-    Refer to specific tweets using the format: 'ttps://x.com/user/status/tweetID'
+    Refer to specific tweets using the format: 'https://x.com/user/status/tweetID'
     Return a sentiment analysis report in markdown format.
+    At least 300 words.
   expected_output: >
     A structured sentiment analysis report in Markdown format that addresses the user's thoughts: {my_thoughts}.
   agent: twitter_analysis_agent
   context: [twitter_scrape_task]
-  output_file: twitter_sentiment_analysis.md
-  constraints:
-    - sentiment_analysis: true
+  output_file: twitter_sentiment_analysis
+
+image_search_task:
+  description: >
+    Use Image Search Tool to find the most suitable imageUrl and thumbnailUrl for our news article.
+    Search for {google_query}.
+    Select an image with dimensions:
+      min: 800x450 pixels (16:9 aspect ratio)
+      max: 1200x800 pixels (3:2 aspect ratio)
+    Consider these criteria:
+      1. Title Relevance: Select an image with a title that closely matches our article topic
+      2. Source Reputation: Prioritize images from established news sources (Reuters, AP, BBC, CNN)
+      3. Visual Quality: Choose images with good composition, lighting, and clarity
+      4. Ethical Standards: Avoid images that are excessively graphic, misleading, or inappropriate
+      5. Recency: Prefer recent images related to the current events being covered
+    The image should enhance the article's storytelling and maintain journalistic integrity.
+  expected_output: >
+    A JSON object containing:
+      - title: The image title
+      - imageUrl: The selected image URL
+      - imageWidth: Width in pixels
+      - imageHeight: Height in pixels
+      - thumbnailUrl: The thumbnail URL
+      - thumbnailWidth: Thumbnail width in pixels
+      - thumbnailHeight: Thumbnail height in pixels
+      - source: The image source/attribution
+  agent: news_reporter_agent
 
 news_reporting_task:
   description: >
-    Combine your findings from read_and_summarize_task and twitter_sentiment_task to write a news story about {google_query}.
-    Return a news article that will be published on 254 News website in markdown format.
+    Combine your findings from read_and_summarize_task,twitter_sentiment_task and image_search_task to write a news story about {google_query} that will be published on our website.
+    It should be in markdown format.
+    Content at least 300 words.
+    Thoughts: {my_thoughts}
   expected_output: >
     A structured news article in Markdown format that captures the whole story and addresses the user's thoughts.
     Fetch category, subcategories and authors from the Category dictionary: {category}
     - story: {story}
     - publisher: '254 News'
   agent: news_reporter_agent
-  context: [read_and_summarize_task, twitter_sentiment_task]
+  context: [read_and_summarize_task, twitter_sentiment_task, image_search_task]
   output_file: news_report.md
-  constraints:
-    - summary_length: 300-500 words for content
-    - include_source_analysis: true
-    - include_key_quotes: true
 
 push_article_to_neo4j_task:
   description: >
     Push the article to the Neo4j database.
     All article fields must be filled.
+    IMPORTANT: You must wrap the article data inside a field called article.
+    The structure should be a JSON object with one key named article.
+    This article key should contain all your article data as its value.
+    Do not directly pass the article data - it must be nested under article.
+    
+    For image URLs, make sure they do not contain query parameters like quality or width.
+    Remove any parameters from image URLs (everything after the ? character).
+    For example, change "image.jpg?width=800&quality=80" to just "image.jpg".
+    
     Return a confirmation message with the article title, category, subcategory and author.
   expected_output: >
     A confirmation message that the article has been pushed to the Neo4j database.
-    Please include the following: article title, category, subcategory and author.
+    Please include the following: article title, category, subcategory and author, image_url, thumbnail_url etc.
   agent: news_reporter_agent
   context: [news_reporting_task]

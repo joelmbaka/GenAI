@@ -1,12 +1,13 @@
 from crewai import Agent, Crew, Process, Task, LLM
 from crewai.project import CrewBase, agent, crew, task
 from journalist.tools.twitter_scraper import TwitterScraper
-from journalist.tools.serper_dev import SerperDevTool
-from journalist.tools.web_scraper import WebScraper
+from journalist.tools.news_search_tool import NewsSearchTool
+from journalist.tools.scrape_website_tool import ScrapeWebsite
 import os
 from dotenv import load_dotenv
 from journalist.tools.utils.models import ArticleModel
 from journalist.tools.neo4j_article_tool import Neo4jArticleTool
+from journalist.tools.image_search_tool import ImageSearchTool
 
 load_dotenv()
 
@@ -28,7 +29,6 @@ class Journalist():
         """Web Research Agent"""
         return Agent(
             config=self.agents_config['web_research_agent'],
-            tools=[SerperDevTool(), WebScraper()],
             max_iter=os.getenv("MAX_ITER_WEB_AGENT", 1)
         )
     @agent
@@ -50,13 +50,15 @@ class Journalist():
     def web_search_task(self) -> Task:
         """Web Search Task"""
         return Task(
-            config=self.tasks_config['web_search_task']
+            config=self.tasks_config['web_search_task'],
+            tools=[NewsSearchTool()]
         )
     @task
     def read_and_summarize_task(self) -> Task:
         """Read and Summarize Task"""
         return Task(
-            config=self.tasks_config['read_and_summarize_task']
+            config=self.tasks_config['read_and_summarize_task'],
+            tools=[ScrapeWebsite()]
         )
     @task
     def twitter_scrape_task(self) -> Task:
@@ -71,6 +73,13 @@ class Journalist():
         return Task(
             config=self.tasks_config['twitter_sentiment_task'],
         )
+    @task
+    def image_search_task(self) -> Task:
+        """Featured Image Search"""
+        return Task(
+            config=self.tasks_config["image_search_task"],
+            tools=[ImageSearchTool()],
+        )    
     @task
     def news_reporting_task(self) -> Task:
         """News Reporting Task"""

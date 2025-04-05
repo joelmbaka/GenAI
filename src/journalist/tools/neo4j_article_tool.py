@@ -76,13 +76,16 @@ class Neo4jArticleTool(BaseTool):
         SET art.publishedAt = datetime({timezone: '+03:00'})
 
         // Set any additional properties
-        SET art.featured_image = $featured_image,
+        SET art.imageUrl = $imageUrl,
+            art.thumbnailUrl = $thumbnailUrl,
+            art.imageSource = $imageSource,
+            art.imageTitle = $imageTitle,
             art.summary = $summary,
             art.keywords = $keywords,
             art.entities = $entities,
             art.metadata = $metadata,
             art.story = $story,
-            art.embedding = $embedding  // store the embedding
+            art.embedding = $embedding
 
         // Create relationships
         MERGE (art)-[:BELONGS_TO]->(c)
@@ -101,7 +104,10 @@ class Neo4jArticleTool(BaseTool):
                     "title": article_dict['title'],
                     "content": article_dict['content'],
                     "publisher": article_dict['publisher'],
-                    "featured_image": article_dict['featured_image'],
+                    "imageUrl": article_dict.get('imageUrl', ''),
+                    "thumbnailUrl": article_dict.get('thumbnailUrl', ''),
+                    "imageSource": article_dict.get('imageSource', ''),
+                    "imageTitle": article_dict.get('imageTitle', ''),
                     "summary": article_dict['summary'],
                     "keywords": article_dict['keywords'],
                     "entities": article_dict['entities'],
