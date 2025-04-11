@@ -5,8 +5,9 @@ from my_journalistic_crew.tools.twitter_scraper import TwitterScraper
 from my_journalistic_crew.tools.news_search_tool import NewsSearchTool
 from my_journalistic_crew.tools.image_search_tool import ImageSearchTool
 from my_journalistic_crew.tools.scrape_website_tool import ScrapeWebsite
-from my_journalistic_crew.models.ArticleModel import DraftArticle, FinalArticle
+from my_journalistic_crew.tools.tweet_screenshot_tool import TweetScreenshotTool
 from my_journalistic_crew.tools.image_analysis_tool import ImageAnalysisTool
+from my_journalistic_crew.models.ArticleModel import DraftArticle, FinalArticle
 from my_journalistic_crew.tools.neo4j_article_tool import Neo4jArticleTool
 from crewai.project import CrewBase, agent, crew, task
 from crewai import Agent, Crew, Process, Task, LLM
@@ -23,14 +24,14 @@ class MyJournalisticCrew():
     """Journalist crew"""
     agents_config = 'config/agents.yaml'
     tasks_config = 'config/tasks.yaml'
-    #the people: scraper, writer, publisher
+    #the people: researcher, writer, editor
     @agent
     def researcher(self) -> Agent:
-        """scrape raw content from html websites and web apps"""
+        """conduct research on the internet to find relevant sources"""
         return Agent(
             config=self.agents_config['researcher'],
             respect_context_window=True,
-            max_iterations=1,
+            max_iterations=2,
             verbose=True,
             )
     @agent
@@ -39,12 +40,12 @@ class MyJournalisticCrew():
         return Agent(
             config=self.agents_config['writer'],
             respect_context_window=True,
-            max_iterations=4,
+            max_iterations=5,
             verbose=True,
             )
     @agent
     def editor(self) -> Agent:
-        """review and publish articles to neo4j database"""
+        """prepare and publish articles to neo4j database"""
         return Agent(
             config=self.agents_config['editor'],
             respect_context_window=True,
@@ -92,7 +93,7 @@ class MyJournalisticCrew():
            )
     @task
     def select_image(self) -> Task:
-        """select a suitable image and thumbnail using its title and recency to match our story"""
+        """select a suitable image and thumbnail using image analysis tool"""
         return Task(
             config=self.tasks_config['select_image'],
             tools=[ImageAnalysisTool()],

@@ -44,7 +44,7 @@ class FinalArticle(BaseModel):
     imageSource: str = Field(default="", description="The source/attribution for the featured image")
     imageTitle: str = Field(default="", description="The original title of the featured image")
     publisher: str = Field(
-        default="Joelmbaka",
+        default="joelmbaka.site",
         description="The publisher of the article"
     )
     breaking_news: bool = Field(

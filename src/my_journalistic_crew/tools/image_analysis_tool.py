@@ -1,9 +1,10 @@
 from crewai.tools import BaseTool
-from typing import Type
+from typing import Type, Optional
 from pydantic import BaseModel, Field
 import requests
 import base64
 import io
+import os
 from PIL import Image
 from dotenv import load_dotenv
 
@@ -12,25 +13,39 @@ load_dotenv()
 
 class ImageAnalysisInput(BaseModel):
     """Input schema for ImageAnalysisTool."""
-    image_url: str = Field(..., description="URL of the image to analyze.")
+    image_url: Optional[str] = Field(None, description="URL of the image to analyze. Either image_url or image_path must be provided.")
+    image_path: Optional[str] = Field(None, description="Local file path of the image to analyze. Either image_url or image_path must be provided.")
 
 class ImageAnalysisTool(BaseTool):
     name: str = "Image Analysis Tool"
     description: str = (
-        "Analyzes an image from a given URL and provides a detailed description of its contents."
+        "Analyzes an image from a given URL or local file path and provides a detailed description of its contents."
     )
     args_schema: Type[BaseModel] = ImageAnalysisInput
 
-    def _run(self, image_url: str) -> str:
+    def _run(self, image_url: Optional[str] = None, image_path: Optional[str] = None) -> str:
         try:
-            # Download the image from the URL
-            response = requests.get(image_url)
-            response.raise_for_status()
+            # Check that at least one input is provided
+            if not image_url and not image_path:
+                return "Error: Either image_url or image_path must be provided."
             
-            # Convert to base64
-            image_data = response.content
+            # Load the image data
+            if image_url:
+                # Download the image from the URL
+                print(f"Loading image from URL: {image_url}")
+                response = requests.get(image_url)
+                response.raise_for_status()
+                image_data = response.content
+            else:
+                # Load the image from the local file path
+                print(f"Loading image from local path: {image_path}")
+                if not os.path.exists(image_path):
+                    return f"Error: Image file not found at {image_path}"
+                
+                with open(image_path, "rb") as f:
+                    image_data = f.read()
             
-            # Always resize image to 600x600
+            # Process the image
             img = Image.open(io.BytesIO(image_data))
             
             # Convert RGBA to RGB if necessary (handle transparent PNGs)
@@ -48,6 +63,10 @@ class ImageAnalysisTool(BaseTool):
             buffered = io.BytesIO()
             img_resized.save(buffered, format="JPEG", quality=70)  # Using 70% quality
             image_b64 = base64.b64encode(buffered.getvalue()).decode()
+            
+            # Check base64 size
+            if len(image_b64) >= 180_000:
+                print(f"Warning: Base64 image size is large ({len(image_b64)} bytes). Consider further reducing the image.")
             
             # Call the NVIDIA API
             invoke_url = "https://integrate.api.nvidia.com/v1/chat/completions"
@@ -71,6 +90,7 @@ class ImageAnalysisTool(BaseTool):
                 "stream": False
             }
             
+            print("Sending request to NVIDIA API...")
             api_response = requests.post(invoke_url, headers=headers, json=payload)
             api_response.raise_for_status()
             result = api_response.json()

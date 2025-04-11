@@ -1,42 +1,51 @@
 {
   "tweets": [
     {
-      "id": "1910010527620739567",
-      "content": "Nyeri Resident: The President visited Mt. Kenya for political reasons. There was no need to ferry people from Mathira just to watch him inspect the affordable housing project.\n#ThePeopleDialogue",
-      "author": {
-        "name": "K24Tv",
-        "handle": "@K24Tv",
-        "verification_status": "verified"
-      },
-      "timestamp": "2025-04-09T16:42:50.000Z",
-      "engagement_metrics": {
-        "likes": 68,
-        "retweets": 17,
-        "replies": 0
-      },
-      "has_media": false,
-      "sentiment": "negative",
-      "key_themes": ["affordable housing", "politics"]
+      "tweet_id": "1910575149432111202",
+      "content": " Head of Siemens killed in NYC helicopter crash\n\nA private sightseeing helicopter crashed into the Hudson River near Manhattan. On board was Siemens CEO Agustin Escobar \u2014 he died along with his wife and three children.\n\nBefore impact, the chopper lost its tail boom and main",
+      "user": "@nexta_tv",
+      "timestamp": "2025-04-11T06:06:27.000Z",
+      "likes": 905,
+      "retweets": 291,
+      "has_photos": true
     },
     {
-      "id": "1910562263385113011",
-      "content": "Dagoretti residents face eviction over affordable housing construction https://ow.ly/qlaU50VyHKy",
-      "author": {
-        "name": "NTV Kenya",
-        "handle": "@ntvkenya",
-        "verification_status": "verified"
-      },
-      "timestamp": "2025-04-11T05:15:14.000Z",
-      "engagement_metrics": {
-        "likes": 45,
-        "retweets": 10,
-        "replies": 0
-      },
-      "has_media": true,
-      "sentiment": "neutral",
-      "key_themes": ["affordable housing", "eviction"]
+      "tweet_id": "1910426951879450932",
+      "content": "This is the helicopter before crashing, you can see the pilot was doing very dangerous maneuvers that the helicopter could not eventually handle. #hudsonriver",
+      "user": "@ScummyMummy511",
+      "timestamp": "2025-04-10T20:17:34.000Z",
+      "likes": 524,
+      "retweets": 111,
+      "has_photos": false
+    },
+    {
+      "tweet_id": "1910431595552526537",
+      "content": " #BREAKING: Helicopter crashes into Hudson River near NYC. 6 on board\u2014pilot + 5 tourists from Spain (2 adults, 3 kids). At least 3 dead. FDNY performed CPR on a child; survivors in grave condition. Witnesses saw chopper split in two. #NYC #HudsonRiver\n\nOn April 10, 2025, a",
+      "user": "@ProjectConstitu",
+      "timestamp": "2025-04-10T20:36:01.000Z",
+      "likes": 248,
+      "retweets": 195,
+      "has_photos": false
+    },
+    {
+      "tweet_id": "1910432437995262445",
+      "content": "Doesn't look good here on this helicopter crash into the Hudson.\nMain rotor/s might be gone, tail rotor section is gone.\nDropped like a rock.\nR.I.P.",
+      "user": "@Brick_Suit",
+      "timestamp": "2025-04-10T20:39:21.000Z",
+      "likes": 488,
+      "retweets": 102,
+      "has_photos": false
+    },
+    {
+      "tweet_id": "191043583904723"
+      "content": "BREAKING: 6 dead in Hudson River helicopter crash, per AP. Witnesses say the chopper\u2019s blade \"flew off\" before it plummeted near the Holland Tunnel. Passengers were on a family vacation touring NYC. Devastating.",
+      "user": "@DKH013",
+      "timestamp": "2025-04-10T20:52:52.000Z",
+      "likes": 135,
+      "retweets": 108,
+      "has_photos": false
     }
   ],
-  "overall_sentiment": "mixed",
-  "key_themes": ["affordable housing", "politics", "eviction"]
+  "trend": "chopper crash in hudson",
+  "count": 5
 }

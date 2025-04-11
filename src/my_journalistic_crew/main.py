@@ -19,7 +19,9 @@ def run():
     # Load environment variables
     
     inputs = {
-        "google_query": os.getenv("GOOGLE_QUERY", ""),
+        "google_query_1": os.getenv("GOOGLE_QUERY_1", ""),
+        "google_query_2": os.getenv("GOOGLE_QUERY_2", ""),
+        "google_query_3": os.getenv("GOOGLE_QUERY_3", ""),
         "country": os.getenv("COUNTRY", ""),
         "date_range": os.getenv("DATE_RANGE", ""),
         "twitter_query": os.getenv("TWITTER_QUERY", ""),

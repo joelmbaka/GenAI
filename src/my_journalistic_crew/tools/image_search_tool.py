@@ -16,6 +16,10 @@ class ImageSearchToolInput(BaseModel):
         default="en",
         description="Language code for search results (e.g., 'en' for English)."
     )
+    tbs: Optional[str] = Field(
+        default=None,
+        description="Date range for image results. Options: 'qdr:h' (past hour), 'qdr:d' (past 24h), 'qdr:w' (past week), 'qdr:m' (past month), 'qdr:y' (past year)"
+    )
     autocorrect: Optional[bool] = Field(
         default=True,
         description="Whether to automatically correct search query spelling."
@@ -29,7 +33,7 @@ class ImageSearchToolInput(BaseModel):
         description="Page number for pagination."
     )
     num: Optional[int] = Field(
-        default=5,
+        default=10,
         description="Number of image results to return."
     )
 
@@ -42,8 +46,8 @@ class ImageSearchTool(BaseTool):
     args_schema: Type[BaseModel] = ImageSearchToolInput
 
     def _run(self, q: str, gl: str = "us", hl: str = "en", 
-             autocorrect: bool = True, safe_search: bool = True, 
-             page: int = 1, num: int = 5) -> str:
+             tbs: Optional[str] = None, autocorrect: bool = True, safe_search: bool = True, 
+             page: int = 1, num: int = 10) -> str:
         """Execute an image search and return the results."""
         # Get API key from environment
         api_key = os.getenv("SERPER_API_KEY")
@@ -66,7 +70,8 @@ class ImageSearchTool(BaseTool):
             'autocorrect': autocorrect,
             'safe': safe_search,
             'page': page,
-            'num': num
+            'num': num,
+            'tbs': tbs
         }
         
         try:

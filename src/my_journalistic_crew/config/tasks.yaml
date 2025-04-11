@@ -1,119 +1,119 @@
 search_news:
   description: >
-    Perform a comprehensive news search about {google_query} in {country} from the past {date_range} to identify the most relevant, recent, and authoritative 
-    news articles on the specified topic using the Google News Search tool.
+    Use the Google News Search tool to perform comprehensive news searches about the provided query(ies), if any:
+    {google_query_1}, 
+    {google_query_2}, 
+    {google_query_3}, 
+    country(ies): {country} 
     
-    Your task is to:
-    1. Craft an effective search query that will capture the most relevant news articles
-    2. Filter results by recency to ensure timely information given current timestamp is {timestamp}
-    3. Prioritize articles from reputable news sources
-    4. Collect a diverse range of perspectives on the topic
-    5. Identify the main narratives and angles being covered
-    6. Note any breaking developments or trending subtopics
-    
-    Focus on finding high-quality journalism that provides context and depth 
-    rather than just superficial coverage.
   expected_output: >
-    A comprehensive collection of news search results including:
-    - Article titles, publication sources, and publication dates
-    - Article URLs for further investigation
-    - Brief snippets or summaries of each article
-    - Assessment of the main narratives emerging from the coverage
-    - Identification of the most authoritative sources covering the topic
+    A JSON structure containing news search results including:
+    - searchParameters: object containing q (query(ies)), type, and engine
+    - news: array of news items, each containing:
+      - title: article title
+      - link: article URL
+      - snippet: brief summary of article content
+      - date: publication date
+      - source: publication source
+      - position: ranking position in results
   agent: researcher
   output_file: z_output/search_news.json
 
 scrape_tweets:
   description: >
-    Research and collect {max_tweets} tweets about {twitter_query} using the Twitter scraper tool. Set is_hashtag={is_hashtag}
-    
-    Your task is to:
-    1. Navigate to Twitter and search for the specified query
-    2. Identify the most relevant and credible tweets about the topic
-    3. Collect a diverse range of perspectives and opinions
-    4. Focus on tweets from verified accounts and authoritative sources when possible
-    5. Capture engagement metrics (likes, retweets, replies) to understand content impact
-    6. Document the tweet content, author information, and timestamp
-    
-    Remember to prioritize tweets that provide substantive insights or information rather than 
-    just casual mentions. Look for threads that develop ideas in depth.
+    Use the Twitter scraper tool to scrape {max_tweets} tweets about {twitter_query},
+    Set is_hashtag={is_hashtag}
+    You dont have to do any analysis, just scrape the tweets
+
+    Return A structured JSON collection of scraped tweets including:
+    - tweets: array of tweet objects containing:
+      - tweet id
+      - content
+      - user
+      - timestamp
+      - likes
+      - retweets
+      - has_photos
+    - trend: the search query used
+    - count: total number of tweets collected
+  
   expected_output: >
-    A structured JSON collection of relevant tweets including:
-    - Tweet content with complete text
-    - Author information (name, handle, verification status)
-    - Engagement metrics
-    - Timestamps
-    - Has_media? (boolean)
-    - A brief assessment of the overall sentiment and key themes from the tweets
+    A structured JSON collection of scraped tweets in the following format:
+    {
+      "tweets": [
+        {
+          "tweet_id": "1234567890",
+          "content": "This is a tweet",
+          "user": "user123",
+          "timestamp": "2021-01-01 12:00:00",
+          "likes": 10,
+          "retweets": 5,
+          "has_photos": true
+        }
+      ]
+      "trend": "twitter_query",
+      "count": 10
+    }
   agent: researcher
   output_file: z_output/scrape_tweets.json
 
 search_images:
   description: >
-    Find relevant, high-quality images related to context that could be used to 
-    illustrate the news article. Use the Image Search Tool to locate images that 
-    accurately represent the story.
-    Your task is to:
-    1. Search for images that directly relate to the specified topic
-    2. Prioritize recent images that show the current state of the story
-    3. Look for images from reputable sources that can be properly attributed
-    4. Find images with good visual quality suitable for publishing
-    5. Collect both feature images (larger, detailed) and potential thumbnails
-    6. Ensure image content is journalistically appropriate and ethical
+    Use the Image Search Tool to find relevant, high-quality images related to the context that could be used to 
+    illustrate the news article.
+    search query: {google_query_1}
+    country(ies): {country} 
     
-    Focus on images that add informational value, not just decorative elements.
   expected_output: >
-    A curated collection of relevant images including:
-    - Image URLs (both full-size and thumbnail versions when available)
-    - Image titles or descriptions
-    - Source attribution information
-    - Image dimensions and quality indicators
-    - Brief context explaining the relevance of each image to the story
-    - Timestamps or dates when the images were taken if available
+    A JSON structure containing image search results including:
+    - searchParameters: object containing q (query), type, engine, and num
+    - images: array of image objects, each containing:
+      - title: image title or description
+      - imageUrl: URL of the full-size image
+      - imageWidth: width dimension of the full image
+      - imageHeight: height dimension of the full image
+      - thumbnailUrl: URL of the thumbnail version
+      - thumbnailWidth: width dimension of the thumbnail
+      - thumbnailHeight: height dimension of the thumbnail
+      - source: source website or attribution information
   agent: researcher
   output_file: z_output/search_images.json
-  context: [search_news]
 
 read_website:
   description: >
-    Extract and analyze the content from several news websites identified in the search_news task. 
-    Use the Scrape Website tool to thoroughly read and comprehend the articles.
+    Use the Scrape Website tool to extract raw html or text content from news websites identified in the search_news task. 
+    End Goal: {my_thoughts}
+    Use the end goal to determine the most relevant articles to read.
     
     Your task is to:
-    1. Visit each high-priority news URL identified in the search_news results
-    2. Extract the full article text, headline, and metadata
-    3. Identify the main claims, facts, and quotes in each article
-    4. Note the perspectives and sources cited in the reporting
-    5. Compare information across multiple sources to verify consistency
-    6. Identify unique insights or exclusive reporting from specific sources
-    
-    Focus on extracting factual information, important quotes, and identifying 
-    the most authoritative and comprehensive coverage.
-    Skip any webpages that output error messages e.g 403, 404, require cookies, or have strong bot restrictions.
+    1. Visit each high-priority news URL identified in the search_news results based on the end goal
+    2. Extract the full article HTML or text, headline, and metadata
+    3. Skip any webpages that output error messages e.g 403, 404, require cookies, or have strong bot restrictions.
+    4. Return the raw html or text content of each scraped website.
+  
   expected_output: >
-    Detailed extraction of content from key news sources including:
-    - Full article text with proper structure (paragraphs, sections)
-    - Headlines, subheadings, and article metadata
-    - Key quotes clearly attributed to their sources
-    - Main facts and claims presented in the articles
-    - Source credibility assessment
-    - Areas of consensus and disagreement across sources
-    - Analysis of depth and quality of coverage from each source
+    Raw HTML or text content of the scraped website. The output will be the full page content as a string, 
+    which could include:
+    {
+      "website_url": "https://www.example.com",
+      "content": "Raw HTML or text content of the website"
+    }
   agent: writer
   context: [search_news]
   output_file: z_output/read_website.json
 
 write:
   description: >
-    {my_thoughts} based on the research gathered
-    from news sources and social media. Synthesize the information into a cohesive narrative
+    Based on the research gathered from news sources and social media, 
+    {my_thoughts}. 
+    Synthesize the information into a cohesive narrative
     that presents the story accurately and completely.
     
     Your task is to:
     1. Create a compelling headline that accurately represents the content
     2. Write a concise summary that captures the essence of the story
     3. Develop a structured article with a clear introduction, body, and conclusion
-    4. Incorporate verified facts, quotes, and data from the research
+    4. Incorporate verified facts, quotes, dates,and data from the research
     5. Present multiple perspectives when the topic involves different viewpoints
     6. Maintain a neutral, objective tone adhering to journalistic standards
     7. Identify and extract relevant entities (people, organizations, locations) mentioned
@@ -131,15 +131,16 @@ write:
     - List of relevant keywords for SEO and categorization
     - Named entities extracted from the article
     - Content that meets journalistic standards for accuracy, fairness, and completeness
+    - Mention dates, time and financial constraints if necessary
+    
   agent: writer
   context: [read_website, scrape_tweets]
   output_file: z_output/write.json
 
 select_image:
   description: >
-    Select the most appropriate image to accompany the article from the collection 
-    gathered during the image_search task. Choose an image that best represents
-    the article's content and will engage readers.
+    Use the Image Analysis Tool and image title and description to select the most appropriate image to accompany the article from the collection gathered during the image_search task. 
+    Choose an image that best represents the article's content and will engage readers.
     
     Your task is to:
     1. Review 1-2 images(exclude thumbnails) collected during the image search
