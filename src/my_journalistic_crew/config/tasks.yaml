@@ -1,8 +1,7 @@
 search_news:
   description: >
-    Perform a comprehensive news search about {google_query} to identify the most relevant, recent, and authoritative 
+    Perform a comprehensive news search about {google_query} in {country} from the past {date_range} to identify the most relevant, recent, and authoritative 
     news articles on the specified topic using the Google News Search tool.
-    Prioritize articles from the last 24 hours.
     
     Your task is to:
     1. Craft an effective search query that will capture the most relevant news articles
@@ -54,10 +53,6 @@ search_images:
     Find relevant, high-quality images related to context that could be used to 
     illustrate the news article. Use the Image Search Tool to locate images that 
     accurately represent the story.
-    Preferrable dimensions:
-    - min: 800x450 pixels (16:9 aspect ratio)
-    - max: 1200x800 pixels (3:2 aspect ratio)
-    
     Your task is to:
     1. Search for images that directly relate to the specified topic
     2. Prioritize recent images that show the current state of the story
@@ -110,7 +105,7 @@ read_website:
 
 write:
   description: >
-    Craft a comprehensive, balanced, and engaging news article based on the research gathered
+    {my_thoughts} based on the research gathered
     from news sources and social media. Synthesize the information into a cohesive narrative
     that presents the story accurately and completely.
     
@@ -147,7 +142,7 @@ select_image:
     the article's content and will engage readers.
     
     Your task is to:
-    1. Review all images collected during the image search
+    1. Review 1-2 images(exclude thumbnails) collected during the image search
     2. Evaluate each image for relevance to the specific article angle
     3. Consider image quality, composition, and impact
     4. Ensure the image is recent and accurately represents the current situation
@@ -159,8 +154,7 @@ select_image:
     of the story, not just decorative value.
   expected_output: >
     A selection decision including:
-    - URL of the selected main image
-    - URL of the selected thumbnail image (or instructions for creating one)
+    - URL of the selected main image and its thumbnail
     - Make sure the image URLs do not contain query parameters like quality or width.
     - Remove any parameters from image URLs (everything after the ? character). For example, change "image.jpg?width=800&quality=80" to just "image.jpg".
     - Title/caption for the image

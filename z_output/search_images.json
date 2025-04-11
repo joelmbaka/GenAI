@@ -1,54 +1,59 @@
 {
   "images": [
     {
-      "imageUrl": "https://static.standard.co.uk/2025/04/11/7/34/mohamedsalah11042025a-jpg.jpeg?trim=296,0,1,0&quality=75&auto=webp&width=1000",
-      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGldM_A-Sc492VHnJ4PMJfJtuXrlD1_7FZwU2ELriaqtnjPFs&s",
-      "title": "Mohamed Salah signs new Liverpool FC contract in major boost to ...",
-      "source": "www.standard.co.uk",
-      "imageWidth": 1000,
-      "imageHeight": 625,
-      "context": "Recent image showing Mohamed Salah signing a new contract with Liverpool FC.",
-      "relevance": "High"
+      "title": "Affordable Housing Program - Boma Yangu",
+      "imageUrl": "https://eru.ecitizen.go.ke/assets/bomayangu/hero-slide-4-f04a4e37.jpg",
+      "imageWidth": 1920,
+      "imageHeight": 1317,
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRIJUp5Gg8QAfQGo7jlSXp-0HQ0hsnaMmfh71wiFFpwlXqBtsI&s",
+      "thumbnailWidth": 271,
+      "thumbnailHeight": 186,
+      "source": "www.bomayangu.go.ke",
+      "context": "This image shows a rendering of affordable housing units under the Boma Yangu program, a government initiative to provide affordable housing in Kenya. The image is relevant to the story as it illustrates the government's efforts in addressing the housing crisis."
     },
     {
-      "imageUrl": "https://images.ps-aws.com/c?url=https%3A%2F%2Fimages.teamtalk.com%2Fcontent%2Fuploads%2F2024%2F12%2F08083158%2Fliverpool-winger-mohamed-salah.jpg",
-      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS65p0upaiEMB6JOEk4vK48Bmi2RCVjcju4IdHHxsbkWM4dSjo&s",
-      "title": "Mo Salah: Liverpool ANNOUNCE new contract as superstar makes ...",
-      "source": "TEAMtalk",
-      "imageWidth": 1600,
-      "imageHeight": 900,
-      "context": "Image related to Mohamed Salah's new contract announcement by Liverpool FC.",
-      "relevance": "High"
-    },
-    {
-      "imageUrl": "https://i.guim.co.uk/img/media/76072b34f0a53c14a64a59cb51a551364a086805/0_57_1618_971/master/1618.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=8c099c65993d7089a552be936d3f87e3",
-      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs9vUp8EHXRe7FxSM-mLTdU1MKdbLjI3dfCr44wDoXB2x7a7Qy&s",
-      "title": "Mohamed Salah commits future to Liverpool by signing contract to ...",
-      "source": "The Guardian",
-      "imageWidth": 1200,
-      "imageHeight": 900,
-      "context": "Image showing Mohamed Salah committing his future to Liverpool by signing a new contract.",
-      "relevance": "High"
-    },
-    {
-      "imageUrl": "https://e0.365dm.com/24/12/1600x900/skysports-mohamed-salah-liverpool_6769091.jpg?20241207142622",
-      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRocKpGZwAp68MbjcAqOnQxYz4aphWeQlUZ3nWQ4dGjdmu_8pY&s",
-      "title": "Mohamed Salah: Liverpool forward commits future to club by signing ...",
-      "source": "Sky Sports",
-      "imageWidth": 1600,
-      "imageHeight": 900,
-      "context": "Image related to Mohamed Salah's commitment to Liverpool FC through his new contract.",
-      "relevance": "High"
-    },
-    {
-      "imageUrl": "https://ichef.bbci.co.uk/ace/standard/2560/cpsprodpb/d9de/live/58c41fd0-155f-11f0-8b33-1b3fa22562ab.jpg",
-      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSviMygiP3daRAgKAMOUT1cAVJWvHj1NMihJf7Az792LpQChNI&s",
-      "title": "Mohamed Salah: Liverpool getting closer to new contract for Egypt ...",
-      "source": "BBC",
+      "title": "Affordable Housing Program - Boma Yangu",
+      "imageUrl": "https://eru.ecitizen.go.ke/assets/bomayangu/hero-slide-1-b9c6b5e5-scaled.jpg",
       "imageWidth": 2560,
-      "imageHeight": 1440,
-      "context": "Image related to Mohamed Salah's contract negotiations with Liverpool FC.",
-      "relevance": "Medium"
+      "imageHeight": 1920,
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQgEJwY88oEwTGM_lt_1zu7ZSI9MwiKg8Klq08ApY8v6OQVw5Y&s",
+      "thumbnailWidth": 259,
+      "thumbnailHeight": 194,
+      "source": "www.bomayangu.go.ke",
+      "context": "Another image from the Boma Yangu program, showing a different perspective or aspect of the affordable housing project. This image is useful for providing visual variety and further illustrating the government's affordable housing initiative."
+    },
+    {
+      "title": "Government Announces Series of open days for the sale of 4,888 ...",
+      "imageUrl": "https://www.kenyanews.go.ke/wp-content/uploads/2024/12/Capture-34.png",
+      "imageWidth": 766,
+      "imageHeight": 502,
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdbHI6d_4s9AUgCREd7E8CpcyqzbIjP7GD1hGbpDLHqEWalQo&s",
+      "thumbnailWidth": 277,
+      "thumbnailHeight": 182,
+      "source": "Kenya News Agency",
+      "context": "This image is related to the government's announcement regarding the sale of affordable housing units. It is relevant to the news story about the government's efforts to provide affordable housing."
+    },
+    {
+      "title": "Affordable Housing Policies in Real Estate - CM Property Digest",
+      "imageUrl": "https://cmpropertydigest.com/wp-content/uploads/2024/08/affordable-housing-in-kenya.jpg",
+      "imageWidth": 979,
+      "imageHeight": 600,
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSecP0fB-HjcJO0jetEclv8Z6vBGhF4O4jFBPWoknurKr72Ipo&s",
+      "thumbnailWidth": 287,
+      "thumbnailHeight": 176,
+      "source": "CM Property Digest",
+      "context": "This image discusses affordable housing policies in Kenya's real estate sector. It is relevant to the story as it provides insight into the policies governing affordable housing."
+    },
+    {
+      "title": "Exact Prices and Locations for Kenya's Affordable Housing Units ...",
+      "imageUrl": "https://www.mwakilishi.com/sites/default/files/2024-12/image-1200x600%20-%202024-12-16T173321.493.jpg",
+      "imageWidth": 1200,
+      "imageHeight": 600,
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSIx_lv0trhW_VWOniLofyJuS16eVjU45exdIF4s_fKlzR1W0E&s",
+      "thumbnailWidth": 318,
+      "thumbnailHeight": 159,
+      "source": "Mwakilishi.com",
+      "context": "This image provides information on the prices and locations of affordable housing units in Kenya. It is relevant to the story as it gives specific details about the affordable housing projects."
     }
   ]
 }

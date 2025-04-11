@@ -1,65 +1,44 @@
 {
   "searchParameters": {
-    "q": "Mohamed Salah news",
-    "type": "news",
-    "engine": "google"
+    "q": "affordable housing Kenya",
+    "gl": "KE",
+    "hl": "en",
+    "tbs": "qdr:d",
+    "num": "5",
+    "autocorrect": true
   },
   "news": [
     {
-      "title": "Mohamed Salah signs new contract with Liverpool FC",
-      "link": "https://www.liverpoolfc.com/news/mohamed-salah-signs-new-contract-liverpool-fc",
-      "snippet": "Liverpool FC can announce Mohamed Salah has signed a new contract that will keep him with the club beyond the 2024-25 season. The forward, who is enjoying...",
-      "date": "1 hour ago",
-      "source": "Liverpool FC",
+      "title": "Gov’t denies claims of single-sourcing affordable housing materials from Devki Group",
+      "link": "https://www.citizen.digital/business/govt-denies-claims-of-single-sourcing-affordable-housing-materials-from-devki-group-n360827",
+      "snippet": "The government is set to release an additional 1088 units of the affordable housing project to residents of Mukuru slums before the end of the month.",
+      "date": "18 hours ago",
+      "source": "Citizen Digital",
       "position": 1
     },
     {
-      "title": "Mohamed Salah signs new Liverpool contract",
-      "link": "https://www.aljazeera.com/sports/2025/4/11/salah-signs-new-liverpool-contract",
-      "snippet": "Liverpool's Egyptian international has signed a new two-year contract with the Premier League leaders.",
-      "date": "41 minutes ago",
-      "source": "Al Jazeera",
+      "title": "Building communities: How Kenya's real estate firm commits to corporate social responsibility",
+      "link": "http://www.msn.com/en-xl/africa/kenya/building-communities-how-kenyas-real-estate-firm-commits-to-corporate-social-responsibility/ar-AA1CCjoy?apiversion=v2&noservercache=1&domshim=1&renderwebcomponents=1&wcseo=1&batchservertelemetry=1&noservertelemetry=1",
+      "snippet": "In 2024, Willstone Homes Kenya was honoured Best Luxury Project Developer, Best Housing Company of the Year, and Lifelong Achievement in Real Estate.",
+      "date": "11 hours ago",
+      "source": "MSN",
       "position": 2
     },
     {
-      "title": "Mohamed Salah\u2019s new deal is signed \u2013 now to get him scoring again - The Athletic",
-      "link": "https://www.nytimes.com/athletic/6266613/2025/04/11/mohamed-salah-goals-assists-form/",
-      "snippet": "This piece has been updated after Mohamed Salah signed a new two-year contract at Liverpool. Mohamed Salah has had a remarkable season.",
-      "date": "20 minutes ago",
-      "source": "The New York Times",
+      "title": "Ruto starts make-or-break tour of Gachagua backyard",
+      "link": "https://www.standardmedia.co.ke/health/index.php/national/article/2001515195/ruto-starts-make-or-break-tour-of-gachagua-backyard",
+      "snippet": "President William Ruto's tour of Mt Kenya region begins Tuesday, amid mixed feelings among residents and leaders.",
+      "date": "20 hours ago",
+      "source": "The Standard Media Group",
       "position": 3
     },
     {
-      "title": "Mohamed Salah signs new contract to stay at Liverpool until 2027",
-      "link": "https://www.theguardian.com/football/2025/apr/11/mohamed-salah-signs-new-liverpool-contract-2027",
-      "snippet": "Mohamed Salah has signed a new deal to remain at Liverpool until 2027, ending speculation over his future at Anfield.",
-      "date": "1 hour ago",
-      "source": "The Guardian",
+      "title": "JAMILA'S MEMO: Forced savings or forced suffering?",
+      "link": "https://www.citizen.digital/opinion-blogs/jamilas-memo-forced-savings-or-forced-suffering-n360831",
+      "snippet": "The government, through Labour Cabinet Secretary Alfred Mutua, has announced plans to introduce a law aimed at encouraging Kenyans to save money — a move...",
+      "date": "14 hours ago",
+      "source": "Citizen Digital",
       "position": 4
-    },
-    {
-      "title": "Salah signs contract extension at Liverpool",
-      "link": "https://www.espn.com/soccer/story/_/id/42870899/mohamed-salah-liverpool-star-signs-contract-extension",
-      "snippet": "Liverpool forward Mohamed Salah has signed a contract extension, ending months-long uncertainty over his future at Anfield, the club have announced.",
-      "date": "1 hour ago",
-      "source": "ESPN",
-      "position": 5
     }
-  ],
-  "mainNarratives": [
-    "Mohamed Salah has signed a new contract with Liverpool FC, extending his stay with the club until 2027.",
-    "The contract extension ends speculation over Salah's future at Anfield.",
-    "Salah has had a remarkable season with Liverpool, contributing significantly to the team."
-  ],
-  "authoritativeSources": [
-    "Liverpool FC's official website",
-    "Al Jazeera",
-    "The New York Times",
-    "The Guardian",
-    "ESPN"
-  ],
-  "breakingDevelopments": [
-    "The signing of the new contract by Mohamed Salah is the most significant recent development.",
-    "The contract extension is seen as a positive move for Liverpool FC, ensuring continuity with a key player."
   ]
 }

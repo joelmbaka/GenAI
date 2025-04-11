@@ -1,146 +1,42 @@
 {
   "tweets": [
     {
-      "content": "Mohamed Salah, you are Liverpool Legend \n\nAs klopp once said\n\"This is his club now.\"",
+      "id": "1910010527620739567",
+      "content": "Nyeri Resident: The President visited Mt. Kenya for political reasons. There was no need to ferry people from Mathira just to watch him inspect the affordable housing project.\n#ThePeopleDialogue",
       "author": {
-        "name": "FanFCSALAH11",
-        "handle": "@FanFCSALAH11",
-        "verified": false
+        "name": "K24Tv",
+        "handle": "@K24Tv",
+        "verification_status": "verified"
       },
-      "timestamp": "2025-04-09T17:17:57.000Z",
-      "likes": 585,
-      "retweets": 62,
-      "replies": null,
+      "timestamp": "2025-04-09T16:42:50.000Z",
+      "engagement_metrics": {
+        "likes": 68,
+        "retweets": 17,
+        "replies": 0
+      },
       "has_media": false,
-      "sentiment": "positive"
+      "sentiment": "negative",
+      "key_themes": ["affordable housing", "politics"]
     },
     {
-      "content": "\"He's a humble person\" \n\nArne Slot on what makes Mohamed Salah special at Liverpool ",
+      "id": "1910562263385113011",
+      "content": "Dagoretti residents face eviction over affordable housing construction https://ow.ly/qlaU50VyHKy",
       "author": {
-        "name": "SkySportsPL",
-        "handle": "@SkySportsPL",
-        "verified": true
+        "name": "NTV Kenya",
+        "handle": "@ntvkenya",
+        "verification_status": "verified"
       },
-      "timestamp": "2025-04-11T08:13:59.000Z",
-      "likes": 141,
-      "retweets": 14,
-      "replies": null,
+      "timestamp": "2025-04-11T05:15:14.000Z",
+      "engagement_metrics": {
+        "likes": 45,
+        "retweets": 10,
+        "replies": 0
+      },
       "has_media": true,
-      "sentiment": "positive"
-    },
-    {
-      "content": "RESMI: Mohamed Salah perpanjang kontrak bersama Liverpool ",
-      "author": {
-        "name": "The_RedsIndo",
-        "handle": "@The_RedsIndo",
-        "verified": false
-      },
-      "timestamp": "2025-04-11T07:03:14.000Z",
-      "likes": 494,
-      "retweets": 88,
-      "replies": null,
-      "has_media": false,
-      "sentiment": "neutral"
-    },
-    {
-      "content": "Loyalty like this is rare, but then again, so is Mohamed Salah. \n\n#LFC",
-      "author": {
-        "name": "asim_lfc",
-        "handle": "@asim_lfc",
-        "verified": false
-      },
-      "timestamp": "2025-04-11T08:13:16.000Z",
-      "likes": 309,
-      "retweets": 26,
-      "replies": null,
-      "has_media": true,
-      "sentiment": "positive"
-    },
-    {
-      "content": "Most goal involvements for a single side in Premier League history:\n\n\u25ce 276 - Wayne Rooney (Man Utd) \n\u25ce 271 - Ryan Giggs (Man Utd)\n\u25c9 267 - Mohamed Salah (Liverpool) \n\nNow he's staying, it won't be long before Mo tops this list. ",
-      "author": {
-        "name": "Squawka",
-        "handle": "@Squawka",
-        "verified": true
-      },
-      "timestamp": "2025-04-11T07:56:49.000Z",
-      "likes": 437,
-      "retweets": 96,
-      "replies": null,
-      "has_media": true,
-      "sentiment": "positive"
-    },
-    {
-      "content": "Mohamed Salah has signed a new contract at Liverpool.\n\n \n@LFC",
-      "author": {
-        "name": "TheAthleticFC",
-        "handle": "@TheAthleticFC",
-        "verified": true
-      },
-      "timestamp": "2025-04-11T07:05:44.000Z",
-      "likes": 813,
-      "retweets": 96,
-      "replies": null,
-      "has_media": false,
-      "sentiment": "neutral"
-    },
-    {
-      "content": "Mohamed Salah has extended his contract at Liverpool ",
-      "author": {
-        "name": "BoldMonk_",
-        "handle": "@BoldMonk_",
-        "verified": false
-      },
-      "timestamp": "2025-04-11T07:10:27.000Z",
-      "likes": 253,
-      "retweets": 12,
-      "replies": null,
-      "has_media": false,
-      "sentiment": "neutral"
-    },
-    {
-      "content": "Arne Slot on Mohamed Salah: \n\n\u201cFirst of all, he has always been judged as a player, but I also see him as a human being and he is humble, works hard and puts so much effort in to become the player he is.\u201d",
-      "author": {
-        "name": "DaveOCKOP",
-        "handle": "@DaveOCKOP",
-        "verified": false
-      },
-      "timestamp": "2025-04-11T08:14:48.000Z",
-      "likes": 256,
-      "retweets": 19,
-      "replies": null,
-      "has_media": true,
-      "sentiment": "positive"
-    },
-    {
-      "content": "Diferente do \u201cscouser\u201d, a perman\u00eancia de Van Dijk e Mohamed Salah \u00e9 quase que certa nos bastidores do Liverpool.",
-      "author": {
-        "name": "Anfieldbr",
-        "handle": "@Anfieldbr",
-        "verified": false
-      },
-      "timestamp": "2025-04-09T16:34:32.000Z",
-      "likes": 373,
-      "retweets": 11,
-      "replies": null,
-      "has_media": false,
-      "sentiment": "neutral"
-    },
-    {
-      "content": "Even Steven Gerrard had moments when he wanted to leave Liverpool but one man has never even blinked an eye lid at somebody else (not a knock to Gerrard, just shows how loyal Mohamed Salah is). Our Egyptian king. ",
-      "author": {
-        "name": "saribk01",
-        "handle": "@saribk01",
-        "verified": false
-      },
-      "timestamp": "2025-04-09T18:04:49.000Z",
-      "likes": 913,
-      "retweets": 68,
-      "replies": null,
-      "has_media": true,
-      "sentiment": "positive"
+      "sentiment": "neutral",
+      "key_themes": ["affordable housing", "eviction"]
     }
   ],
-  "overall_sentiment": "positive",
-  "key_themes": ["Mohamed Salah's contract extension", "Loyalty to Liverpool", "Praise for Salah's humility and hard work"]
+  "overall_sentiment": "mixed",
+  "key_themes": ["affordable housing", "politics", "eviction"]
 }

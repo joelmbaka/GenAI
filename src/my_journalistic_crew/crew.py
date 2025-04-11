@@ -6,10 +6,11 @@ from my_journalistic_crew.tools.news_search_tool import NewsSearchTool
 from my_journalistic_crew.tools.image_search_tool import ImageSearchTool
 from my_journalistic_crew.tools.scrape_website_tool import ScrapeWebsite
 from my_journalistic_crew.models.ArticleModel import DraftArticle, FinalArticle
+from my_journalistic_crew.tools.image_analysis_tool import ImageAnalysisTool
 from my_journalistic_crew.tools.neo4j_article_tool import Neo4jArticleTool
 from crewai.project import CrewBase, agent, crew, task
 from crewai import Agent, Crew, Process, Task, LLM
-#llama 3 from nvidia nim
+#llama 4 maverick from nvidia nim
 llm = LLM(
         model=os.getenv("MODEL"),
         api_key=os.getenv("NVIDIA_API_KEY"),
@@ -94,6 +95,7 @@ class MyJournalisticCrew():
         """select a suitable image and thumbnail using its title and recency to match our story"""
         return Task(
             config=self.tasks_config['select_image'],
+            tools=[ImageAnalysisTool()],
            )
     @task
     def format(self) -> Task:

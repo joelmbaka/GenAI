@@ -20,6 +20,8 @@ def run():
     
     inputs = {
         "google_query": os.getenv("GOOGLE_QUERY", ""),
+        "country": os.getenv("COUNTRY", ""),
+        "date_range": os.getenv("DATE_RANGE", ""),
         "twitter_query": os.getenv("TWITTER_QUERY", ""),
         "my_thoughts": os.getenv("MY_THOUGHTS", ""),
         "category": CategorySubcategoryAuthor,
