@@ -22,8 +22,8 @@ class NewsSearchToolInput(BaseModel):
         description="Date range for news results. Options: 'qdr:h' (past hour), 'qdr:d' (past 24h), 'qdr:w' (past week), 'qdr:m' (past month), 'qdr:y' (past year)"
     )
     num: Optional[int] = Field(
-        default=10,
-        description="Number of news results to return (1-10)."
+        default=5,
+        description="Number of news results to return (1-5)."
     )
     autocorrect: Optional[bool] = Field(
         default=True,
@@ -42,7 +42,7 @@ class NewsSearchTool(BaseTool):
 
     def _run(self, q: str, gl: Optional[str] = None, location: Optional[str] = None,
              hl: Optional[str] = None, tbs: Optional[str] = None, 
-             num: Optional[int] = 10, autocorrect: Optional[bool] = True) -> str:
+             num: Optional[int] = 5, autocorrect: Optional[bool] = True) -> str:
         """Execute a news search using the Google News API via Serper."""
         import os
         import requests

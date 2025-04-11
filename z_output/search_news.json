@@ -1,0 +1,65 @@
+{
+  "searchParameters": {
+    "q": "Mohamed Salah news",
+    "type": "news",
+    "engine": "google"
+  },
+  "news": [
+    {
+      "title": "Mohamed Salah signs new contract with Liverpool FC",
+      "link": "https://www.liverpoolfc.com/news/mohamed-salah-signs-new-contract-liverpool-fc",
+      "snippet": "Liverpool FC can announce Mohamed Salah has signed a new contract that will keep him with the club beyond the 2024-25 season. The forward, who is enjoying...",
+      "date": "1 hour ago",
+      "source": "Liverpool FC",
+      "position": 1
+    },
+    {
+      "title": "Mohamed Salah signs new Liverpool contract",
+      "link": "https://www.aljazeera.com/sports/2025/4/11/salah-signs-new-liverpool-contract",
+      "snippet": "Liverpool's Egyptian international has signed a new two-year contract with the Premier League leaders.",
+      "date": "41 minutes ago",
+      "source": "Al Jazeera",
+      "position": 2
+    },
+    {
+      "title": "Mohamed Salah\u2019s new deal is signed \u2013 now to get him scoring again - The Athletic",
+      "link": "https://www.nytimes.com/athletic/6266613/2025/04/11/mohamed-salah-goals-assists-form/",
+      "snippet": "This piece has been updated after Mohamed Salah signed a new two-year contract at Liverpool. Mohamed Salah has had a remarkable season.",
+      "date": "20 minutes ago",
+      "source": "The New York Times",
+      "position": 3
+    },
+    {
+      "title": "Mohamed Salah signs new contract to stay at Liverpool until 2027",
+      "link": "https://www.theguardian.com/football/2025/apr/11/mohamed-salah-signs-new-liverpool-contract-2027",
+      "snippet": "Mohamed Salah has signed a new deal to remain at Liverpool until 2027, ending speculation over his future at Anfield.",
+      "date": "1 hour ago",
+      "source": "The Guardian",
+      "position": 4
+    },
+    {
+      "title": "Salah signs contract extension at Liverpool",
+      "link": "https://www.espn.com/soccer/story/_/id/42870899/mohamed-salah-liverpool-star-signs-contract-extension",
+      "snippet": "Liverpool forward Mohamed Salah has signed a contract extension, ending months-long uncertainty over his future at Anfield, the club have announced.",
+      "date": "1 hour ago",
+      "source": "ESPN",
+      "position": 5
+    }
+  ],
+  "mainNarratives": [
+    "Mohamed Salah has signed a new contract with Liverpool FC, extending his stay with the club until 2027.",
+    "The contract extension ends speculation over Salah's future at Anfield.",
+    "Salah has had a remarkable season with Liverpool, contributing significantly to the team."
+  ],
+  "authoritativeSources": [
+    "Liverpool FC's official website",
+    "Al Jazeera",
+    "The New York Times",
+    "The Guardian",
+    "ESPN"
+  ],
+  "breakingDevelopments": [
+    "The signing of the new contract by Mohamed Salah is the most significant recent development.",
+    "The contract extension is seen as a positive move for Liverpool FC, ensuring continuity with a key player."
+  ]
+}

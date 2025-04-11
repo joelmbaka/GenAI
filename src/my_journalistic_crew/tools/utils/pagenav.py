@@ -1,4 +1,4 @@
-from journalist.tools.utils.webdriver import WebDriverClient
+from my_journalistic_crew.tools.utils.webdriver import WebDriverClient
 from typing import Optional
 
 class PageNavigator:

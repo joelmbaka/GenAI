@@ -1,0 +1,54 @@
+{
+  "images": [
+    {
+      "imageUrl": "https://static.standard.co.uk/2025/04/11/7/34/mohamedsalah11042025a-jpg.jpeg?trim=296,0,1,0&quality=75&auto=webp&width=1000",
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQGldM_A-Sc492VHnJ4PMJfJtuXrlD1_7FZwU2ELriaqtnjPFs&s",
+      "title": "Mohamed Salah signs new Liverpool FC contract in major boost to ...",
+      "source": "www.standard.co.uk",
+      "imageWidth": 1000,
+      "imageHeight": 625,
+      "context": "Recent image showing Mohamed Salah signing a new contract with Liverpool FC.",
+      "relevance": "High"
+    },
+    {
+      "imageUrl": "https://images.ps-aws.com/c?url=https%3A%2F%2Fimages.teamtalk.com%2Fcontent%2Fuploads%2F2024%2F12%2F08083158%2Fliverpool-winger-mohamed-salah.jpg",
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS65p0upaiEMB6JOEk4vK48Bmi2RCVjcju4IdHHxsbkWM4dSjo&s",
+      "title": "Mo Salah: Liverpool ANNOUNCE new contract as superstar makes ...",
+      "source": "TEAMtalk",
+      "imageWidth": 1600,
+      "imageHeight": 900,
+      "context": "Image related to Mohamed Salah's new contract announcement by Liverpool FC.",
+      "relevance": "High"
+    },
+    {
+      "imageUrl": "https://i.guim.co.uk/img/media/76072b34f0a53c14a64a59cb51a551364a086805/0_57_1618_971/master/1618.jpg?width=1200&height=900&quality=85&auto=format&fit=crop&s=8c099c65993d7089a552be936d3f87e3",
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSs9vUp8EHXRe7FxSM-mLTdU1MKdbLjI3dfCr44wDoXB2x7a7Qy&s",
+      "title": "Mohamed Salah commits future to Liverpool by signing contract to ...",
+      "source": "The Guardian",
+      "imageWidth": 1200,
+      "imageHeight": 900,
+      "context": "Image showing Mohamed Salah committing his future to Liverpool by signing a new contract.",
+      "relevance": "High"
+    },
+    {
+      "imageUrl": "https://e0.365dm.com/24/12/1600x900/skysports-mohamed-salah-liverpool_6769091.jpg?20241207142622",
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRocKpGZwAp68MbjcAqOnQxYz4aphWeQlUZ3nWQ4dGjdmu_8pY&s",
+      "title": "Mohamed Salah: Liverpool forward commits future to club by signing ...",
+      "source": "Sky Sports",
+      "imageWidth": 1600,
+      "imageHeight": 900,
+      "context": "Image related to Mohamed Salah's commitment to Liverpool FC through his new contract.",
+      "relevance": "High"
+    },
+    {
+      "imageUrl": "https://ichef.bbci.co.uk/ace/standard/2560/cpsprodpb/d9de/live/58c41fd0-155f-11f0-8b33-1b3fa22562ab.jpg",
+      "thumbnailUrl": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSviMygiP3daRAgKAMOUT1cAVJWvHj1NMihJf7Az792LpQChNI&s",
+      "title": "Mohamed Salah: Liverpool getting closer to new contract for Egypt ...",
+      "source": "BBC",
+      "imageWidth": 2560,
+      "imageHeight": 1440,
+      "context": "Image related to Mohamed Salah's contract negotiations with Liverpool FC.",
+      "relevance": "Medium"
+    }
+  ]
+}

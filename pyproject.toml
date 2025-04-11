@@ -1,5 +1,5 @@
 [project]
-name = "journalist"
+name = "myjournalisticcrew"
 version = "0.1.0"
 description = "international news agency"
 authors = [{ name = "Your Name", email = "you@example.com" }]
@@ -14,11 +14,11 @@ dependencies = [
 ]
 
 [project.scripts]
-journalist = "journalist.main:run"
-run_crew = "journalist.main:run"
-train = "journalist.main:train"
-replay = "journalist.main:replay"
-test = "journalist.main:test"
+myjournalisticcrew = "my_journalistic_crew.main:run"
+run_crew = "my_journalistic_crew.main:run"
+train = "my_journalistic_crew.main:train"
+replay = "my_journalistic_crew.main:replay"
+test = "my_journalistic_crew.main:test"
 
 [build-system]
 requires = ["hatchling"]
@@ -26,3 +26,6 @@ build-backend = "hatchling.build"
 
 [tool.crewai]
 type = "crew"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/my_journalistic_crew"]

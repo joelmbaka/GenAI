@@ -1,0 +1,224 @@
+search_news:
+  description: >
+    Perform a comprehensive news search about {google_query} to identify the most relevant, recent, and authoritative 
+    news articles on the specified topic using the Google News Search tool.
+    Prioritize articles from the last 24 hours.
+    
+    Your task is to:
+    1. Craft an effective search query that will capture the most relevant news articles
+    2. Filter results by recency to ensure timely information given current timestamp is {timestamp}
+    3. Prioritize articles from reputable news sources
+    4. Collect a diverse range of perspectives on the topic
+    5. Identify the main narratives and angles being covered
+    6. Note any breaking developments or trending subtopics
+    
+    Focus on finding high-quality journalism that provides context and depth 
+    rather than just superficial coverage.
+  expected_output: >
+    A comprehensive collection of news search results including:
+    - Article titles, publication sources, and publication dates
+    - Article URLs for further investigation
+    - Brief snippets or summaries of each article
+    - Assessment of the main narratives emerging from the coverage
+    - Identification of the most authoritative sources covering the topic
+  agent: researcher
+  output_file: z_output/search_news.json
+
+scrape_tweets:
+  description: >
+    Research and collect {max_tweets} tweets about {twitter_query} using the Twitter scraper tool. Set is_hashtag={is_hashtag}
+    
+    Your task is to:
+    1. Navigate to Twitter and search for the specified query
+    2. Identify the most relevant and credible tweets about the topic
+    3. Collect a diverse range of perspectives and opinions
+    4. Focus on tweets from verified accounts and authoritative sources when possible
+    5. Capture engagement metrics (likes, retweets, replies) to understand content impact
+    6. Document the tweet content, author information, and timestamp
+    
+    Remember to prioritize tweets that provide substantive insights or information rather than 
+    just casual mentions. Look for threads that develop ideas in depth.
+  expected_output: >
+    A structured JSON collection of relevant tweets including:
+    - Tweet content with complete text
+    - Author information (name, handle, verification status)
+    - Engagement metrics
+    - Timestamps
+    - Has_media? (boolean)
+    - A brief assessment of the overall sentiment and key themes from the tweets
+  agent: researcher
+  output_file: z_output/scrape_tweets.json
+
+search_images:
+  description: >
+    Find relevant, high-quality images related to context that could be used to 
+    illustrate the news article. Use the Image Search Tool to locate images that 
+    accurately represent the story.
+    Preferrable dimensions:
+    - min: 800x450 pixels (16:9 aspect ratio)
+    - max: 1200x800 pixels (3:2 aspect ratio)
+    
+    Your task is to:
+    1. Search for images that directly relate to the specified topic
+    2. Prioritize recent images that show the current state of the story
+    3. Look for images from reputable sources that can be properly attributed
+    4. Find images with good visual quality suitable for publishing
+    5. Collect both feature images (larger, detailed) and potential thumbnails
+    6. Ensure image content is journalistically appropriate and ethical
+    
+    Focus on images that add informational value, not just decorative elements.
+  expected_output: >
+    A curated collection of relevant images including:
+    - Image URLs (both full-size and thumbnail versions when available)
+    - Image titles or descriptions
+    - Source attribution information
+    - Image dimensions and quality indicators
+    - Brief context explaining the relevance of each image to the story
+    - Timestamps or dates when the images were taken if available
+  agent: researcher
+  output_file: z_output/search_images.json
+  context: [search_news]
+
+read_website:
+  description: >
+    Extract and analyze the content from several news websites identified in the search_news task. 
+    Use the Scrape Website tool to thoroughly read and comprehend the articles.
+    
+    Your task is to:
+    1. Visit each high-priority news URL identified in the search_news results
+    2. Extract the full article text, headline, and metadata
+    3. Identify the main claims, facts, and quotes in each article
+    4. Note the perspectives and sources cited in the reporting
+    5. Compare information across multiple sources to verify consistency
+    6. Identify unique insights or exclusive reporting from specific sources
+    
+    Focus on extracting factual information, important quotes, and identifying 
+    the most authoritative and comprehensive coverage.
+    Skip any webpages that output error messages e.g 403, 404, require cookies, or have strong bot restrictions.
+  expected_output: >
+    Detailed extraction of content from key news sources including:
+    - Full article text with proper structure (paragraphs, sections)
+    - Headlines, subheadings, and article metadata
+    - Key quotes clearly attributed to their sources
+    - Main facts and claims presented in the articles
+    - Source credibility assessment
+    - Areas of consensus and disagreement across sources
+    - Analysis of depth and quality of coverage from each source
+  agent: writer
+  context: [search_news]
+  output_file: z_output/read_website.json
+
+write:
+  description: >
+    Craft a comprehensive, balanced, and engaging news article based on the research gathered
+    from news sources and social media. Synthesize the information into a cohesive narrative
+    that presents the story accurately and completely.
+    
+    Your task is to:
+    1. Create a compelling headline that accurately represents the content
+    2. Write a concise summary that captures the essence of the story
+    3. Develop a structured article with a clear introduction, body, and conclusion
+    4. Incorporate verified facts, quotes, and data from the research
+    5. Present multiple perspectives when the topic involves different viewpoints
+    6. Maintain a neutral, objective tone adhering to journalistic standards
+    7. Identify and extract relevant entities (people, organizations, locations) mentioned
+    8. Generate appropriate keywords and tags for the article
+    9. Create a URL-friendly slug for the article
+    
+    Ensure the article follows the inverted pyramid style where appropriate, 
+    with the most important information appearing first.
+  expected_output: >
+    A complete draft article in the format specified by the DraftArticle model, including:
+    - Compelling headline and URL-friendly slug
+    - Concise summary of the key points
+    - Well-structured article body with proper paragraphing
+    - Properly attributed quotes and sources
+    - List of relevant keywords for SEO and categorization
+    - Named entities extracted from the article
+    - Content that meets journalistic standards for accuracy, fairness, and completeness
+  agent: writer
+  context: [read_website, scrape_tweets]
+  output_file: z_output/write.json
+
+select_image:
+  description: >
+    Select the most appropriate image to accompany the article from the collection 
+    gathered during the image_search task. Choose an image that best represents
+    the article's content and will engage readers.
+    
+    Your task is to:
+    1. Review all images collected during the image search
+    2. Evaluate each image for relevance to the specific article angle
+    3. Consider image quality, composition, and impact
+    4. Ensure the image is recent and accurately represents the current situation
+    5. Verify that proper attribution is available for the selected image
+    6. Choose both a main feature image and a thumbnail version
+    7. Provide proper citation and source information
+    
+    Select an image that adds informational value and enhances understanding 
+    of the story, not just decorative value.
+  expected_output: >
+    A selection decision including:
+    - URL of the selected main image
+    - URL of the selected thumbnail image (or instructions for creating one)
+    - Make sure the image URLs do not contain query parameters like quality or width.
+    - Remove any parameters from image URLs (everything after the ? character). For example, change "image.jpg?width=800&quality=80" to just "image.jpg".
+    - Title/caption for the image
+    - Source attribution information
+    - Brief explanation of why this image best represents the article
+    - Any relevant context about what the image depicts
+
+  agent: writer
+  context: [search_images]
+  output_file: z_output/select_image.json
+
+format:
+  description: >
+    Review and finalize the article for publication, ensuring it meets all technical 
+    and editorial requirements. Transform the draft article into the final format 
+    ready for publishing to the Neo4j database.
+    
+    Your task is to:
+    1. Review the article for accuracy, clarity, and completeness
+    2. Ensure all required fields are present and properly formatted
+    3. Verify category and subcategory assignments are appropriate
+    4. Confirm author attribution based on the category/subcategory
+    5. Check that the selected image is properly integrated
+    6. Finalize metadata including keywords, entities, and publication status
+    7. Format the article according to the FinalArticle model specifications
+    8. Perform a final check for any factual errors or missing information
+    
+    This is the last quality check before publication, so be thorough in ensuring 
+    all requirements are met.
+  expected_output: >
+    A publication-ready article formatted according to the FinalArticle model, including:
+    - All required fields properly populated
+    - Correct category, subcategory, and author assignments got from {category}
+    - Properly integrated images with correct URLs and attribution
+    - Complete metadata (keywords, entities, etc.)
+    - Properly formatted content that meets style guidelines
+    - Confirmation that the article meets all quality standards
+    - story: {story}, publisher: 'joelmbaka.site'
+  agent: editor
+  context: [write, select_image]
+  output_file: z_output/format.json
+
+publish:
+  description: >
+    Publish the finalized article to the Neo4j database using the Neo4j Article Tool. 
+    This is the final step that makes the article available to readers.
+    
+    Your task is to:
+    1. Verify that the article meets all publication requirements
+    2. Prepare the article data in the format required by the Neo4j database
+    3. Submit the article to the database using the Neo4j Article Tool
+    4. Confirm successful publication and storage
+    5. Document any issues encountered during the publishing process
+    
+    Ensure that the article is properly stored with all metadata intact and 
+    that it's ready for retrieval and display to readers.
+  expected_output: >
+    return f"Successfully stored article with title: '{created_node[0]['art.title']}', slug: '{created_node[0]['art.slug']}', published at: {created_node[0]['art.publishedAt']}"
+  agent: editor
+  context: [format]
+  output_file: z_output/publish.json
