@@ -1,144 +1,88 @@
 {
   "searchParameters": {
-    "q": ["chopper crash in hudson river", "how safe are helicopter sightseeing tours"],
+    "q": "Witkoff meets Putin",
     "type": "news",
     "engine": "google"
   },
   "news": [
     {
-      "title": "6 dead as New York City sightseeing helicopter breaks apart midair and crashes into the Hudson River",
-      "link": "https://apnews.com/article/new-york-helicopter-crash-e0368ea529659ee1513d92dcbf05a28d",
-      "snippet": "A New York City sightseeing helicopter has broken apart in midair and crashed into the Hudson River, killing six people.",
-      "date": "3 hours ago",
-      "source": "AP News",
+      "title": "Witkoff meets Putin as Trump urges Russia to 'get moving' on Ukraine ceasefire",
+      "link": "https://www.bbc.com/news/articles/crm3kxxx8x9o",
+      "snippet": "US envoy Steve Witkoff met Vladimir Putin in St Petersburg on Friday as Donald Trump urged the Russian president to \"get moving\" on a...",
+      "date": "1 hour ago",
+      "source": "BBC",
       "position": 1
     },
     {
-      "title": "Helicopter crash in Hudson River kills all 6 aboard",
-      "link": "https://www.cbsnews.com/newyork/news/hudson-river-helicopter-crash/",
-      "snippet": "Six people died when a helicopter crashed into the Hudson River Thursday afternoon. Officials said the dead included a family from Spain as well as the...",
-      "date": "3 hours ago",
-      "source": "CBS News",
+      "title": "Trump envoy meets Putin in Russia as Trump fumes over stalled Ukraine peace talks",
+      "link": "https://www.foxnews.com/politics/trump-envoy-meets-putin-russia-trump-fumes-stalled-ukraine-peace-talks",
+      "snippet": "U.S. envoy Steve Witkoff met with Russian President Vladimir Putin in St. Petersburg on Friday as stalled peace talks with Ukraine have...",
+      "date": "44 minutes ago",
+      "source": "Fox News",
       "position": 2
     },
     {
-      "title": "Siemens exec and his family identified as victims in deadly Hudson helicopter crash",
-      "link": "https://abcnews.go.com/US/siemens-ceo-family-identified-victims-deadly-hudson-helicopter/story?id=120700265",
-      "snippet": "An executive of Siemens, a European technology company, his wife and young children were aboard the tourist helicopter that plunged into New York City's...",
-      "date": "3 hours ago",
-      "source": "ABC News",
+      "title": "US envoy Witkoff meets Putin as Trump tells Moscow to 'get moving' on Ukraine",
+      "link": "https://www.reuters.com/world/russias-top-diplomat-hails-us-russia-prisoner-swaps-amid-reports-trump-envoy-2025-04-11/",
+      "snippet": "MOSCOW, April 11 (Reuters) - U.S. President Donald Trump's special envoy Steve Witkoff held talks with President Vladimir Putin on Friday in...",
+      "date": "1 hour ago",
+      "source": "Reuters",
       "position": 3
     },
     {
-      "title": "Hudson River helicopter crash: Three children among six killed in New York",
-      "link": "https://www.telegraph.co.uk/us/news/2025/04/10/helicopter-hudson-river-crash-live-latest/",
-      "snippet": "Three children are among six people who were killed on Thursday when the helicopter they were in plummeted into New York's Hudson river while on its way to...",
-      "date": "18 hours ago",
-      "source": "The Telegraph",
+      "title": "Russian media report Trump\u2019s envoy Steve Witkoff will meet Putin for Ukraine talks \u2013 as it happened",
+      "link": "https://www.theguardian.com/world/live/2025/apr/11/europe-ukraine-summit-brussels-pete-hegseth-trump-tariffs-live-updates-news",
+      "snippet": "We're just getting new lines from the Kremlin, confirming that US president Donald Trump's envoy Steve Witkoff who landed in Moscow a few...",
+      "date": "15 hours ago",
+      "source": "The Guardian",
       "position": 4
     },
     {
-      "title": "5 Tourists and Pilot Killed When Helicopter Crashes Into Hudson River",
-      "link": "https://www.nytimes.com/live/2025/04/10/nyregion/hudson-river-helicopter-crash",
-      "snippet": "Agustín Escobar, a Siemens executive from Spain, was sightseeing in New York City with his family when their helicopter crashed, killing everyone on board,...",
-      "date": "4 hours ago",
-      "source": "The New York Times",
+      "title": "Witkoff meets Putin as Trump tells Russia \u2018to get moving\u2019",
+      "link": "https://www.kget.com/hill-politics/witkoff-meets-putin-as-trump-tells-russia-to-get-moving/amp/",
+      "snippet": "A top envoy for President Trump met Friday with Russian President Vladimir Putin as Trump voiced frustration with Moscow over efforts to end...",
+      "date": "11 hours ago",
+      "source": "KGET.com",
       "position": 5
     },
     {
-      "title": "Owner of helicopter that plummeted into NYC’s Hudson River ‘devastated’ after 6 killed: ‘Haven’t seen anything like that’",
-      "link": "https://nypost.com/2025/04/10/us-news/owner-of-helicopter-that-plummeted-into-nycs-hudson-river-devasted-after-6-killed/",
-      "snippet": "The owner of the tourist helicopter that plunged into the Hudson River on Thursday, killing six people, told The Post he's “devastated” by the tragic mishap...",
-      "date": "19 hours ago",
-      "source": "New York Post",
+      "title": "Trump envoy Witkoff meets with Putin on war in Ukraine",
+      "link": "https://www.washingtonpost.com/world/2025/04/11/steve-witkoff-russia-vladimir-putin-talks/",
+      "snippet": "Steve Witkoff made an unannounced trip to St. Petersburg as talks on the war in Ukraine appear to have stalled. Updated.",
+      "date": "1 hour ago",
+      "source": "The Washington Post",
       "position": 6
     },
     {
-      "title": "A helicopter crash left a Siemens executive, his family and their pilot dead. Here’s what we know",
-      "link": "https://www.cnn.com/2025/04/11/us/hudson-helicopter-crash-what-we-know-intl-hnk/index.html",
-      "snippet": "A sightseeing helicopter plunged from the sky into the Hudson River on Thursday, turning a family outing above Manhattan's misty skyline into a tragedy.",
-      "date": "2 hours ago",
-      "source": "CNN",
+      "title": "US envoy Witkoff meets Putin in Russia for Ukraine war talks",
+      "link": "https://www.aljazeera.com/news/2025/4/11/us-envoy-steve-witcoff-arrives-in-russia-amid-talks-with-officials",
+      "snippet": "The Kremlin says Witkoff 'will bring something from his president to Putin' in push for a Ukraine peace settlement. Witkoff and Putin shake...",
+      "date": "6 hours ago",
+      "source": "Al Jazeera",
       "position": 7
     },
     {
-      "title": "Helicopter crash in Hudson River: Investigation after family from Spain, pilot killed when chopper goes down near Pier 40 in NYC",
-      "link": "https://abc7ny.com/post/helicopter-crash-nyc-hudson-river-spain-family-tourist-sightseeing/16156201/",
-      "snippet": "JERSEY CITY, New Jersey (WABC) -- The NTSB is on the way to investigate the deadly helicopter crash into the Hudson River that killed six people.",
-      "date": "5 hours ago",
-      "source": "ABC7 New York",
+      "title": "Trump envoy Steve Witkoff meets with Putin in Russia",
+      "link": "https://www.cbsnews.com/news/steve-witkoff-trump-envoy-in-russia-kremlin/",
+      "snippet": "President Trump's special envoy Steve Witkoff met with Russian President Vladimir Putin on Friday to discuss a possible ceasefire in...",
+      "date": "3 hours ago",
+      "source": "CBS News",
       "position": 8
     },
     {
-      "title": "Spanish family among six dead in Hudson River helicopter crash",
-      "link": "https://www.bbc.com/news/articles/cwy6j9peen4o",
-      "snippet": "Six people, including three children, were killed after a helicopter carrying a family of tourists crashed into the Hudson River in New York,...",
-      "date": "5 hours ago",
-      "source": "BBC",
+      "title": "Trump Envoy Steve Witkoff Is in Russia, the Kremlin Says",
+      "link": "https://www.nytimes.com/2025/04/11/world/europe/ukraine-trump-witkoff-talks.html",
+      "snippet": "President Trump's special envoy arrived in Russia on Friday to try to make progress on cease-fire talks over the war in Ukraine, meeting...",
+      "date": "6 hours ago",
+      "source": "The New York Times",
       "position": 9
     },
     {
-      "title": "What we know about Hudson River helicopter crash",
-      "link": "https://www.nbcnews.com/news/us-news/hudson-river-helicopter-crash-rcna200827",
-      "snippet": "A family of five visiting from Spain and the pilot were killed when what was meant to be a helicopter joyride over Manhattan to celebrate a birthday...",
-      "date": "2 hours ago",
+      "title": "As Trump's envoy meets Putin, Prince Harry's visit echoes Europe's embrace of Ukraine",
+      "link": "https://www.nbcnews.com/news/world/ukraine-trumps-envoy-witkoff-moscow-prince-harry-china-zelenskyy-rcna200808",
+      "snippet": "Prince Harry's Ukraine visit brought soft power to Europe's pledge of military aid to Kyiv, even as U.S. envoy Steve Witkoff took high-level...",
+      "date": "9 hours ago",
       "source": "NBC News",
-      "position": 10
-    },
-    {
-      "title": "High above the city, low on oversight: Are helicopter tours putting lives at risk?",
-      "link": "https://www.usatoday.com/story/travel/news/2025/04/11/tourist-helicopter-crash-safety/83034718007/",
-      "snippet": "A tragic sightseeing tour turned fatal in New York City, raising urgent questions about the safety of helicopter tourism across the U.S..",
-      "date": "3 hours ago",
-      "source": "USA Today",
-      "position": 1
-    },
-    {
-      "title": "What we know about the deadly NYC helicopter crash—and what it means for air tour safety",
-      "link": "https://www.fastcompany.com/91315329/what-we-know-about-the-deadly-nyc-helicopter-crash-and-what-it-means-for-air-tour-safety",
-      "snippet": "A past filled with lawsuits and accidents now haunts New York Helicopter, the company behind the crash.",
-      "date": "57 minutes ago",
-      "source": "Fast Company",
-      "position": 2
-    },
-    {
-      "title": "Is it Safe to Fly in a Helicopter? Here's What the Data Shows",
-      "link": "https://www.travelandleisure.com/how-safe-is-flying-in-a-helicopter-11713437",
-      "snippet": "On April 10, a helicopter carrying six people, including the pilot, on a sightseeing tour crashed into the Hudson River in New York City, killing those on...",
-      "date": "2 hours ago",
-      "source": "Travel + Leisure",
-      "position": 3
-    },
-    {
-      "title": "Fatal helicopter crash in the Hudson River sparks debate on aerial sight-seeing tours and safety concerns",
-      "link": "https://www.amny.com/news/fatal-helicopter-crash-in-the-hudson-river/",
-      "snippet": "New Yorkers around the city are reacting on Friday to a tragic helicopter crash in the Hudson River that killed all six people on board.",
-      "date": "30 minutes ago",
-      "source": "amNewYork",
-      "position": 4
-    },
-    {
-      "title": "Fatal NYC helicopter crash renews debate over tourism, ‘non-essential’ flights",
-      "link": "https://gothamist.com/news/fatal-nyc-helicopter-crash-renews-debate-over-tourism-non-essential-flights",
-      "snippet": "Some lawmakers want to ban or severely restrict the flights, but Mayor Eric Adams and others say they're part of what makes the city attractive.",
-      "date": "2 hours ago",
-      "source": "Gothamist",
-      "position": 5
-    },
-    {
-      "title": "Helicopter tours of NYC have a controversial and deadly history",
-      "link": "https://www.usatoday.com/story/news/nation/2025/04/11/nyc-helicopter-rides-controversy/83034333007/",
-      "snippet": "A Spanish family who boarded a sightseeing helicopter in New York City were promised an “experience you don't want to miss” and \"an industry-leading safety...",
-      "date": "5 hours ago",
-      "source": "USA Today",
-      "position": 9
-    },
-    {
-      "title": "Booking A Helicopter Tour In Hawaii? What This FAA Report Means For You",
-      "link": "https://beatofhawaii.com/booking-a-helicopter-tour-in-hawaii-what-this-faa-report-means-for-you/",
-      "a new federal report has reignited outrage over helicopter safety in Hawaii. The FAA revealed that the pilot in a deadly 2019 crash was improperly certified...",
-      "date": "21 hours ago",
-      "source": "Beat of Hawaii",
       "position": 10
     }
   ]

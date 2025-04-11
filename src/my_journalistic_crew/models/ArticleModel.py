@@ -6,7 +6,7 @@ class DraftArticle(BaseModel):
     title: str = Field(..., description="The headline or main title of the article")
     slug: str = Field(..., description="A URL-friendly version of the article title")
     summary: str = Field(default="", description="A brief summary or abstract of the article's main points")    
-    content: str = Field(..., description="The full text content of the article, approximately 300 words")
+    content: str = Field(..., description="The full text content of the article in Markdown format, including proper image embedding using ![alt text](image_url) syntax, approximately 300 words")
     keywords: List[str] = Field(default_factory=list, description="List of relevant keywords or tags associated with the article")
     entities: List[str] = Field(
         default_factory=list,
@@ -17,7 +17,7 @@ class FinalArticle(BaseModel):
     """Model for representing news articles"""
     title: str = Field(..., description="The headline or main title of the article")
     slug: str = Field(..., description="A URL-friendly version of the article title")
-    content: str = Field(..., description="The full text content of the article, approximately 300 words")
+    content: str = Field(..., description="The full text content of the article in Markdown format, including proper image embedding using ![alt text](image_url) syntax, approximately 300 words")
     category: str = Field(..., description="The category of the article")
     subcategory: str = Field(..., description="The subcategory of the article")
     story: str = Field(

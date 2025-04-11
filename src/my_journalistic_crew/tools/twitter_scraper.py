@@ -16,13 +16,12 @@ import time
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-from dotenv import load_dotenv
 import os
-
+from dotenv import load_dotenv
 # Load environment variables
 load_dotenv()
-MIN_LIKES = int(os.getenv('MIN_LIKES'))  
-MIN_RETWEETS = int(os.getenv('MIN_RETWEETS')) 
+MIN_LIKES = int(os.getenv('MIN_LIKES', 10))  
+MIN_RETWEETS = int(os.getenv('MIN_RETWEETS', 5)) 
 
 class TwitterScraper(BaseTool):
     name: str = "Twitter Scraper"

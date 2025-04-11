@@ -7,6 +7,7 @@ from my_journalistic_crew.tools.image_search_tool import ImageSearchTool
 from my_journalistic_crew.tools.scrape_website_tool import ScrapeWebsite
 from my_journalistic_crew.tools.tweet_screenshot_tool import TweetScreenshotTool
 from my_journalistic_crew.tools.image_analysis_tool import ImageAnalysisTool
+from my_journalistic_crew.tools.blob_storage_tool import BlobStorageTool
 from my_journalistic_crew.models.ArticleModel import DraftArticle, FinalArticle
 from my_journalistic_crew.tools.neo4j_article_tool import Neo4jArticleTool
 from crewai.project import CrewBase, agent, crew, task
@@ -31,7 +32,7 @@ class MyJournalisticCrew():
         return Agent(
             config=self.agents_config['researcher'],
             respect_context_window=True,
-            max_iterations=2,
+            max_iterations=1,
             verbose=True,
             )
     @agent
@@ -40,7 +41,7 @@ class MyJournalisticCrew():
         return Agent(
             config=self.agents_config['writer'],
             respect_context_window=True,
-            max_iterations=5,
+            max_iterations=4,
             verbose=True,
             )
     @agent
@@ -85,18 +86,39 @@ class MyJournalisticCrew():
             tools=[ScrapeWebsite()],
             )
     @task
+    def select_featured_image(self) -> Task:
+        """select a suitable image and thumbnail using image analysis tool"""
+        return Task(
+            config=self.tasks_config['select_featured_image'],
+            tools=[ImageAnalysisTool()],
+            )
+    @task
+    def take_screenshot(self) -> Task:
+        """take a screenshot of a favorable tweet"""
+        return Task(
+            config=self.tasks_config['take_screenshot'],
+            tools=[TweetScreenshotTool()],
+            )
+    @task
+    def verify_screenshot(self) -> Task:
+        """verify the screenshot is a favourable tweet that can be used to enhance the article"""
+        return Task(
+            config=self.tasks_config['verify_screenshot'],
+            tools=[ImageAnalysisTool()],
+            )
+    @task
+    def push_screenshot_to_blob(self) -> Task:
+        """push the screenshot to the blob storage"""
+        return Task(
+            config=self.tasks_config['push_screenshot_to_blob'],
+            tools=[BlobStorageTool()],
+            )
+    @task
     def write(self) -> Task:
         """write a news article using journalistic style"""
         return Task(
             config=self.tasks_config['write'],
             output_pydantic=DraftArticle,
-           )
-    @task
-    def select_image(self) -> Task:
-        """select a suitable image and thumbnail using image analysis tool"""
-        return Task(
-            config=self.tasks_config['select_image'],
-            tools=[ImageAnalysisTool()],
            )
     @task
     def format(self) -> Task:

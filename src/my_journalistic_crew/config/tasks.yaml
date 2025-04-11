@@ -81,30 +81,96 @@ search_images:
 
 read_website:
   description: >
-    Use the Scrape Website tool to extract raw html or text content from news websites identified in the search_news task. 
+    Use the Scrape Website tool to read a few news websites as identified in the search_news task.
+    You are required to write a report about the topic and the content. 
+   
     End Goal: {my_thoughts}
-    Use the end goal to determine the most relevant articles to read.
     
     Your task is to:
-    1. Visit each high-priority news URL identified in the search_news results based on the end goal
-    2. Extract the full article HTML or text, headline, and metadata
-    3. Skip any webpages that output error messages e.g 403, 404, require cookies, or have strong bot restrictions.
-    4. Return the raw html or text content of each scraped website.
-  
+    1. Use the end goal to determine the most relevant articles to read.
+    2. Pick 3-5 websites.
+    3. Visit each high-priority news website and read the content.
+    4. Skip any webpages that output error messages e.g 403, 404, require cookies, or have strong bot restrictions.
+    5. Write a 1000 word report about the topic and the content.
+    - this will form the basis of the final news article
+    6. Return the report as a string.
   expected_output: >
-    Raw HTML or text content of the scraped website. The output will be the full page content as a string, 
-    which could include:
+    A report about the website and the content.
     {
-      "website_url": "https://www.example.com",
-      "content": "Raw HTML or text content of the website"
-    }
+      "report": "A report about the website and the content"
+    },
+    Roughly 1000 words with references to the websites visited.
   agent: writer
   context: [search_news]
   output_file: z_output/read_website.json
 
+select_featured_image:
+  description: >
+    Use the Image Analysis Tool and image descriptions to select the featured image(imageUrl)
+    and thumbnail(thumbnailUrl) for the article.
+    - Remove any parameters from image URLs (everything after the ? character). For example, change "image.jpg?width=800&quality=80" to just "image.jpg".
+
+  expected_output: >
+    A selection decision including:
+    - featured image(imageUrl)
+    - thumbnail(thumbnailUrl)
+    - Make sure the image URLs do not contain query parameters like quality or width.
+    - Title/caption for the image
+    - Source attribution information
+    - Brief explanation of why this image best represents the article
+    - Any relevant context about what the image depicts
+  context: [read_website, search_images]
+  agent: writer
+
+take_screenshot:
+  description: >
+    Use the Tweet Screenshot tool to take a screenshot of a favorable tweet.
+    Select a tweet that is most likely to fit well with the news story.
+    This will be used inline in the middle of the article.
+    generate a tweet_url using: https://x.com/user/status/tweet_id
+    the screenshot will be saved in the local disk.
+  expected_output: >
+    A file_path and file name of the saved screenshot as a string.
+    
+  context: [read_website, scrape_tweets]
+  agent: writer
+
+verify_screenshot:
+  description: >
+    Verify the saved screenshot is a favourable tweet that can be used to enhance the article.
+    No sexual content, no violence, no hate speech, no offensive content.
+    No unethical graphics, animations, videos etc.
+    Remain professional and ethical.
+    If the screenshot is not favourable, skip the task.
+  expected_output: >
+    A confirmation that the screenshot is a favourable tweet that can be used to enhance the article.
+    A full description of what is in the image.
+    A file_path and file name of the saved screenshot as a string.
+    If the screenshot is not favourable, return a message to the user.
+  context: [take_screenshot]
+  agent: writer
+
+push_screenshot_to_blob:
+  description: >
+    Push the verified screenshot created in the verify_screenshot task to the blob storage.
+    Use the Blob Storage tool to push the screenshot to the blob storage.
+    The screenshot is saved in the local disk.
+    The returned blob URL will be used to embed the image in the article using Markdown syntax: ![Alt text](blob_url)
+  expected_output: >
+    A confirmation that the screenshot is pushed to the blob storage.
+    A full description of what is in the image.
+    A confirmation message with the blob url of the screenshot.
+    if blob_url:
+      return f"File uploaded successfully to: 'blob_url'"
+      The returned blob_url should be used in Markdown format ![Alt text describing the tweet](blob_url)
+    else:
+      return "Error: Upload succeeded but no URL was returned"
+  context: [verify_screenshot]
+  agent: writer
+
 write:
   description: >
-    Based on the research gathered from news sources and social media, 
+    Based on the report gathered from reading news websites, tweets, and the screenshot,  
     {my_thoughts}. 
     Synthesize the information into a cohesive narrative
     that presents the story accurately and completely.
@@ -113,12 +179,20 @@ write:
     1. Create a compelling headline that accurately represents the content
     2. Write a concise summary that captures the essence of the story
     3. Develop a structured article with a clear introduction, body, and conclusion
-    4. Incorporate verified facts, quotes, dates,and data from the research
-    5. Present multiple perspectives when the topic involves different viewpoints
-    6. Maintain a neutral, objective tone adhering to journalistic standards
-    7. Identify and extract relevant entities (people, organizations, locations) mentioned
-    8. Generate appropriate keywords and tags for the article
-    9. Create a URL-friendly slug for the article
+    4. Incorporate verified facts, quotes, dates,and data from the report
+    5. Incorporate the screenshot into the article using Markdown image syntax: ![Alt text](blob_url)
+    6. Present multiple perspectives when the topic involves different viewpoints
+    7. Maintain a neutral, objective tone adhering to journalistic standards
+    8. Incorporate peoples sentiments from the tweets into the article.
+    9. Identify and extract relevant entities (people, organizations, locations) mentioned
+    10. Generate appropriate keywords and tags for the article
+    11. Create a URL-friendly slug for the article
+    12. Format the ENTIRE article content using proper Markdown syntax for:
+        - Headings (# for main heading, ## for subheadings)
+        - Paragraphs (separated by blank lines)
+        - Emphasis (**bold** for important facts, *italics* for quotes)
+        - Links ([text](url) for source attributions)
+        - Images (![alt text](url) for the screenshot)
     
     Ensure the article follows the inverted pyramid style where appropriate, 
     with the most important information appearing first.
@@ -126,46 +200,17 @@ write:
     A complete draft article in the format specified by the DraftArticle model, including:
     - Compelling headline and URL-friendly slug
     - Concise summary of the key points
-    - Well-structured article body with proper paragraphing
+    - Well-structured article body with proper paragraphing in Markdown format
     - Properly attributed quotes and sources
+    - Proper embedding of the screenshot using Markdown image syntax: ![Alt text](blob_url)
     - List of relevant keywords for SEO and categorization
     - Named entities extracted from the article
     - Content that meets journalistic standards for accuracy, fairness, and completeness
     - Mention dates, time and financial constraints if necessary
     
   agent: writer
-  context: [read_website, scrape_tweets]
+  context: [read_website, scrape_tweets, push_screenshot_to_blob]
   output_file: z_output/write.json
-
-select_image:
-  description: >
-    Use the Image Analysis Tool and image title and description to select the most appropriate image to accompany the article from the collection gathered during the image_search task. 
-    Choose an image that best represents the article's content and will engage readers.
-    
-    Your task is to:
-    1. Review 1-2 images(exclude thumbnails) collected during the image search
-    2. Evaluate each image for relevance to the specific article angle
-    3. Consider image quality, composition, and impact
-    4. Ensure the image is recent and accurately represents the current situation
-    5. Verify that proper attribution is available for the selected image
-    6. Choose both a main feature image and a thumbnail version
-    7. Provide proper citation and source information
-    
-    Select an image that adds informational value and enhances understanding 
-    of the story, not just decorative value.
-  expected_output: >
-    A selection decision including:
-    - URL of the selected main image and its thumbnail
-    - Make sure the image URLs do not contain query parameters like quality or width.
-    - Remove any parameters from image URLs (everything after the ? character). For example, change "image.jpg?width=800&quality=80" to just "image.jpg".
-    - Title/caption for the image
-    - Source attribution information
-    - Brief explanation of why this image best represents the article
-    - Any relevant context about what the image depicts
-
-  agent: writer
-  context: [search_images]
-  output_file: z_output/select_image.json
 
 format:
   description: >
@@ -178,10 +223,11 @@ format:
     2. Ensure all required fields are present and properly formatted
     3. Verify category and subcategory assignments are appropriate
     4. Confirm author attribution based on the category/subcategory
-    5. Check that the selected image is properly integrated
-    6. Finalize metadata including keywords, entities, and publication status
-    7. Format the article according to the FinalArticle model specifications
-    8. Perform a final check for any factual errors or missing information
+    5. Check that the selected image is properly integrated using Markdown image syntax
+    6. Ensure all Markdown formatting is correctly applied (headings, links, emphasis, etc.)
+    7. Finalize metadata including keywords, entities, and publication status
+    8. Format the article according to the FinalArticle model specifications
+    9. Perform a final check for any factual errors or missing information
     
     This is the last quality check before publication, so be thorough in ensuring 
     all requirements are met.
@@ -189,13 +235,13 @@ format:
     A publication-ready article formatted according to the FinalArticle model, including:
     - All required fields properly populated
     - Correct category, subcategory, and author assignments got from {category}
-    - Properly integrated images with correct URLs and attribution
+    - Properly integrated images with correct Markdown image syntax and attribution
     - Complete metadata (keywords, entities, etc.)
-    - Properly formatted content that meets style guidelines
+    - Properly formatted content in Markdown that meets style guidelines
     - Confirmation that the article meets all quality standards
     - story: {story}, publisher: 'joelmbaka.site'
   agent: editor
-  context: [write, select_image]
+  context: [write, select_featured_image]
   output_file: z_output/format.json
 
 publish:
