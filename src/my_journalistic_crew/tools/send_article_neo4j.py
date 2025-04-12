@@ -1,7 +1,7 @@
 from crewai.tools import BaseTool
 from typing import Type, List, Optional
 from pydantic import BaseModel, Field
-from my_journalistic_crew.models.ArticleModel import FinalArticle
+from my_journalistic_crew.MyPyModels.ArticleModel import FinalArticle
 from neo4j import GraphDatabase
 from openai import OpenAI
 import os
@@ -13,14 +13,14 @@ class Neo4jArticleInput(BaseModel):
     """Input schema for Neo4j Article Tool."""
     title: str = Field(..., description="The headline or main title of the article")
     slug: str = Field(..., description="A URL-friendly version of the article title")
-    content: str = Field(..., description="The full text content of the article")
+    content: str = Field(..., description="The full text content of the article in Markdown format")
     category: str = Field(..., description="The category of the article")
     subcategory: str = Field(..., description="The subcategory of the article")
     story: str = Field(default="", description="The overarching story this article belongs to")
     breaking_news: bool = Field(default=False, description="Whether the article is a breaking news")
     trending: bool = Field(default=False, description="Whether the article is a trending news")
     author: str = Field(default="", description="The name of the writer based on the category")
-    summary: str = Field(default="", description="A brief summary or abstract of the article's main points")
+    summary: str = Field(default="", description="A brief summary or abstract of the article's main points in Markdown format")
     keywords: List[str] = Field(default_factory=list, description="List of relevant keywords or tags associated with the article")
     entities: List[str] = Field(default_factory=list, description="List of named entities in format 'type:value' extracted from the article")
     imageUrl: Optional[str] = Field(default="", description="URL of the main image associated with the article")

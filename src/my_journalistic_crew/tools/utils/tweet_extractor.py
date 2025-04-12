@@ -1,4 +1,4 @@
-from my_journalistic_crew.models.TwitterElements import TweetModel, UserModel, TimestampModel, MetricsModel, MediaModel, TweetStructureModel
+from my_journalistic_crew.MyPyModels.TwitterElements import TweetModel, UserModel, TimestampModel, MetricsModel, MediaModel, TweetStructureModel
 from selenium.webdriver.common.by import By
 import datetime
 

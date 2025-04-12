@@ -3,7 +3,7 @@ from typing import Type
 from pydantic import BaseModel
 from my_journalistic_crew.tools.utils.webdriver import WebDriverClient
 from my_journalistic_crew.tools.utils.pagenav import PageNavigator
-from my_journalistic_crew.models.TwitterElements import ScraperInput 
+from my_journalistic_crew.MyPyModels.TwitterElements import ScraperInput 
 from my_journalistic_crew.tools.utils.scroller import scroll_to_load_tweets
 from my_journalistic_crew.tools.utils.tweet_extractor import extract_tweet_data
 from my_journalistic_crew.tools.utils.output_utils import (

@@ -1,265 +1,71 @@
 search_news:
-  description: >
-    Use the Google News Search tool to perform comprehensive news searches about the provided query(ies), if any:
-    {google_query_1}, 
-    {google_query_2}, 
-    {google_query_3}, 
-    country(ies): {country} 
-    
-  expected_output: >
-    A JSON structure containing news search results including:
-    - searchParameters: object containing q (query(ies)), type, and engine
-    - news: array of news items, each containing:
-      - title: article title
-      - link: article URL
-      - snippet: brief summary of article content
-      - date: publication date
-      - source: publication source
-      - position: ranking position in results
-  agent: researcher
-  output_file: z_output/search_news.json
-
-scrape_tweets:
-  description: >
-    Use the Twitter scraper tool to scrape {max_tweets} tweets about {twitter_query},
-    Set is_hashtag={is_hashtag}
-    You dont have to do any analysis, just scrape the tweets
-
-    Return A structured JSON collection of scraped tweets including:
-    - tweets: array of tweet objects containing:
-      - tweet id
-      - content
-      - user
-      - timestamp
-      - likes
-      - retweets
-      - has_photos
-    - trend: the search query used
-    - count: total number of tweets collected
-  
-  expected_output: >
-    A structured JSON collection of scraped tweets in the following format:
-    {
-      "tweets": [
-        {
-          "tweet_id": "1234567890",
-          "content": "This is a tweet",
-          "user": "user123",
-          "timestamp": "2021-01-01 12:00:00",
-          "likes": 10,
-          "retweets": 5,
-          "has_photos": true
-        }
-      ]
-      "trend": "twitter_query",
-      "count": 10
-    }
-  agent: researcher
-  output_file: z_output/scrape_tweets.json
+  description: "search for news from past 24 hours using news search tool. topic: {q1}"
+  expected_output: "GoogleNewsResults object with searchParameters and news articles"
+  agent: "researcher"
+  context: []
 
 search_images:
-  description: >
-    Use the Image Search Tool to find relevant, high-quality images related to the context that could be used to 
-    illustrate the news article.
-    search query: {google_query_1}
-    country(ies): {country} 
-    
-  expected_output: >
-    A JSON structure containing image search results including:
-    - searchParameters: object containing q (query), type, engine, and num
-    - images: array of image objects, each containing:
-      - title: image title or description
-      - imageUrl: URL of the full-size image
-      - imageWidth: width dimension of the full image
-      - imageHeight: height dimension of the full image
-      - thumbnailUrl: URL of the thumbnail version
-      - thumbnailWidth: width dimension of the thumbnail
-      - thumbnailHeight: height dimension of the thumbnail
-      - source: source website or attribution information
-  agent: researcher
-  output_file: z_output/search_images.json
+  description: "search for images from past 24 hours using image search tool"
+  expected_output: "GoogleImageResults object with searchParameters and image details"
+  agent: "researcher"
+  context: ["search_news"]
 
-read_website:
-  description: >
-    Use the Scrape Website tool to read a few news websites as identified in the search_news task.
-    You are required to write a report about the topic and the content. 
-   
-    End Goal: {my_thoughts}
-    
-    Your task is to:
-    1. Use the end goal to determine the most relevant articles to read.
-    2. Pick 3-5 websites.
-    3. Visit each high-priority news website and read the content.
-    4. Skip any webpages that output error messages e.g 403, 404, require cookies, or have strong bot restrictions.
-    5. Write a 1000 word report about the topic and the content.
-    - this will form the basis of the final news article
-    6. Return the report as a string.
-  expected_output: >
-    A report about the website and the content.
-    {
-      "report": "A report about the website and the content"
-    },
-    Roughly 1000 words with references to the websites visited.
-  agent: writer
-  context: [search_news]
-  output_file: z_output/read_website.json
+search_tweets:
+  description: "search for tweets using twitter scraper tool, topic:{twitter_query}."
+  expected_output: "JSON array of tweets with content, author, and engagement metrics"
+  agent: "researcher"
+  context: ["search_news", "search_images"]
 
-select_featured_image:
-  description: >
-    Use the Image Analysis Tool and image descriptions to select the featured image(imageUrl)
-    and thumbnail(thumbnailUrl) for the article.
-    - Remove any parameters from image URLs (everything after the ? character). For example, change "image.jpg?width=800&quality=80" to just "image.jpg".
+read_websites:
+  description: "read few websites using read website content tool"
+  expected_output: "JSON content of scraped websites with text and metadata"
+  agent: "analyst"
+  context: ["search_news"]
 
-  expected_output: >
-    A selection decision including:
-    - featured image(imageUrl)
-    - thumbnail(thumbnailUrl)
-    - Make sure the image URLs do not contain query parameters like quality or width.
-    - Title/caption for the image
-    - Source attribution information
-    - Brief explanation of why this image best represents the article
-    - Any relevant context about what the image depicts
-  context: [read_website, search_images]
-  agent: writer
+take_screenshots:
+  description: "take 1 screenshot of a top tweet using take tweet screenshot tool. only select a tweet without an image"
+  expected_output: "JSON with local paths to the screenshots"
+  agent: "analyst"
+  context: ["search_tweets"]
 
-take_screenshot:
-  description: >
-    Use the Tweet Screenshot tool to take a screenshot of a favorable tweet.
-    Select a tweet that is most likely to fit well with the news story.
-    This will be used inline in the middle of the article.
-    generate a tweet_url using: https://x.com/user/status/tweet_id
-    the screenshot will be saved in the local disk.
-  expected_output: >
-    A file_path and file name of the saved screenshot as a string.
-    
-  context: [read_website, scrape_tweets]
-  agent: writer
+analyse_images:
+  description: "analyse images using image analysis tool. select one of them as a fetured image and 2-3 as in-content images including the twitter screenshot."
+  expected_output: "JSON analysis of image content, subjects, and context. the choices you made and why the image fits the context"
+  agent: "analyst"
+  context: ["search_images", "take_screenshots"]
 
-verify_screenshot:
-  description: >
-    Verify the saved screenshot is a favourable tweet that can be used to enhance the article.
-    No sexual content, no violence, no hate speech, no offensive content.
-    No unethical graphics, animations, videos etc.
-    Remain professional and ethical.
-    If the screenshot is not favourable, skip the task.
-  expected_output: >
-    A confirmation that the screenshot is a favourable tweet that can be used to enhance the article.
-    A full description of what is in the image.
-    A file_path and file name of the saved screenshot as a string.
-    If the screenshot is not favourable, return a message to the user.
-  context: [take_screenshot]
-  agent: writer
+download_images:
+  description: "download images from url and resize them to blog size. download the featured image with bool featured_image=true"
+  expected_output: "JSON with local paths to downloaded and resized images and their descriptions"
+  agent: "analyst"
+  context: ["analyse_images"]
 
-push_screenshot_to_blob:
-  description: >
-    Push the verified screenshot created in the verify_screenshot task to the blob storage.
-    Use the Blob Storage tool to push the screenshot to the blob storage.
-    The screenshot is saved in the local disk.
-    The returned blob URL will be used to embed the image in the article using Markdown syntax: ![Alt text](blob_url)
-  expected_output: >
-    A confirmation that the screenshot is pushed to the blob storage.
-    A full description of what is in the image.
-    A confirmation message with the blob url of the screenshot.
-    if blob_url:
-      return f"File uploaded successfully to: 'blob_url'"
-      The returned blob_url should be used in Markdown format ![Alt text describing the tweet](blob_url)
-    else:
-      return "Error: Upload succeeded but no URL was returned"
-  context: [verify_screenshot]
-  agent: writer
+upload_images:
+  description: "upload images to blob storage and get a URI that will be embedded as markdown"
+  expected_output: "JSON with image URIs and their descripttions"
+  agent: "analyst"
+  context: ["download_images"]
 
-write:
-  description: >
-    Based on the report gathered from reading news websites, tweets, and the screenshot,  
-    {my_thoughts}. 
-    Synthesize the information into a cohesive narrative
-    that presents the story accurately and completely.
-    
-    Your task is to:
-    1. Create a compelling headline that accurately represents the content
-    2. Write a concise summary that captures the essence of the story
-    3. Develop a structured article with a clear introduction, body, and conclusion
-    4. Incorporate verified facts, quotes, dates,and data from the report
-    5. Incorporate the screenshot into the article using Markdown image syntax: ![Alt text](blob_url)
-    6. Present multiple perspectives when the topic involves different viewpoints
-    7. Maintain a neutral, objective tone adhering to journalistic standards
-    8. Incorporate peoples sentiments from the tweets into the article.
-    9. Identify and extract relevant entities (people, organizations, locations) mentioned
-    10. Generate appropriate keywords and tags for the article
-    11. Create a URL-friendly slug for the article
-    12. Format the ENTIRE article content using proper Markdown syntax for:
-        - Headings (# for main heading, ## for subheadings)
-        - Paragraphs (separated by blank lines)
-        - Emphasis (**bold** for important facts, *italics* for quotes)
-        - Links ([text](url) for source attributions)
-        - Images (![alt text](url) for the screenshot)
-    
-    Ensure the article follows the inverted pyramid style where appropriate, 
-    with the most important information appearing first.
-  expected_output: >
-    A complete draft article in the format specified by the DraftArticle model, including:
-    - Compelling headline and URL-friendly slug
-    - Concise summary of the key points
-    - Well-structured article body with proper paragraphing in Markdown format
-    - Properly attributed quotes and sources
-    - Proper embedding of the screenshot using Markdown image syntax: ![Alt text](blob_url)
-    - List of relevant keywords for SEO and categorization
-    - Named entities extracted from the article
-    - Content that meets journalistic standards for accuracy, fairness, and completeness
-    - Mention dates, time and financial constraints if necessary
-    
-  agent: writer
-  context: [read_website, scrape_tweets, push_screenshot_to_blob]
-  output_file: z_output/write.json
+write_article:
+  description: "write an engaging news article that will be published on my blog. "
+  expected_output: "DraftArticle object with title, slug, content, and metadata"
+  agent: "writer"
+  context: ["search_news", "read_websites", "upload_images"]
 
-format:
-  description: >
-    Review and finalize the article for publication, ensuring it meets all technical 
-    and editorial requirements. Transform the draft article into the final format 
-    ready for publishing to the Neo4j database.
-    
-    Your task is to:
-    1. Review the article for accuracy, clarity, and completeness
-    2. Ensure all required fields are present and properly formatted
-    3. Verify category and subcategory assignments are appropriate
-    4. Confirm author attribution based on the category/subcategory
-    5. Check that the selected image is properly integrated using Markdown image syntax
-    6. Ensure all Markdown formatting is correctly applied (headings, links, emphasis, etc.)
-    7. Finalize metadata including keywords, entities, and publication status
-    8. Format the article according to the FinalArticle model specifications
-    9. Perform a final check for any factual errors or missing information
-    
-    This is the last quality check before publication, so be thorough in ensuring 
-    all requirements are met.
-  expected_output: >
-    A publication-ready article formatted according to the FinalArticle model, including:
-    - All required fields properly populated
-    - Correct category, subcategory, and author assignments got from {category}
-    - Properly integrated images with correct Markdown image syntax and attribution
-    - Complete metadata (keywords, entities, etc.)
-    - Properly formatted content in Markdown that meets style guidelines
-    - Confirmation that the article meets all quality standards
-    - story: {story}, publisher: 'joelmbaka.site'
-  agent: editor
-  context: [write, select_featured_image]
-  output_file: z_output/format.json
+review_article:
+  description: "review the article you have written for completeness"
+  expected_output: "Revised article content"
+  agent: "writer"
+  context: ["write_article"]
 
-publish:
-  description: >
-    Publish the finalized article to the Neo4j database using the Neo4j Article Tool. 
-    This is the final step that makes the article available to readers.
-    
-    Your task is to:
-    1. Verify that the article meets all publication requirements
-    2. Prepare the article data in the format required by the Neo4j database
-    3. Submit the article to the database using the Neo4j Article Tool
-    4. Confirm successful publication and storage
-    5. Document any issues encountered during the publishing process
-    
-    Ensure that the article is properly stored with all metadata intact and 
-    that it's ready for retrieval and display to readers.
-  expected_output: >
-    return f"Successfully stored article with title: '{created_node[0]['art.title']}', slug: '{created_node[0]['art.slug']}', published at: {created_node[0]['art.publishedAt']}"
-  agent: editor
-  context: [format]
-  output_file: z_output/publish.json
+format_input:
+  description: "review article fields to conform to model requirements"
+  expected_output: "FinalArticle object with all required fields populated"
+  agent: "writer"
+  context: ["review_article"]
+
+publish_article:
+  description: "publish article to neo4j database"
+  expected_output: "Confirmation message with art.slug published to neo4j database"
+  agent: "writer"
+  context: ["format_input"]

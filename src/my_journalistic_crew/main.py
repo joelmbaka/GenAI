@@ -10,7 +10,7 @@ from dotenv import load_dotenv
 load_dotenv()
 from my_journalistic_crew.crew import MyJournalisticCrew
 warnings.filterwarnings("ignore", category=SyntaxWarning, module="pysbd")
-from my_journalistic_crew.models.ArticleModel import CategorySubcategoryAuthor
+from my_journalistic_crew.MyPyModels.ArticleModel import CategorySubcategoryAuthor
 
 def run():
     """ 
@@ -19,9 +19,9 @@ def run():
     # Load environment variables
     
     inputs = {
-        "google_query_1": os.getenv("GOOGLE_QUERY_1", ""),
-        "google_query_2": os.getenv("GOOGLE_QUERY_2", ""),
-        "google_query_3": os.getenv("GOOGLE_QUERY_3", ""),
+        "q1": os.getenv("Q1", ""),
+        "q2": os.getenv("Q2", ""),
+        "q3": os.getenv("Q3", ""),
         "country": os.getenv("COUNTRY", ""),
         "date_range": os.getenv("DATE_RANGE", ""),
         "twitter_query": os.getenv("TWITTER_QUERY", ""),
