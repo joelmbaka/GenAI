@@ -1,5 +1,7 @@
-from my_journalistic_crew.tools.utils.webdriver import WebDriverClient
+from my_journalistic_crew.utils.webdriver import WebDriverClient
 from typing import Optional
+import time
+import random
 
 class PageNavigator:
     """Utility class for page navigation"""
@@ -11,6 +13,7 @@ class PageNavigator:
         """Navigate to a URL with error handling"""
         try:
             self.driver.get(url)
+            time.sleep(random.uniform(1, 3))  # Random delay
             return True
         except:
             return False
@@ -19,6 +22,7 @@ class PageNavigator:
         """Refresh the current page"""
         try:
             self.driver.refresh()
+            time.sleep(random.uniform(1, 3))  # Random delay
             return True
         except:
             return False
@@ -36,5 +40,14 @@ class PageNavigator:
             return self.driver.execute_script(
                 "return document.readyState"
             ) == "complete"
+        except:
+            return False
+    
+    def scroll_page(self, pixels: int) -> bool:
+        """Scroll the page by a specified number of pixels"""
+        try:
+            self.driver.execute_script(f"window.scrollBy(0, {pixels});")
+            time.sleep(random.uniform(1, 3))  # Random delay
+            return True
         except:
             return False 

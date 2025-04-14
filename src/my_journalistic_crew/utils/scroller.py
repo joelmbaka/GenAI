@@ -1,4 +1,4 @@
-from my_journalistic_crew.tools.utils.webdriver import WebDriverClient
+from my_journalistic_crew.utils.webdriver import WebDriverClient
 import time
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By

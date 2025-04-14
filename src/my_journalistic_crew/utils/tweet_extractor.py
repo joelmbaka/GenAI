@@ -1,4 +1,4 @@
-from my_journalistic_crew.MyPyModels.TwitterElements import TweetModel, UserModel, TimestampModel, MetricsModel, MediaModel, TweetStructureModel
+from .x_elements import TweetModel, UserModel, TimestampModel, MetricsModel, MediaModel, TweetStructureModel
 from selenium.webdriver.common.by import By
 import datetime
 
@@ -29,10 +29,13 @@ def extract_tweet_data(tweet_element, tweet_id=None, driver=None) -> TweetModel:
 
     # Extract media
     photo_elements = tweet_element.find_elements(By.CSS_SELECTOR, 'img[src*="media"]')
+    video_elements = tweet_element.find_elements(By.CSS_SELECTOR, 'video')
     media = MediaModel(
         hasPhotos=bool(photo_elements),
-        mediaCount=len(photo_elements),
-        photoUrls=[img.get_attribute('src') for img in photo_elements]
+        hasVideos=bool(video_elements),
+        mediaCount=len(photo_elements) + len(video_elements),
+        photoUrls=[img.get_attribute('src') for img in photo_elements],
+        videoUrls=[video.get_attribute('src') for video in video_elements]
     )
 
     # Create structure

@@ -1,5 +1,5 @@
 from crewai.tools import BaseTool
-from typing import Type, Optional
+from typing import Type, Optional, List
 from pydantic import BaseModel, Field
 import requests
 import base64
@@ -13,39 +13,67 @@ load_dotenv()
 
 class ImageAnalysisInput(BaseModel):
     """Input schema for ImageAnalysisTool."""
-    image_url: Optional[str] = Field(None, description="URL of the image to analyze. Either image_url or image_path must be provided.")
-    image_path: Optional[str] = Field(None, description="Local file path of the image to analyze. Either image_url or image_path must be provided.")
+    image_urls: List[str] = Field(..., description="List of URLs of the images to analyze.")
 
 class ImageAnalysisTool(BaseTool):
     name: str = "Image Analysis Tool"
     description: str = (
-        "Analyzes an image from a given URL or local file path and provides a detailed description of its contents."
+        "Analyzes images from given URLs and provides detailed descriptions of their contents."
     )
     args_schema: Type[BaseModel] = ImageAnalysisInput
 
-    def _run(self, image_url: Optional[str] = None, image_path: Optional[str] = None) -> str:
+    def _run(self, image_urls: List[str]) -> List[str]:
         try:
-            # Check that at least one input is provided
-            if not image_url and not image_path:
-                return "Error: Either image_url or image_path must be provided."
+            # Step 1: Validate all URLs first
+            valid_urls = []
+            for image_url in image_urls:
+                try:
+                    print(f"Checking URL: {image_url}")
+                    response = requests.get(image_url)
+                    response.raise_for_status()  # Raise HTTPError for bad responses (4xx and 5xx)
+                    valid_urls.append(image_url)
+                except requests.exceptions.HTTPError as e:
+                    print(f"Failed to load image from {image_url}: {str(e)}")
+                except Exception as e:
+                    print(f"Error loading image from {image_url}: {str(e)}")
             
-            # Load the image data
-            if image_url:
-                # Download the image from the URL
-                print(f"Loading image from URL: {image_url}")
-                response = requests.get(image_url)
-                response.raise_for_status()
-                image_data = response.content
-            else:
-                # Load the image from the local file path
-                print(f"Loading image from local path: {image_path}")
-                if not os.path.exists(image_path):
-                    return f"Error: Image file not found at {image_path}"
+            # Step 2: Batch process all valid URLs
+            loaded_images = []
+            for image_url in valid_urls:
+                try:
+                    print(f"Loading image from URL: {image_url}")
+                    response = requests.get(image_url)
+                    response.raise_for_status()
+                    image_data = response.content
+                    loaded_images.append((image_url, image_data))
+                except Exception as e:
+                    print(f"Error loading image from {image_url}: {str(e)}")
+            
+            # Step 3: Process all successfully loaded images
+            descriptions = []
+            for image_url, image_data in loaded_images:
+                try:
+                    description = self._process_image(image_data)
+                    descriptions.append(description)
+                except Exception as e:
+                    print(f"Error processing image from {image_url}: {str(e)}")
+                    descriptions.append(f"Error processing image: {str(e)}")
+            
+            return descriptions
                 
-                with open(image_path, "rb") as f:
-                    image_data = f.read()
+        except Exception as e:
+            return [f"Error analyzing images: {str(e)}"]
+    
+    def _process_image(self, image_data: bytes) -> str:
+        """Process a single image and return its description."""
+        try:
+            # Attempt to open the image
+            img = Image.open(io.BytesIO(image_data))
             
-            # Process the image
+            # Check if the image is valid
+            img.verify()  # Verify that the file is not truncated or corrupted
+            
+            # Reopen the image after verification
             img = Image.open(io.BytesIO(image_data))
             
             # Convert RGBA to RGB if necessary (handle transparent PNGs)
@@ -58,7 +86,7 @@ class ImageAnalysisTool(BaseTool):
             elif img.mode != 'RGB':
                 # Convert any other mode to RGB
                 img = img.convert('RGB')
-                
+            
             img_resized = self._resize_image(img)
             buffered = io.BytesIO()
             img_resized.save(buffered, format="JPEG", quality=70)  # Using 70% quality
@@ -101,9 +129,9 @@ class ImageAnalysisTool(BaseTool):
                 return image_description
             else:
                 return "Failed to get a description from the API."
-                
+        
         except Exception as e:
-            return f"Error analyzing image: {str(e)}"
+            return f"Error processing image: {str(e)}"
     
     def _get_api_key(self):
         # Try to get the API key from different environment variables

@@ -1,15 +1,11 @@
 from crewai.tools import BaseTool
 from typing import Type
 from pydantic import BaseModel
-from my_journalistic_crew.tools.utils.webdriver import WebDriverClient
-from my_journalistic_crew.tools.utils.pagenav import PageNavigator
-from my_journalistic_crew.MyPyModels.TwitterElements import ScraperInput 
-from my_journalistic_crew.tools.utils.scroller import scroll_to_load_tweets
-from my_journalistic_crew.tools.utils.tweet_extractor import extract_tweet_data
-from my_journalistic_crew.tools.utils.output_utils import (
-    format_cookies_error,
-    format_empty_response
-)
+from my_journalistic_crew.utils.webdriver import WebDriverClient
+from my_journalistic_crew.utils.pagenav import PageNavigator
+from my_journalistic_crew.utils.x_elements import ScraperInput 
+from my_journalistic_crew.utils.scroller import scroll_to_load_tweets
+from my_journalistic_crew.utils.tweet_extractor import extract_tweet_data
 from urllib.parse import quote
 import json
 import time
@@ -18,10 +14,22 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 # Load environment variables
 load_dotenv()
 MIN_LIKES = int(os.getenv('MIN_LIKES', 10))  
 MIN_RETWEETS = int(os.getenv('MIN_RETWEETS', 5)) 
+
+def format_cookies_error(error):
+    return json.dumps({
+        'status': 'error',
+        'error': f"Error loading cookies: {str(error)}",
+        'filename': f"error_cookies_{datetime.now().strftime('%Y%m%d_%H%M%S')}.json",
+        'tweets': []
+    })
+
+def format_empty_response():
+    return json.dumps({'tweets': []})
 
 class TwitterScraper(BaseTool):
     name: str = "Twitter Scraper"
@@ -228,7 +236,11 @@ class TwitterScraper(BaseTool):
                     "timestamp": str(tweet.timestamp.datetime) if tweet.timestamp.datetime else "",
                     "likes": int(tweet.metrics.likes) if tweet.metrics.likes is not None else 0,
                     "retweets": int(tweet.metrics.retweets) if tweet.metrics.retweets is not None else 0,
-                    "has_photos": bool(tweet.media.hasPhotos)
+                    "replies": int(tweet.metrics.replies) if tweet.metrics.replies is not None else 0,
+                    "has_photos": bool(tweet.media.hasPhotos),
+                    "photo_urls": tweet.media.photoUrls,
+                    "has_videos": bool(tweet.media.hasVideos),
+                    "video_urls": tweet.media.videoUrls
                 } for tweet in tweets_collected[:max_tweets]],
                 "trend": trend,
                 "count": min(len(tweets_collected), max_tweets)

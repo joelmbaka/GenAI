@@ -1,8 +1,8 @@
 from crewai.tools import BaseTool
 from typing import Type, Dict, Any, Optional
 from pydantic import BaseModel, Field
-from my_journalistic_crew.tools.utils.webdriver import WebDriverClient
-from my_journalistic_crew.tools.utils.pagenav import PageNavigator
+from my_journalistic_crew.utils.webdriver import WebDriverClient
+from my_journalistic_crew.utils.pagenav import PageNavigator
 import json
 import os
 import time
@@ -192,6 +192,54 @@ class TweetScreenshotTool(BaseTool):
             print(f"Error taking element screenshot: {str(e)}")
             return False
 
+    def take_text_element_screenshot(self, driver, element, filename) -> bool:
+        """Take screenshot of the profile image and tweet text only"""
+        try:
+            # Find the tweet container element
+            tweet_container = element.find_element(By.CSS_SELECTOR, 'article[data-testid="tweet"]')
+            
+            # Find the profile image element
+            profile_image = tweet_container.find_element(By.CSS_SELECTOR, 'img[src*="profile_images"]')
+            
+            # Find the tweet text element
+            tweet_text = tweet_container.find_element(By.CSS_SELECTOR, 'div[data-testid="tweetText"]')
+            
+            # Create a bounding box that includes the profile image and tweet text
+            profile_image_location = profile_image.location
+            profile_image_size = profile_image.size
+            tweet_text_location = tweet_text.location
+            tweet_text_size = tweet_text.size
+            
+            # Calculate the bounding box
+            left = min(profile_image_location['x'], tweet_text_location['x'])
+            top = min(profile_image_location['y'], tweet_text_location['y'])
+            right = max(profile_image_location['x'] + profile_image_size['width'], 
+                        tweet_text_location['x'] + tweet_text_size['width'])
+            bottom = max(profile_image_location['y'] + profile_image_size['height'], 
+                         tweet_text_location['y'] + tweet_text_size['height'])
+            
+            # Add a small margin (10px on each side)
+            margin = 10
+            left = max(0, left - margin)
+            top = max(0, top - margin)
+            right = right + margin
+            bottom = bottom + margin
+            
+            # Take full page screenshot
+            png_data = driver.get_screenshot_as_png()
+            
+            # Crop image to the bounding box
+            im = Image.open(BytesIO(png_data))
+            im = im.crop((left, top, right, bottom))
+            
+            # Save cropped image
+            im.save(filename)
+            print(f"Tweet screenshot (profile + text) saved to {filename}")
+            return True
+        except Exception as e:
+            print(f"Error taking tweet screenshot: {str(e)}")
+            return False
+
     def crop_screenshot_with_pil(self, driver, element, filename) -> bool:
         """Use PIL to take a full screenshot and crop to just the element"""
         try:
@@ -230,8 +278,8 @@ class TweetScreenshotTool(BaseTool):
             tweet_id (str): The ID of the tweet to capture
             headless (bool): Run browser in headless mode
             device_type (str): Device type to emulate
-            wait_time (int): Time to wait for tweet to load
-            element_only (bool): Take screenshot of just the tweet element
+            wait_time (int): Time to wait for tweet to load (seconds)
+            element_only (bool): Take screenshot of just the tweet element instead of full page
             use_pil_crop (bool): Use PIL to crop image if element screenshot fails
         
         Returns:
@@ -294,20 +342,22 @@ class TweetScreenshotTool(BaseTool):
             tweet_data = self.get_specific_tweet(driver, tweet_id)
             
             if element_only and tweet_data and tweet_data['element']:
-                # Take screenshot of just the tweet element
+                # Take screenshot of the profile image and tweet text
                 element = tweet_data['element']
+                took_screenshot = self.take_text_element_screenshot(driver, element, filename)
                 
-                # First try direct element screenshot
-                took_screenshot = self.take_element_screenshot(driver, element, filename)
-                
-                # If element screenshot failed and PIL cropping is enabled, try that instead
-                if not took_screenshot and use_pil_crop:
-                    took_screenshot = self.crop_screenshot_with_pil(driver, element, filename)
-                
-                # If both methods failed, fall back to full page
+                # If screenshot failed, fall back to full element screenshot
                 if not took_screenshot:
-                    element_only = False
-                    print("Element screenshot failed, falling back to full page")
+                    took_screenshot = self.take_element_screenshot(driver, element, filename)
+                    
+                    # If element screenshot failed and PIL cropping is enabled, try that instead
+                    if not took_screenshot and use_pil_crop:
+                        took_screenshot = self.crop_screenshot_with_pil(driver, element, filename)
+                    
+                    # If both methods failed, fall back to full page
+                    if not took_screenshot:
+                        element_only = False
+                        print("Element screenshot failed, falling back to full page")
             
             # Take full page screenshot if element screenshot failed or not requested
             if not element_only:

@@ -1,6 +1,22 @@
 from pydantic import BaseModel, Field
 from typing import List, Dict, Optional, Any
 
+class TweetsModel(BaseModel):
+    """Model representing scraped tweets from the Twitter Scraper tool."""
+    class TweetItem(BaseModel):
+        id: str = Field(..., description="The unique identifier of the tweet")
+        content: str = Field(..., description="The text content of the tweet")
+        user: str = Field(..., description="The handle of the user who posted the tweet")
+        timestamp: str = Field(..., description="The timestamp of the tweet in ISO format")
+        likes: int = Field(..., description="The number of likes the tweet has received")
+        retweets: int = Field(..., description="The number of retweets the tweet has received")
+        has_photos: bool = Field(..., description="Whether the tweet contains photos")
+        photo_urls: List[str] = Field(default_factory=list, description="List of URLs of the photos in the tweet")
+
+    trend: str = Field(..., description="The trend or hashtag that was searched")
+    count: int = Field(..., description="The number of tweets collected")
+    tweets: List[TweetItem] = Field(default_factory=list, description="List of tweets collected")
+
 class GoogleNewsResults(BaseModel):
     """Model representing Google News search results from the search tool"""
     class SearchParameters(BaseModel):
@@ -95,35 +111,55 @@ class FinalArticle(BaseModel):
         description="Whether the article is a trending news"
     )
 
-CategorySubcategoryAuthor = {
-    "news": {
-        "subcategories": {
-            "kenya": {"author": "John Kamau"},
-            "africa": {"author": "Kwame Nkrumah"},
-            "u.s": {"author": "John Smith"},
-            "europe": {"author": "James Wilson"},
-            "asia": { "authors": ["Li Wei", "Priya Patel"]},
-            "middle east": {"author": "David Cohen"}
-        }
-    },
-    "business": {
-        "subcategories": {
-            "business news": {"author": "Dr. Emily Chebet"},
-            "startup ideas": {"author": "Anne Mwangi"},
-            "success stories": {"author": "Peter Kipchumba"},
-            "technology in business": {"author": "Anne Mwangi"}
-        }
-    },
-    "lifestyle": {
-        "subcategories": {
-            "technology": {"author": "Anne Mwangi"},
-            "agriculture": {"author": "Peter Kipchumba"},
-            "health": {"author": "Dr. Emily Chebet"},
-            "food": {"author": "Marco Rossi"},
-            "travel": {"author": "Peter Kipchumba"},
-            "education": {"author": "Dr. Emily Chebet"},
-            "opinion": {"author": "Anne Mwangi"},
-            "sports": {"author": "James Wilson"},
-        }
-    },
-}
+class SerperWebSearchResults(BaseModel):
+    """Model representing Serper API web search results."""
+    
+    class SearchParameters(BaseModel):
+        q: str = Field(..., description="The search query used")
+        type: str = Field(default="search", description="The type of search")
+        engine: str = Field(default="google", description="The search engine used")
+    
+    class KnowledgeGraph(BaseModel):
+        class KnowledgeGraphAttributes(BaseModel):
+            Customer_service: Optional[str] = Field(default=None, description="Customer service contact information")
+            Founders: Optional[str] = Field(default=None, description="Founders of the company")
+            Founded: Optional[str] = Field(default=None, description="Date and location of founding")
+            CEO: Optional[str] = Field(default=None, description="Current CEO of the company")
+            Headquarters: Optional[str] = Field(default=None, description="Headquarters location")
+        
+        title: Optional[str] = Field(default=None, description="Title of the knowledge graph entry")
+        type: Optional[str] = Field(default=None, description="Type of the entity")
+        website: Optional[str] = Field(default=None, description="Official website URL")
+        imageUrl: Optional[str] = Field(default=None, description="URL of the image")
+        description: Optional[str] = Field(default=None, description="Description of the entity")
+        descriptionSource: Optional[str] = Field(default=None, description="Source of the description")
+        descriptionLink: Optional[str] = Field(default=None, description="Link to the description source")
+        attributes: Optional[KnowledgeGraphAttributes] = Field(default=None, description="Additional attributes")
+    
+    class OrganicResult(BaseModel):
+        class OrganicSitelink(BaseModel):
+            title: str = Field(..., description="Title of the sitelink")
+            link: str = Field(..., description="URL of the sitelink")
+        
+        title: str = Field(..., description="Title of the search result")
+        link: str = Field(..., description="URL of the search result")
+        snippet: str = Field(..., description="Brief snippet or summary of the result")
+        sitelinks: List[OrganicSitelink] = Field(default_factory=list, description="List of sitelinks")
+        position: int = Field(..., description="Position in search results")
+        date: Optional[str] = Field(default=None, description="Publication date of the result")
+    
+    class PeopleAlsoAsk(BaseModel):
+        question: str = Field(..., description="Question asked")
+        snippet: str = Field(..., description="Brief snippet or summary of the answer")
+        title: str = Field(..., description="Title of the source")
+        link: str = Field(..., description="URL of the source")
+    
+    class RelatedSearch(BaseModel):
+        query: str = Field(..., description="Related search query")
+    
+    searchParameters: SearchParameters = Field(..., description="Parameters used for the search query")
+    knowledgeGraph: Optional[KnowledgeGraph] = Field(default=None, description="Knowledge graph information")
+    organic: List[OrganicResult] = Field(default_factory=list, description="List of organic search results")
+    peopleAlsoAsk: List[PeopleAlsoAsk] = Field(default_factory=list, description="List of 'People Also Ask' questions")
+    relatedSearches: List[RelatedSearch] = Field(default_factory=list, description="List of related searches")
+    credits: int = Field(..., description="Credits used for the search")

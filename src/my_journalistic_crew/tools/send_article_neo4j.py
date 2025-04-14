@@ -1,7 +1,7 @@
 from crewai.tools import BaseTool
 from typing import Type, List, Optional
 from pydantic import BaseModel, Field
-from my_journalistic_crew.MyPyModels.ArticleModel import FinalArticle
+from my_journalistic_crew.models.article import FinalArticle
 from neo4j import GraphDatabase
 from openai import OpenAI
 import os

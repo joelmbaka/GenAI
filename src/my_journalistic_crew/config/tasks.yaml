@@ -1,71 +1,89 @@
-search_news:
-  description: "search for news from past 24 hours using news search tool. topic: {q1}"
-  expected_output: "GoogleNewsResults object with searchParameters and news articles"
-  agent: "researcher"
-  context: []
+research_task:
+  description: >
+    Conduct a web search about {topic}.
+    Make sure you find recent, interesting and relevant information given
+    the current timestamp is {timestamp}.
+  expected_output: >
+    One paragraph summary of what {topic} is about.
+    10 bullet points with relevant title, link and snippet 
+  agent: researcher
 
-search_images:
-  description: "search for images from past 24 hours using image search tool"
-  expected_output: "GoogleImageResults object with searchParameters and image details"
-  agent: "researcher"
-  context: ["search_news"]
+image_search_task:
+  description: >
+    Search for relevant images related to {topic}.
+  expected_output: >
+    A list of 10 relevant image URLs with the following details for each:
+    - title: The title of the image
+    - imageUrl: URL link to the full-size image
+    - imageWidth: Width of the full-size image in pixels
+    - imageHeight: Height of the full-size image in pixels
+    - thumbnailUrl: URL link to the thumbnail version of the image
+    - thumbnailWidth: Width of the thumbnail image in pixels
+    - thumbnailHeight: Height of the thumbnail image in pixels
+    - source: Source website of the image
+  agent: researcher
+  context: [research_task]
 
-search_tweets:
-  description: "search for tweets using twitter scraper tool, topic:{twitter_query}."
-  expected_output: "JSON array of tweets with content, author, and engagement metrics"
-  agent: "researcher"
-  context: ["search_news", "search_images"]
+image_analysis:
+  description: >
+  Analyze image URLs you receive as a batch.
+  Provde a detailed descriptions of each image.
+  expected_output: >
+    A detailed analysis of each image including:
+    - Image source
+    - Description of visual content
+    - URL
+    - Relevance to {topic}
+  agent: reporting_analyst
+  context: [image_search_task]
 
-read_websites:
-  description: "read few websites using read website content tool"
-  expected_output: "JSON content of scraped websites with text and metadata"
-  agent: "analyst"
-  context: ["search_news"]
+image_download_task:
+  description: >
+    Batch download and store 3-4 relevant images found in the image analysis task.
+    Return file path of each image
+    Include detailed image description.
+  expected_output: >
+    A list of 3-4 successfully downloaded images with:
+    - Image Path: The local file path where the image is saved
+    - Description: A detailed description of the image content
+  agent: researcher
+  context: [image_analysis, research_task]
 
-take_screenshots:
-  description: "take 1 screenshot of a top tweet using take tweet screenshot tool. only select a tweet without an image"
-  expected_output: "JSON with local paths to the screenshots"
-  agent: "analyst"
-  context: ["search_tweets"]
+push_image_to_blob:
+  description: >
+    Upload downloaded images to blob storage
+    Return the stored image URI and the image description
+  expected_output: >
+    A list of successfully uploaded images with:
+    - Local filepath
+    - if blob_url:
+                return f"File uploaded successfully to: blob_URL"
+    - Detailed image description
+  agent: reporting_analyst
+  context: [image_download_task]
 
-analyse_images:
-  description: "analyse images using image analysis tool. select one of them as a fetured image and 2-3 as in-content images including the twitter screenshot."
-  expected_output: "JSON analysis of image content, subjects, and context. the choices you made and why the image fits the context"
-  agent: "analyst"
-  context: ["search_images", "take_screenshots"]
+scrape_website_task:
+  description: >
+    Batch scrape content URLs found in the research task.
+    Extract their content for further analysis.
+  expected_output: >
+    A list of URLs and their scraped content, including:
+    - URL
+    - Content summary
+  agent: reporting_analyst
+  context: [research_task]
 
-download_images:
-  description: "download images from url and resize them to blog size. download the featured image with bool featured_image=true"
-  expected_output: "JSON with local paths to downloaded and resized images and their descriptions"
-  agent: "analyst"
-  context: ["analyse_images"]
-
-upload_images:
-  description: "upload images to blob storage and get a URI that will be embedded as markdown"
-  expected_output: "JSON with image URIs and their descripttions"
-  agent: "analyst"
-  context: ["download_images"]
-
-write_article:
-  description: "write an engaging news article that will be published on my blog. "
-  expected_output: "DraftArticle object with title, slug, content, and metadata"
-  agent: "writer"
-  context: ["search_news", "read_websites", "upload_images"]
-
-review_article:
-  description: "review the article you have written for completeness"
-  expected_output: "Revised article content"
-  agent: "writer"
-  context: ["write_article"]
-
-format_input:
-  description: "review article fields to conform to model requirements"
-  expected_output: "FinalArticle object with all required fields populated"
-  agent: "writer"
-  context: ["review_article"]
-
-publish_article:
-  description: "publish article to neo4j database"
-  expected_output: "Confirmation message with art.slug published to neo4j database"
-  agent: "writer"
-  context: ["format_input"]
+reporting_task:
+  description: >
+    Review the context you got and expand each topic into a full section for a report.
+    Make sure the report is detailed and contains any and all relevant information.
+    Integrate imagery for storytelling.
+  expected_output: >
+    A fully fledge report with all main fields, each with a full section of information.
+    Formatted as expected. Example of embedding an image in Markdown:
+    ```markdown
+    ![Surya Laser Weapon](https://example.com/surya_laser_weapon.jpg "Surya Laser Weapon")
+    ```
+  agent: reporting_analyst
+  output_file: report.json
+  context: [research_task, scrape_website_task, push_image_to_blob]
