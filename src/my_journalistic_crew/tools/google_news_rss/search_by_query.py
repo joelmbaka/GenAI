@@ -8,16 +8,12 @@ from pygooglenews import GoogleNews
 class SearchGoogleNewsByQueryInput(BaseModel):
     """Input schema for tool."""
     query: str = Field(..., description="The search query to find relevant news articles. Supports special query terms like Boolean OR (e.g., 'boeing OR airbus'), Exclude Query Term (e.g., 'boeing -airbus'), Include Query Term (e.g., 'boeing +airbus'), Phrase Search (e.g., '\"New York metro opening\"'), allintext, intitle, allintitle, inurl, allinurl.")
-    when: str = Field(None, description="Time range for the published datetime. Valid formats include:\n"
-                                      "- 'h' for hours (e.g., '12h' for articles published in the last 12 hours, works up to 101h).\n"
-                                      "- 'd' for days (e.g., '7d' for articles published in the last 7 days).\n"
-                                      "- 'm' for months (e.g., '6m' for articles published in the last 6 months, works up to 48m).\n"
-                                      "Note: Incorrect inputs will not result in an error; the 'when' parameter will be ignored by Google.")
+    when: str = Field(None, description="Time range for the published datetime. Valid formats include:\n""- 'h' for hours (e.g., '12h' for articles published in the last 12 hours, works up to 101h).\n""- 'd' for days (e.g., '7d' for articles published in the last 7 days).\n""- 'm' for months (e.g., '6m' for articles published in the last 6 months, works up to 48m).\n""Note: Incorrect inputs will not result in an error; the 'when' parameter will be ignored by Google.")
     helper: bool = Field(True, description="Whether to use URL-escaping for the query. Defaults to True.")
 
 class SearchGoogleNewsByQueryTool(BaseTool):
     name: str = "SearchGoogleNewsByQuery"
-    description: str = "A tool to search for news articles using the Google News RSS feed based on a query. Supports special query terms like Boolean OR, Exclude Query Term, Include Query Term, Phrase Search, allintext, intitle, allintitle, inurl, allinurl."
+    description: str = "A tool to search for news articles using the Google News RSS feed based on a query. Supports special query terms like Boolean OR, Exclude Query Term, Include Query Term, Phrase Search, allintext, intitle, allintitle, inurl, allinurl. Useful for finding time sensitive and broad-based news search results from Google News RSS feed. Should NOT be entangled WITH SerperDevTool News Search API."
     args_schema: Type[BaseModel] = SearchGoogleNewsByQueryInput
 
     def _run(self, query: str, when: str = None, helper: bool = True) -> list:

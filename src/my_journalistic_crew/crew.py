@@ -3,11 +3,14 @@ from crewai import Agent, Crew, Process, Task, LLM
 import os
 from dotenv import load_dotenv
 from src.my_journalistic_crew.tools.serper_dev_tool import SerperDevTool
-from src.my_journalistic_crew.tools.read_website_content import ScrapeWebsite
+from src.my_journalistic_crew.tools.scrape_website import ScrapeWebsite
+from src.my_journalistic_crew.tools.twitter_search_tool import TwitterSearchTool
 from src.my_journalistic_crew.tools.analyse_image import ImageAnalysisTool
 from src.my_journalistic_crew.tools.download_image import DownloadImageTool
-from src.my_journalistic_crew.tools.send_image_blob import BlobStorageTool
-from src.my_journalistic_crew.models.outputs import GoogleImageResults, DraftArticle
+from src.my_journalistic_crew.tools.download_thumbnail import DownloadThumbnailTool
+from my_journalistic_crew.tools.blob_storage_tool import BlobStorageTool
+from my_journalistic_crew.tools.push_article_DB import Neo4jArticleTool
+from src.my_journalistic_crew.models.outputs import DraftArticle, FinalArticle, CombinedBatchSearchResults, CombinedScrapingResults, ImageProcessingResults
 
 load_dotenv()
 llm = LLM(model=os.getenv("MODEL"), api_key=os.getenv("NVIDIA_API_KEY"),base_url="https://integrate.api.nvidia.com/v1",telemetry=False)
@@ -22,11 +25,11 @@ class MyJournalisticCrew():
         return Agent(
             config=self.agents_config['researcher'],
             llm=llm,
-            function_calling_llm=None,
+            function_calling_llm=llm,
             memory=True,
             verbose=False,
             allow_delegation=False,
-            max_iter=20,
+            max_iter=40,
             max_rpm=None,
             max_execution_time=None,
             max_retry_limit=2,
@@ -34,7 +37,7 @@ class MyJournalisticCrew():
             code_execution_mode="safe",
             respect_context_window=True,
             use_system_prompt=True,
-            tools=[],
+            tools=[SerperDevTool(),TwitterSearchTool()],
             knowledge_sources=None,
             embedder=None,
             system_template=None,
@@ -48,7 +51,7 @@ class MyJournalisticCrew():
         return Agent(
             config=self.agents_config['reporting_analyst'],
             llm=llm,
-            function_calling_llm=None,
+            function_calling_llm=llm,
             memory=True,
             verbose=True,
             allow_delegation=False,
@@ -60,7 +63,7 @@ class MyJournalisticCrew():
             code_execution_mode="safe",
             respect_context_window=True,
             use_system_prompt=True,
-            tools=[],
+            tools=[ScrapeWebsite(), ImageAnalysisTool(), DownloadImageTool(), DownloadThumbnailTool(), BlobStorageTool(), Neo4jArticleTool()],
             knowledge_sources=None,
             embedder=None,
             system_template=None,
@@ -71,60 +74,30 @@ class MyJournalisticCrew():
 
     @task
     def research_task(self) -> Task:
-       return Task(
-          config=self.tasks_config['research_task'],
-          output_file="z_output/research_task_output.json",
-          tools=[SerperDevTool()]
-       )
-    
-    @task
-    def image_search_task(self) -> Task:
         return Task(
-            config=self.tasks_config['image_search_task'],
-            output_pydantic=GoogleImageResults,
-            output_file="z_output/image_search_task_output.json",
-            tools=[SerperDevTool()]
+            config=self.tasks_config['research_task'],
+            output_pydantic=DraftArticle,
+            output_file="z_output/11_research_task.json",
+            tools=[SerperDevTool(), TwitterSearchTool()]
         )
     
     @task
-    def image_analysis(self) -> Task:
+    def image_functions(self) -> Task:
         return Task(
-            config=self.tasks_config['image_analysis'],
-            output_file="z_output/image_analysis_output.json",
-            tools=[ImageAnalysisTool()]
+            config=self.tasks_config['image_functions'],
+            output_pydantic=ImageProcessingResults,
+            tools=[DownloadImageTool(), DownloadThumbnailTool(), BlobStorageTool()],
+            output_file="z_output/13_image_functions_task.json"
         )
-    
-    @task
-    def image_download_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['image_download_task'],
-            output_file="z_output/image_download_task_output.json",
-            tools=[DownloadImageTool()]
-        )
-    
-    @task
-    def push_image_to_blob(self) -> Task:
-        return Task(
-            config=self.tasks_config['push_image_to_blob'],
-            output_file="z_output/push_image_to_blob_output.json",
-            tools=[BlobStorageTool()]
-        )
-    
-    @task
-    def scrape_website_task(self) -> Task:
-        return Task(
-            config=self.tasks_config['scrape_website_task'],
-            output_file="z_output/scrape_website_task_output.json",
-            tools=[ScrapeWebsite()]
-         )
     
     @task
     def reporting_task(self) -> Task:
-       return Task(
-          config=self.tasks_config['reporting_task'],
-          output_pydantic=DraftArticle,
-          output_file="z_output/reporting_task_output.json"
-       )
+        return Task(
+            config=self.tasks_config['reporting_task'],
+            output_pydantic=FinalArticle,
+            output_file="z_output/14_reporting_task.json",
+            tools=[ScrapeWebsite(), ImageAnalysisTool(), Neo4jArticleTool()]
+        )
 
     @crew
     def crew(self) -> Crew:

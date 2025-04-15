@@ -8,7 +8,7 @@ class SearchType(str, Enum):
     WEB = "web"
     IMAGE = "image"
 
-class CustomSearchToolInput(BaseModel):
+class GoogleCustomSearchToolInput(BaseModel):
     """Input schema for CustomSearchTool."""
     query: str = Field(..., description="The search query to be performed.")
     cx: str = Field(..., description="The Custom Search Engine ID.")
@@ -16,12 +16,12 @@ class CustomSearchToolInput(BaseModel):
     num: int = Field(default=10, description="Number of search results to return. Default is 10.")
     search_type: Optional[SearchType] = Field(default=None, description="Specifies the search type: 'image'. If unspecified, results are limited to webpages.")
 
-class CustomSearchTool(BaseTool):
-    name: str = "Custom Search Tool"
+class GoogleCustomSearchTool(BaseTool):
+    name: str = "Google Custom Search Tool"
     description: str = (
-        "Performs a search using the Google Custom Search JSON API and returns the results."
+        "Performs a search using the Google Custom Search JSON API and returns the results. Only used as fallback when serper api is unreachable."
     )
-    args_schema: Type[BaseModel] = CustomSearchToolInput
+    args_schema: Type[BaseModel] = GoogleCustomSearchToolInput
 
     def _run(self, query: str, cx: str, api_key: str, num: int = 10, search_type: Optional[SearchType] = None) -> List[Dict[str, str]]:
         url = "https://customsearch.googleapis.com/customsearch/v1"

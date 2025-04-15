@@ -22,9 +22,7 @@ class BlobStorageToolInput(BaseModel):
 class BlobStorageTool(BaseTool):
     name: str = "Vercel Blob Storage Tool"
     description: str = (
-        "A tool that uploads files (particularly images) to Vercel Blob Storage "
-        "and returns the public URLs of the uploaded files. This is useful for "
-        "storing and sharing files like screenshots from other tools."
+        "A tool that uploads files (particularly images) to Vercel Blob Storage and returns the public URIs of the uploaded files. This is useful for allowing public access to useful image resources using https. After an image is downloaded at the right dimensions, this tool pushes the image to Blob, making it accessible using Markdown. You will find the outputs of this tool used in the markdown 'content' field of a finalized article. "
     )
     args_schema: Type[BaseModel] = BlobStorageToolInput
 

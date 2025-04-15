@@ -1,89 +1,138 @@
 research_task:
   description: >
-    Conduct a web search about {topic}.
-    Make sure you find recent, interesting and relevant information given
-    the current timestamp is {timestamp}.
+    The user has issued this prompt: {topic}
+    Conduct a thorough research about the topic using Serper web search, news search, and Twitter.
+    Focus on finding relevant information from reliable sources given current timestamp is {timestamp}.
+    Organize information to prepare for drafting an article with clear sections.
   expected_output: >
-    One paragraph summary of what {topic} is about.
-    10 bullet points with relevant title, link and snippet 
+    {
+      "title": "AI Breakthroughs Reshape Problem-Solving Landscape",
+      "summary": "Latest AI models demonstrate 30% improvement in reasoning capabilities, with applications spanning healthcare, finance, and scientific research.",
+      "sections": [
+        {
+          "heading": "Revolutionary Advances in AI Reasoning",
+          "content": "Recent research from leading AI labs has demonstrated significant improvements in logical reasoning capabilities...",
+          "urls": ["https://example.com/ai-research", "https://x.com/AI_Researcher_42/status/1546789012345678901"]
+        },
+        {
+          "heading": "Real-World Applications Emerging",
+          "content": "These improved reasoning models are finding immediate applications in diverse fields...",
+          "urls": ["https://news-site.com/tech-ai-model"]
+        }
+      ],
+      "conclusion": "The rapid advancement in AI reasoning capabilities marks a significant milestone in artificial intelligence research...",
+      "further_reading": ["Ethical Implications of Advanced AI Reasoning", "Comparing Human vs. AI Problem-Solving Approaches"],
+      "image_urls": ["https://x.com/user/status/twwetid/tweet_image1.jpg", "x.com/user/status/twwetid/tweet_image2.jpg"]
+    }
+
   agent: researcher
 
-image_search_task:
+image_functions:
   description: >
-    Search for relevant images related to {topic}.
+    The user has issued this prompt: {topic}
+    Download and process relevant images related to the topic.
+    Use the Download Image tool to download 3-4 relevant images.
+    Use the Download Thumbnail tool to download one thumbnail image.
+    Store all images in blob storage for use in the final report.
   expected_output: >
-    A list of 10 relevant image URLs with the following details for each:
-    - title: The title of the image
-    - imageUrl: URL link to the full-size image
-    - imageWidth: Width of the full-size image in pixels
-    - imageHeight: Height of the full-size image in pixels
-    - thumbnailUrl: URL link to the thumbnail version of the image
-    - thumbnailWidth: Width of the thumbnail image in pixels
-    - thumbnailHeight: Height of the thumbnail image in pixels
-    - source: Source website of the image
-  agent: researcher
-  context: [research_task]
-
-image_analysis:
-  description: >
-  Analyze image URLs you receive as a batch.
-  Provde a detailed descriptions of each image.
-  expected_output: >
-    A detailed analysis of each image including:
-    - Image source
-    - Description of visual content
-    - URL
-    - Relevance to {topic}
+    {
+      "downloaded_images": {
+        "images": [
+          {
+            "local_path": "downloads/image1.webp",
+            "message": "Image downloaded and resized to 800x600. Saved to downloads/image1.webp in WebP format",
+            "success": true,
+            "image_analysis": {
+              "images": [
+                {
+                  "image_url": "downloads/image1.webp",
+                  "description": "A detailed analysis of the image showing an AI model architecture diagram with neural networks.",
+                  "title": "AI Model Architecture"
+                }
+              ]
+            }
+          }
+        ],
+        "success_count": 1,
+        "failure_count": 0
+      },
+      "downloaded_thumbnail": {
+        "local_path": "downloads/thumbnail_thumbnail.webp",
+        "message": "Thumbnail downloaded and resized to 300x168. Saved to downloads/thumbnail_thumbnail.webp in WebP format",
+        "success": true,
+        "image_analysis": {
+          "images": [
+            {
+              "image_url": "downloads/thumbnail_thumbnail.webp",
+              "description": "A compact version of the main image showing key elements of the AI system.",
+              "title": "AI System Overview"
+            }
+          ]
+        }
+      },
+      "blob_storage_results": {
+        "uploads": [
+          {
+            "blob_url": "https://blob-storage.example.com/image1.webp",
+            "success": true,
+            "message": "File uploaded successfully to: https://blob-storage.example.com/image1.webp",
+            "image_analysis": {
+              "images": [
+                {
+                  "image_url": "https://blob-storage.example.com/image1.webp",
+                  "description": "The uploaded image shows an AI model architecture diagram with neural networks."
+                }
+              ]
+            }
+          }
+        ],
+        "success_count": 1,
+        "failure_count": 0
+      },
+      "summary": "Successfully downloaded 1 image and 1 thumbnail, and uploaded both files to Vercel Blob storage."
+    }
   agent: reporting_analyst
-  context: [image_search_task]
-
-image_download_task:
-  description: >
-    Batch download and store 3-4 relevant images found in the image analysis task.
-    Return file path of each image
-    Include detailed image description.
-  expected_output: >
-    A list of 3-4 successfully downloaded images with:
-    - Image Path: The local file path where the image is saved
-    - Description: A detailed description of the image content
-  agent: researcher
-  context: [image_analysis, research_task]
-
-push_image_to_blob:
-  description: >
-    Upload downloaded images to blob storage
-    Return the stored image URI and the image description
-  expected_output: >
-    A list of successfully uploaded images with:
-    - Local filepath
-    - if blob_url:
-                return f"File uploaded successfully to: blob_URL"
-    - Detailed image description
-  agent: reporting_analyst
-  context: [image_download_task]
-
-scrape_website_task:
-  description: >
-    Batch scrape content URLs found in the research task.
-    Extract their content for further analysis.
-  expected_output: >
-    A list of URLs and their scraped content, including:
-    - URL
-    - Content summary
-  agent: reporting_analyst
-  context: [research_task]
-
+  
 reporting_task:
   description: >
+    The user has issued this prompt: {topic}    
     Review the context you got and expand each topic into a full section for a report.
     Make sure the report is detailed and contains any and all relevant information.
-    Integrate imagery for storytelling.
+    Make the report engaging and interesting. Use storytelling and images to tell the story.
+    Ensure to integrate the image or chart etc at the appropriate place in the article e.g using an image about a skincare product before or after a paragraph about the benefits of the product.
+    The 'content' field must be filled with Markdown format such as: 
+    - image embeddings e.g as shown in the image below: ![Image Title](image_url), 
+    - tables e.g as shown in the table below: |Header1|Header2|Header3|
+    |---|---|---|
+    |Cell1|Cell2|Cell3|
+    |Cell4|Cell5|Cell6|,
+    -links to external websites e.g There are indications of past graft allegations against Governor Wamatangi. One notable allegation is a [Sh1.7 billion graft probe](https://nation.co.ke/article/25-02-2025/1234567890) as reported by Nation in 2022.
+    -tweets in the format: according to [Soko Analyst](https://x.com/SokoAnalyst/status/tweetID), Wamatangi may have stepped on the toes of the big man.
+    -bold e.g **bold text**, italic e.g *italic text*, etc.
+    The sky is the limit.
+    The minimum article 'content' requirement is 2000 words.
+    Once you are done writing th article, push the article to Neo4j with the following Tool Input:
+    {
+      "title": "Article Title Here",
+      "slug": "article-title-here",
+      "summary": "A brief summary of the article's main points in Markdown format",
+      "content": "The full text content of the article in Markdown format, including proper image embedding from URIs of images pushed to blob storage, tables, links to external websites and tweets",
+      "author": "Author Name",
+      "category": "News",
+      "subcategory": "Politics",
+      "story": "RutoMustGo",
+      "breaking_news": false,
+      "trending": true,
+      "keywords": ["keyword1", "keyword2", "keyword3"],
+      "entities": ["Country:Kenya", "Politician:William Ruto"],
+      "thumbnailUrl": "https://example.com/image.jpg",
+      "publisher": "joelmbaka.site",
+      "further_reading": ["Related topic 1", "Related topic 2"]
+    }
+    Get categories and author from {categories}.
+
   expected_output: >
-    A fully fledge report with all main fields, each with a full section of information.
-    Formatted as expected. Example of embedding an image in Markdown:
-    ```markdown
-    ![Surya Laser Weapon](https://example.com/surya_laser_weapon.jpg "Surya Laser Weapon")
-    ```
+    Successfully stored article in Neo4j with 'slug' at 'timestamp'.
   agent: reporting_analyst
-  output_file: report.json
-  context: [research_task, scrape_website_task, push_image_to_blob]
+  output_file: report.md
+  context: [research_task, image_functions]

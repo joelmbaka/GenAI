@@ -1,9 +1,8 @@
 from crewai.tools import BaseTool
 from typing import Type
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from my_journalistic_crew.utils.webdriver import WebDriverClient
 from my_journalistic_crew.utils.pagenav import PageNavigator
-from my_journalistic_crew.utils.x_elements import ScraperInput 
 from my_journalistic_crew.utils.scroller import scroll_to_load_tweets
 from my_journalistic_crew.utils.tweet_extractor import extract_tweet_data
 from urllib.parse import quote
@@ -17,8 +16,34 @@ from dotenv import load_dotenv
 from datetime import datetime
 # Load environment variables
 load_dotenv()
-MIN_LIKES = int(os.getenv('MIN_LIKES', 10))  
-MIN_RETWEETS = int(os.getenv('MIN_RETWEETS', 5)) 
+
+class TwitterSearchToolInput(BaseModel):
+    """Input schema for Twitter Search Tool."""
+    trend: str = Field(..., description="The trend to navigate to and scrape tweets from")
+    is_hashtag: bool = Field(
+        default=False, 
+        description="Whether the trend is a hashtag"
+    )
+    headless: bool = Field(
+        default=True, 
+        description="Whether to run browser in headless mode"
+    )
+    device_type: str = Field(
+        default="tablet", 
+        description="Device type to emulate (tablet or desktop)"
+    )
+    scroll_count: int = Field(
+        default=20,
+        description="Number of times to scroll down the page"
+    )
+    scroll_delay: float = Field(
+        default=5.0,
+        description="Delay in seconds between scrolls"
+    )
+    max_tweets: int = Field(
+        default=50,
+        description="Maximum number of tweets to collect"
+    )
 
 def format_cookies_error(error):
     return json.dumps({
@@ -31,44 +56,20 @@ def format_cookies_error(error):
 def format_empty_response():
     return json.dumps({'tweets': []})
 
-class TwitterScraper(BaseTool):
-    name: str = "Twitter Scraper"
+
+MIN_LIKES = int(os.getenv('MIN_LIKES', 1))  
+MIN_RETWEETS = int(os.getenv('MIN_RETWEETS', 1)) 
+
+class TwitterSearchTool(BaseTool):
+    name: str = "Twitter Search Tool"
     description: str = (
-        "A tool that navigates to a specific trending topic's page on Twitter/X, "
-        "scrolls down the page to load tweets, and scrapes tweet content. "
-        "It can handle both regular trends and hashtags, runs in either "
-        "headless or visible browser mode, and can collect metrics, media, and user information."
+        "A tool that uses selenium to navigate to a specific trending topic's page on Twitter/X, scrolls down the page to load tweets, and scrapes tweet content. Use this tool when you want to extract Top Tweets about a Trending Topic. Imagine you can fetch top tweets or images that are closest to the source of Truth or information e.g from #StopFemicide or search term 'Trump Tariffs'. It extracts the tweet id, content, user e.g @realDonaldTrump, timestamp, imageUrls and engagement metrics. Useful if you want to back up your report with sources from Twitter e.g a tweet from the Israeli Air Force which can be accessed via https://x.com/user/status/tweetID. You can find latest images too attached to top tweets such latest images of the Russian bombing in Ukraine."
     )
-    args_schema: Type[BaseModel] = ScraperInput
+    args_schema: Type[BaseModel] = TwitterSearchToolInput
 
-    def no_cache(self, arguments: dict, result: str) -> bool:
-        """
-        Custom cache function that always returns False to prevent caching
-        """
-        return False
-
-    def __init__(self, *args, **kwargs):
-        super().__init__(*args, **kwargs)
-        self.cache_function = self.no_cache  # Assign the custom cache function
-
-    def _run(self, trend: str, is_hashtag: bool, headless: bool, device_type: str, 
-             scroll_count: int, scroll_delay: float, max_tweets: int) -> str:
-        """
-        Navigate to a specific trend's page on Twitter/X, scroll down to load tweets,
-        and scrape the tweets.
-        
-        Args:
-            trend (str): The trend to navigate to
-            is_hashtag (bool): Whether the trend is a hashtag
-            headless (bool): Run browser in headless mode
-            device_type (str): Device type to emulate
-            scroll_count (int): Number of times to scroll down the page
-            scroll_delay (float): Delay in seconds between scrolls
-            max_tweets (int): Maximum number of tweets to collect,
-        
-        Returns:
-            str: JSON string containing a structured output with status, message, and tweet data
-        """
+    def _run(self, trend: str, is_hashtag: bool = False, headless: bool = True, 
+            device_type: str = "tablet", scroll_count: int = 20, 
+            scroll_delay: float = 5.0, max_tweets: int = 50) -> str:
         try:
             driver_client = None
             

@@ -9,12 +9,12 @@ class SearchGoogleNewsByTopicInput(BaseModel):
     """Input schema for tool."""
     topic_id: str = Field(..., description="The topic ID to find relevant news articles.")
     language: str = Field(default="en", description="The language code for the news articles (e.g., 'en' for English).")
-    country: str = Field(default="US", description="The country code for the news articles (e.g., 'US' for United States).")
+    country: str = Field(default="KE", description="The country code for the news articles (e.g., 'US' for United States).")
     when: str = Field(default=None, description="Filter articles published within a specific time frame (e.g., '2h', '3d', '1m', '2w').")
 
 class SearchGoogleNewsByTopicTool(BaseTool):
     name: str = "SearchGoogleNewsByTopic"
-    description: str = "A tool to search for news articles using the Google News RSS feed based on a topic ID, language, country, and time frame."
+    description: str = "A tool to search for news articles using the Google News RSS feed based on a topic ID, language, country, and time frame. fetch news articles by category aka Topic ID e.g AI articles, Fitness articles, Business etc. using topic ID. Each request returns a maximum of 100 results."
     args_schema: Type[BaseModel] = SearchGoogleNewsByTopicInput
 
     def _run(self, topic_id: str, language: str = "en", country: str = "US", when: str = None) -> list:

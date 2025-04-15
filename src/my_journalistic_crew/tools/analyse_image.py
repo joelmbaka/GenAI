@@ -18,7 +18,7 @@ class ImageAnalysisInput(BaseModel):
 class ImageAnalysisTool(BaseTool):
     name: str = "Image Analysis Tool"
     description: str = (
-        "Analyzes images from given URLs and provides detailed descriptions of their contents."
+        "Analyzes images from given URLs in batches and provides detailed descriptions of their contents. Images are a cornerstone of My Blogposts therefore this tool performs a High Level Analysis of what is in the Visual of the Image. The description should be detailed reflecting whats in the image including and not limited to text, colors, animals, people, roads, utensils, and everything you can imagine of that is in the Image. The tool first validates if a URL is Valid, then Batch Processes the valid urls, then Processes them by first resizing them to get the optimal token usage, and returns a Detailed Description(D.D) using LLAMA 4 Maverick LLM."
     )
     args_schema: Type[BaseModel] = ImageAnalysisInput
 

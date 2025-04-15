@@ -14,8 +14,7 @@ class DownloadImageInput(BaseModel):
 class DownloadImageTool(BaseTool):
     name: str = "Download Image"
     description: str = (
-        "Downloads images from URLs and resizes them to 800x600. "
-        "All images are saved in WebP format."
+        "Downloads images from URLs and resizes them to 800x600, which is optimal for mobile devices. All images are saved in WebP format, the best format for BlogPosts. Downloads images to downloads folder on local disk. That's It!"
     )
     args_schema: Type[BaseModel] = DownloadImageInput
 
@@ -50,6 +49,10 @@ class DownloadImageTool(BaseTool):
             except requests.HTTPError as e:
                 if e.response.status_code == 403:
                     results.append(f"Skipped URL due to 403 Forbidden error: {url}")
+                elif e.response.status_code == 404:
+                    results.append(f"Image not found at URL: {url}")
+                elif e.response.status_code == 500:
+                    results.append(f"Server error (500) encountered for URL: {url}")
                 else:
                     results.append(f"Failed to download image from {url}: {str(e)}")
             except Exception as e:
